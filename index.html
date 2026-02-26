@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>LUMINA — Women's Inner Wellness</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -29,8 +29,6 @@ body {
   min-height:100vh;
   overflow-x:hidden;
 }
-
-/* Grain texture overlay */
 body::before {
   content:'';
   position:fixed; inset:0;
@@ -41,50 +39,55 @@ body::before {
 /* NAV */
 nav {
   position:sticky; top:0; z-index:200;
-  background:rgba(13,10,11,0.92);
+  background:rgba(13,10,11,0.95);
   backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
-  padding:0 28px;
+  padding:0 16px;
   display:flex; align-items:center; justify-content:space-between;
-  height:64px;
+  height:56px; gap:12px;
 }
 .logo {
   font-family:'Playfair Display',serif;
-  font-size:1.5rem; letter-spacing:6px; font-weight:400;
+  font-size:1.3rem; letter-spacing:5px; font-weight:400;
   background:linear-gradient(135deg, var(--gold), var(--gold2), var(--gold));
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  text-transform:uppercase;
+  text-transform:uppercase; flex-shrink:0;
 }
-.nav-tabs { display:flex; gap:2px; }
+.nav-tabs {
+  display:flex; gap:2px;
+  overflow-x:auto; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none; flex:1;
+}
+.nav-tabs::-webkit-scrollbar { display:none; }
 .nav-tab {
-  padding:7px 16px; border-radius:4px;
-  font-size:0.75rem; font-weight:400; letter-spacing:1.5px;
+  padding:6px 10px; border-radius:4px;
+  font-size:0.68rem; font-weight:400; letter-spacing:1px;
   text-transform:uppercase; cursor:pointer; border:none;
   background:transparent; color:var(--muted);
-  transition:all .25s;
+  transition:all .25s; white-space:nowrap;
 }
 .nav-tab:hover { color:var(--gold); }
 .nav-tab.active { background:var(--panel); color:var(--gold); border:1px solid var(--border); }
 
 /* SECTIONS */
-.section { display:none; padding:32px 28px; max-width:1060px; margin:0 auto; position:relative; z-index:1; }
+.section { display:none; padding:20px 16px; max-width:1060px; margin:0 auto; position:relative; z-index:1; }
 .section.active { display:block; animation:fadeUp .4s ease; }
 @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
 
-.page-header { margin-bottom:32px; }
+.page-header { margin-bottom:24px; }
 .page-title {
   font-family:'Playfair Display',serif;
-  font-size:2.6rem; font-weight:400; line-height:1.1;
+  font-size:2rem; font-weight:400; line-height:1.1;
   color:var(--bright);
 }
 .page-title em { font-style:italic; color:var(--gold); }
-.page-sub { color:var(--muted); font-size:0.88rem; letter-spacing:.5px; margin-top:8px; }
+.page-sub { color:var(--muted); font-size:0.85rem; letter-spacing:.5px; margin-top:6px; }
 
 /* CARDS */
 .card {
   background:var(--panel);
   border:1px solid var(--border);
-  border-radius:12px; padding:24px;
+  border-radius:12px; padding:20px;
   position:relative; overflow:hidden;
 }
 .card-accent::before {
@@ -92,15 +95,15 @@ nav {
   width:3px; height:100%;
   background:linear-gradient(to bottom, var(--gold), transparent);
 }
-.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
 
 /* DASHBOARD */
 .hero-strip {
   background:linear-gradient(135deg, #1A1218 0%, #2A1F28 50%, #1A1218 100%);
   border:1px solid var(--border);
-  border-radius:16px; padding:36px;
-  margin-bottom:24px;
+  border-radius:16px; padding:24px;
+  margin-bottom:20px;
   position:relative; overflow:hidden;
 }
 .hero-strip::after {
@@ -111,49 +114,54 @@ nav {
   border-radius:50%;
 }
 .hero-strip .date-line {
-  font-size:0.72rem; letter-spacing:3px; text-transform:uppercase;
-  color:var(--gold); margin-bottom:10px;
+  font-size:0.68rem; letter-spacing:3px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:8px;
 }
 .hero-strip h1 {
   font-family:'Playfair Display',serif;
-  font-size:2.2rem; font-weight:400; color:var(--bright);
+  font-size:1.8rem; font-weight:400; color:var(--bright);
 }
 .hero-strip h1 span { font-style:italic; color:var(--gold2); }
-.kpi-row { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:24px; }
+.kpi-row { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:18px; }
 .kpi {
   background:rgba(255,255,255,0.04);
   border:1px solid var(--border);
-  border-radius:10px; padding:14px;
+  border-radius:10px; padding:12px 8px;
   text-align:center;
 }
-.kpi-val { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--gold2); }
-.kpi-lbl { font-size:0.68rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-top:4px; }
-
-.ring-wrap { display:flex; align-items:center; justify-content:center; }
-.ring { position:relative; width:80px; height:80px; }
-.ring svg { transform:rotate(-90deg); }
-.ring-val { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'Playfair Display',serif; font-size:1rem; color:var(--bright); }
+.kpi-val { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--gold2); }
+.kpi-lbl { font-size:0.6rem; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-top:3px; }
 
 /* HORMONE TRACKER */
-.hormone-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+.hormone-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:18px; }
 .hormone-card {
   background:var(--panel); border:1px solid var(--border);
-  border-radius:12px; padding:18px; text-align:center;
+  border-radius:12px; padding:14px; text-align:center;
   cursor:pointer; transition:all .25s;
 }
-.hormone-card:hover { border-color:var(--gold); transform:translateY(-3px); }
+.hormone-card:hover { border-color:var(--gold); transform:translateY(-2px); }
 .hormone-card.active-card { border-color:var(--gold); background:rgba(201,168,76,0.06); }
-.hormone-icon { font-size:2rem; margin-bottom:8px; }
-.hormone-name { font-size:0.78rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
-.hormone-level { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--bright); margin-top:4px; }
-.hormone-status { font-size:0.72rem; margin-top:4px; }
+.hormone-icon { font-size:1.6rem; margin-bottom:6px; }
+.hormone-name { font-size:0.68rem; letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
+.hormone-level { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--bright); margin-top:4px; }
+.hormone-status { font-size:0.68rem; margin-top:3px; }
 .status-good { color:var(--teal); }
 .status-low { color:var(--blush); }
 .status-high { color:var(--gold); }
 
-.slider-row { margin:14px 0; }
-.slider-label { display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; margin-bottom:6px; }
-.slider-label span:first-child { color:var(--muted); letter-spacing:.5px; }
+/* Hormone History */
+.hormone-history-entry {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 0; border-bottom:1px solid var(--border); font-size:.83rem;
+}
+.hormone-history-entry:last-child { border:none; }
+.h-entry-date { color:var(--muted); font-size:.75rem; }
+.h-entry-vals { display:flex; gap:10px; }
+.h-val-chip { font-size:.72rem; padding:2px 8px; border-radius:10px; background:rgba(201,168,76,0.1); color:var(--gold); }
+
+.slider-row { margin:12px 0; }
+.slider-label { display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; margin-bottom:5px; }
+.slider-label span:first-child { color:var(--muted); }
 .slider-label span:last-child { color:var(--gold); font-weight:500; }
 input[type=range] {
   width:100%; height:4px; border-radius:4px;
@@ -161,146 +169,155 @@ input[type=range] {
   accent-color:var(--gold);
 }
 input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance:none; width:16px; height:16px;
+  -webkit-appearance:none; width:18px; height:18px;
   border-radius:50%; background:var(--gold); cursor:pointer;
   box-shadow:0 0 8px rgba(201,168,76,0.4);
 }
 
 /* SKIN & HAIR */
-.skin-score { font-family:'Playfair Display',serif; font-size:4rem; color:var(--gold); text-align:center; }
-.skin-label { text-align:center; color:var(--muted); font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; }
+.skin-score { font-family:'Playfair Display',serif; font-size:3.5rem; color:var(--gold); text-align:center; }
+.skin-label { text-align:center; color:var(--muted); font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; }
 .check-item {
-  display:flex; align-items:center; gap:12px;
-  padding:12px 0; border-bottom:1px solid var(--border);
+  display:flex; align-items:flex-start; gap:12px;
+  padding:11px 0; border-bottom:1px solid var(--border);
   cursor:pointer; transition:all .2s;
 }
 .check-item:last-child { border:none; }
-.check-item:hover { padding-left:6px; }
 .checkbox {
-  width:20px; height:20px; border-radius:4px;
-  border:1.5px solid var(--border); flex-shrink:0;
+  width:20px; height:20px; border-radius:4px; flex-shrink:0;
+  border:1.5px solid var(--border); margin-top:2px;
   display:flex; align-items:center; justify-content:center;
   transition:all .2s;
 }
 .checkbox.checked { background:var(--gold); border-color:var(--gold); color:var(--ink); font-size:.85rem; }
-.check-text { font-size:0.88rem; }
-.check-sub { font-size:0.75rem; color:var(--muted); margin-top:2px; }
+.check-text { font-size:0.86rem; }
+.check-sub { font-size:0.73rem; color:var(--muted); margin-top:2px; }
 
 /* SUPPLEMENT PLANNER */
 .supp-item {
-  display:flex; align-items:center; gap:14px;
-  padding:14px; border-radius:10px;
+  display:flex; align-items:center; gap:12px;
+  padding:12px; border-radius:10px;
   border:1px solid var(--border);
   margin-bottom:8px; transition:all .2s;
   cursor:pointer;
 }
-.supp-item:hover { border-color:var(--gold); background:rgba(201,168,76,0.04); }
+.supp-item:hover { border-color:var(--gold); }
 .supp-item.taken { background:rgba(91,191,181,0.06); border-color:var(--teal); }
-.supp-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
-.supp-name { font-weight:500; font-size:0.92rem; }
-.supp-dose { font-size:0.78rem; color:var(--muted); margin-top:2px; }
-.supp-time { font-size:0.75rem; color:var(--gold); margin-left:auto; letter-spacing:.5px; }
-.taken-check { margin-left:8px; color:var(--teal); font-size:1.1rem; }
+.supp-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.supp-name { font-weight:500; font-size:0.88rem; }
+.supp-dose { font-size:0.75rem; color:var(--muted); margin-top:2px; }
+.supp-time { font-size:0.72rem; color:var(--gold); margin-left:auto; flex-shrink:0; }
+.taken-check { margin-left:6px; color:var(--teal); font-size:1rem; flex-shrink:0; }
+
+/* Supplement Calculator */
+.supp-calc-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:12px 0; }
+.calc-field { }
+.suggestion-box {
+  background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.2);
+  border-radius:10px; padding:14px; margin-top:12px;
+}
+.sugg-item { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.06); font-size:.83rem; }
+.sugg-item:last-child { border:none; }
+.sugg-reason { font-size:.72rem; color:var(--muted); margin-top:2px; }
 
 /* BODY MEASUREMENTS */
-.body-svg-wrap { display:flex; justify-content:center; padding:16px 0; }
 .measure-row {
   display:flex; justify-content:space-between; align-items:center;
-  padding:12px 0; border-bottom:1px solid var(--border); font-size:0.88rem;
+  padding:11px 0; border-bottom:1px solid var(--border); font-size:0.86rem;
 }
 .measure-row:last-child { border:none; }
-.measure-name { color:var(--muted); letter-spacing:.5px; }
-.measure-val { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--bright); }
-.measure-change { font-size:0.75rem; padding:2px 8px; border-radius:10px; margin-left:8px; }
+.measure-name { color:var(--muted); }
+.measure-val { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--bright); }
+.measure-change { font-size:0.72rem; padding:2px 8px; border-radius:10px; margin-left:6px; }
 .up { background:rgba(212,130,122,0.15); color:var(--blush); }
 .down { background:rgba(91,191,181,0.15); color:var(--teal); }
 .same { background:rgba(255,255,255,0.06); color:var(--muted); }
 
-/* SLEEP QUALITY */
-.sleep-timeline {
-  display:flex; gap:3px; height:60px; align-items:flex-end;
-  margin:16px 0;
-}
-.sleep-bar-item {
-  flex:1; border-radius:3px 3px 0 0;
-  transition:all .3s; cursor:pointer;
-  position:relative;
-}
-.sleep-bar-item:hover { opacity:.8; }
-.sleep-score-ring { position:relative; width:120px; height:120px; margin:0 auto 16px; }
+/* SLEEP */
+.sleep-timeline { display:flex; gap:3px; height:56px; align-items:flex-end; margin:14px 0; }
+.sleep-bar-item { flex:1; border-radius:3px 3px 0 0; transition:all .3s; cursor:pointer; }
+.sleep-score-ring { position:relative; width:110px; height:110px; margin:0 auto 14px; }
 .sleep-score-ring svg { transform:rotate(-90deg); }
 .sleep-ring-val { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; }
-.sleep-ring-num { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--bright); display:block; }
-.sleep-ring-lbl { font-size:0.68rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
+.sleep-ring-num { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--bright); display:block; }
+.sleep-ring-lbl { font-size:0.62rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
 
 /* STRESS LOG */
-.stress-dial-wrap { position:relative; width:180px; height:100px; margin:0 auto 20px; overflow:hidden; }
-.cortisol-bars { display:flex; gap:6px; align-items:flex-end; height:80px; margin:16px 0; }
-.c-bar { flex:1; border-radius:4px 4px 0 0; transition:all .4s; cursor:pointer; position:relative; }
-.c-bar:hover { opacity:.75; }
-.c-label { font-size:.68rem; text-align:center; color:var(--muted); margin-top:4px; }
-.stress-tags { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0; }
+.cortisol-bars { display:flex; gap:5px; align-items:flex-end; height:80px; margin:14px 0; }
+.c-bar { flex:1; border-radius:4px 4px 0 0; transition:all .4s; }
+.c-label { font-size:.65rem; text-align:center; color:var(--muted); margin-top:3px; }
+.stress-tags { display:flex; flex-wrap:wrap; gap:5px; margin:10px 0; }
 .stress-tag {
-  padding:5px 14px; border-radius:20px;
-  font-size:0.75rem; letter-spacing:.5px;
-  border:1px solid var(--border); color:var(--muted);
+  padding:5px 12px; border-radius:20px;
+  font-size:0.73rem; border:1px solid var(--border); color:var(--muted);
   cursor:pointer; transition:all .2s;
 }
 .stress-tag:hover, .stress-tag.active { border-color:var(--lavender); color:var(--lavender); background:rgba(155,142,196,0.08); }
 
-/* RECIPE GEN */
-.ingredient-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
-.ing-tag {
-  display:flex; align-items:center; gap:6px;
-  background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2);
-  color:var(--gold); padding:5px 12px; border-radius:6px; font-size:0.8rem;
-  cursor:pointer;
+/* Stress Situation Panel */
+.stress-situation-panel {
+  background:rgba(155,142,196,0.06); border:1px solid rgba(155,142,196,0.25);
+  border-radius:12px; padding:16px; margin-top:14px;
 }
-.ing-tag:hover { background:rgba(212,130,122,0.1); border-color:var(--blush); color:var(--blush); }
+.stress-situation-title { font-family:'Playfair Display',serif; font-size:1rem; color:var(--lavender); margin-bottom:10px; }
+.stress-action { display:flex; gap:10px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:.83rem; }
+.stress-action:last-child { border:none; }
+.stress-action-icon { font-size:1.1rem; flex-shrink:0; width:24px; }
+.stress-action-text { color:var(--text); line-height:1.5; }
+.stress-action-sub { font-size:.73rem; color:var(--muted); margin-top:2px; }
+
+/* RECIPE GEN */
+.ingredient-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+.ing-tag {
+  display:flex; align-items:center; gap:5px;
+  background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.2);
+  color:var(--gold); padding:5px 10px; border-radius:6px; font-size:0.78rem;
+  cursor:pointer; transition:all .2s;
+}
+.ing-tag.selected { background:rgba(212,130,122,0.12); border-color:var(--blush); color:var(--blush); }
 .recipe-output {
   background:rgba(0,0,0,0.3); border:1px solid var(--border);
-  border-radius:10px; padding:20px; min-height:200px;
-  font-size:0.9rem; line-height:1.8; color:var(--text);
-  white-space:pre-wrap;
+  border-radius:10px; padding:18px; min-height:180px;
+  font-size:0.86rem; line-height:1.8; color:var(--text);
+  white-space:pre-wrap; overflow-y:auto; max-height:480px;
 }
-.recipe-loading { text-align:center; color:var(--gold); font-family:'Playfair Display',serif; font-style:italic; padding:40px; }
 
-/* AI CHAT (different from app 1) */
+/* AI CHAT */
 .chat-wrap {
   background:rgba(0,0,0,0.2); border:1px solid var(--border);
-  border-radius:12px; padding:20px;
-  height:360px; overflow-y:auto;
-  display:flex; flex-direction:column; gap:14px;
-  margin-bottom:14px;
+  border-radius:12px; padding:16px;
+  height:400px; overflow-y:auto;
+  display:flex; flex-direction:column; gap:12px;
+  margin-bottom:12px;
 }
 .bubble {
-  max-width:78%; padding:13px 17px; border-radius:14px; font-size:0.88rem; line-height:1.6;
+  max-width:84%; padding:12px 15px; border-radius:14px; font-size:0.86rem; line-height:1.65;
 }
-.bubble.user { background:var(--gold); color:var(--ink); align-self:flex-end; border-bottom-right-radius:4px; font-weight:500; }
-.bubble.ai { background:var(--panel); border:1px solid var(--border); align-self:flex-start; border-bottom-left-radius:4px; color:var(--text); }
-.ai-input-row { display:flex; gap:10px; }
+.bubble.user { background:var(--gold); color:var(--ink); align-self:flex-end; border-bottom-right-radius:4px; font-weight:500; max-width:80%; }
+.bubble.ai { background:var(--panel); border:1px solid var(--border); align-self:flex-start; border-bottom-left-radius:4px; color:var(--text); max-width:90%; }
+.ai-input-row { display:flex; gap:8px; }
 .ai-input {
   flex:1; background:var(--panel); border:1px solid var(--border);
-  border-radius:8px; padding:13px 17px; color:var(--text);
-  font-family:'Jost',sans-serif; font-size:0.88rem; outline:none;
-  transition:border-color .2s;
+  border-radius:8px; padding:12px 15px; color:var(--text);
+  font-family:'Jost',sans-serif; font-size:0.86rem; outline:none;
+  transition:border-color .2s; min-width:0;
 }
 .ai-input:focus { border-color:var(--gold); }
 .ai-input::placeholder { color:var(--muted); }
 .ai-send {
   background:linear-gradient(135deg, var(--gold), var(--gold2));
   color:var(--ink); border:none; border-radius:8px;
-  padding:13px 22px; cursor:pointer; font-weight:600;
-  font-family:'Jost',sans-serif; font-size:0.85rem;
-  letter-spacing:.5px; transition:opacity .2s;
+  padding:12px 18px; cursor:pointer; font-weight:600;
+  font-family:'Jost',sans-serif; font-size:0.82rem;
+  letter-spacing:.5px; transition:opacity .2s; flex-shrink:0;
 }
 .ai-send:hover { opacity:.85; }
 .ai-send:disabled { opacity:.4; cursor:not-allowed; }
-.prompt-chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+.prompt-chips { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px; }
 .chip {
-  padding:6px 14px; border-radius:6px;
+  padding:6px 12px; border-radius:6px;
   border:1px solid var(--border); color:var(--muted);
-  font-size:0.75rem; letter-spacing:.5px; cursor:pointer;
+  font-size:0.72rem; letter-spacing:.3px; cursor:pointer;
   transition:all .2s; background:transparent;
   font-family:'Jost',sans-serif;
 }
@@ -308,35 +325,35 @@ input[type=range]::-webkit-slider-thumb {
 
 /* RESOURCE LINKS */
 .res-link {
-  display:flex; align-items:center; gap:14px;
-  padding:14px 16px; background:rgba(255,255,255,0.02);
+  display:flex; align-items:center; gap:12px;
+  padding:12px 14px; background:rgba(255,255,255,0.02);
   border:1px solid var(--border); border-radius:10px;
   text-decoration:none; color:var(--text); transition:all .25s; margin-bottom:8px;
 }
-.res-link:hover { border-color:var(--gold); background:rgba(201,168,76,0.04); padding-left:20px; }
-.res-icon { font-size:1.4rem; width:36px; text-align:center; flex-shrink:0; }
-.res-title { font-size:0.88rem; font-weight:500; }
-.res-sub { font-size:0.75rem; color:var(--muted); margin-top:2px; letter-spacing:.3px; }
-.res-arrow { margin-left:auto; color:var(--gold); opacity:.6; }
+.res-link:hover { border-color:var(--gold); background:rgba(201,168,76,0.04); }
+.res-icon { font-size:1.2rem; width:30px; text-align:center; flex-shrink:0; }
+.res-title { font-size:0.85rem; font-weight:500; }
+.res-sub { font-size:0.72rem; color:var(--muted); margin-top:2px; }
+.res-arrow { margin-left:auto; color:var(--gold); opacity:.6; flex-shrink:0; }
 
 /* UTILS */
 .btn {
-  padding:11px 22px; border-radius:8px; cursor:pointer;
-  font-family:'Jost',sans-serif; font-size:0.82rem; font-weight:500;
-  letter-spacing:1px; text-transform:uppercase; border:none;
+  padding:10px 20px; border-radius:8px; cursor:pointer;
+  font-family:'Jost',sans-serif; font-size:0.8rem; font-weight:500;
+  letter-spacing:.8px; text-transform:uppercase; border:none;
   transition:all .25s;
 }
 .btn-gold { background:linear-gradient(135deg, var(--gold), var(--gold2)); color:var(--ink); }
 .btn-gold:hover { opacity:.85; transform:translateY(-1px); }
+.btn-gold:disabled { opacity:.4; cursor:not-allowed; transform:none; }
 .btn-outline { background:transparent; border:1px solid var(--border); color:var(--muted); }
 .btn-outline:hover { border-color:var(--gold); color:var(--gold); }
 
 .section-label {
-  font-size:0.7rem; letter-spacing:3px; text-transform:uppercase;
+  font-size:0.68rem; letter-spacing:3px; text-transform:uppercase;
   color:var(--gold); margin-bottom:8px; display:block;
 }
-.divider { border:none; border-top:1px solid var(--border); margin:18px 0; }
-.fw700 { font-weight:700; }
+.divider { border:none; border-top:1px solid var(--border); margin:16px 0; }
 .text-gold { color:var(--gold); }
 .text-teal { color:var(--teal); }
 .text-blush { color:var(--blush); }
@@ -350,18 +367,18 @@ input[type=range]::-webkit-slider-thumb {
 .gap12 { gap:12px; }
 input[type=text], input[type=number], textarea, select {
   background:var(--panel); border:1px solid var(--border);
-  border-radius:8px; padding:11px 15px; color:var(--text);
-  font-family:'Jost',sans-serif; font-size:0.88rem; outline:none;
+  border-radius:8px; padding:10px 14px; color:var(--text);
+  font-family:'Jost',sans-serif; font-size:0.86rem; outline:none;
   width:100%; transition:border-color .2s;
 }
 input:focus, textarea:focus, select:focus { border-color:var(--gold); }
 input::placeholder, textarea::placeholder { color:var(--muted); }
 select option { background:var(--panel); }
-label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px; }
+label { font-size:0.75rem; letter-spacing:.8px; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:5px; }
 
 .tag-pill {
-  display:inline-block; padding:4px 12px; border-radius:20px;
-  font-size:0.72rem; letter-spacing:.5px;
+  display:inline-block; padding:4px 10px; border-radius:20px;
+  font-size:0.7rem; letter-spacing:.5px;
 }
 .pill-gold { background:rgba(201,168,76,0.12); color:var(--gold); border:1px solid rgba(201,168,76,0.25); }
 .pill-teal { background:rgba(91,191,181,0.1); color:var(--teal); border:1px solid rgba(91,191,181,0.2); }
@@ -369,21 +386,33 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
 .pill-lav { background:rgba(155,142,196,0.1); color:var(--lavender); border:1px solid rgba(155,142,196,0.2); }
 
 .toast {
-  position:fixed; bottom:24px; right:24px; z-index:999;
+  position:fixed; bottom:20px; right:16px; z-index:999;
   background:var(--panel); border:1px solid var(--gold);
-  color:var(--bright); padding:12px 22px; border-radius:8px;
-  font-size:0.82rem; letter-spacing:.5px;
+  color:var(--bright); padding:10px 18px; border-radius:8px;
+  font-size:0.8rem; letter-spacing:.5px;
   transform:translateY(80px); opacity:0; transition:all .3s;
+  max-width:calc(100vw - 32px);
 }
 .toast.show { transform:translateY(0); opacity:1; }
 
+/* Hormone saved data display */
+.saved-hormone-row { display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+
+/* Mobile responsive */
 @media(max-width:640px) {
-  .grid2,.grid3,.hormone-grid { grid-template-columns:1fr; }
+  .grid2 { grid-template-columns:1fr; }
+  .grid3 { grid-template-columns:1fr; }
+  .hormone-grid { grid-template-columns:repeat(2,1fr); }
   .kpi-row { grid-template-columns:repeat(3,1fr); }
-  .nav-tabs { overflow-x:auto; gap:2px; }
-  .nav-tab { font-size:0.65rem; padding:6px 8px; white-space:nowrap; }
-  .section { padding:16px; }
-  .page-title { font-size:1.8rem; }
+  .page-title { font-size:1.6rem; }
+  .supp-calc-grid { grid-template-columns:1fr; }
+  .chat-wrap { height:320px; }
+  .bubble { max-width:92%; }
+  .prompt-chips { gap:4px; }
+}
+@media(max-width:400px) {
+  .hormone-grid { grid-template-columns:repeat(2,1fr); }
+  .kpi-row { grid-template-columns:repeat(2,1fr); }
 }
 </style>
 </head>
@@ -399,8 +428,9 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
     <button class="nav-tab" onclick="go('body')">Body</button>
     <button class="nav-tab" onclick="go('sleep')">Sleep</button>
     <button class="nav-tab" onclick="go('stress')">Stress</button>
-    <button class="nav-tab" onclick="go('recipes')">Recipes</button>
-    <button class="nav-tab" onclick="go('coach')">Coach</button>
+    <button class="nav-tab" onclick="go('hcalc')">H. Calculator</button>
+    <button class="nav-tab" onclick="go('workout')">Workout</button>
+    <button class="nav-tab" onclick="go('goals')">Goals</button>
   </div>
 </nav>
 
@@ -409,28 +439,28 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
   <div class="hero-strip">
     <div class="date-line" id="hero-date">—</div>
     <h1>Your inner <span>health</span> universe</h1>
-    <div style="color:var(--muted);font-size:.9rem;margin-top:8px;">Track what truly matters for your feminine wellbeing.</div>
+    <div style="color:var(--muted);font-size:.88rem;margin-top:6px;">Track what truly matters for your feminine wellbeing.</div>
     <div class="kpi-row">
-      <div class="kpi"><div class="kpi-val" id="kpi-hs">72</div><div class="kpi-lbl">Hormone Score</div></div>
-      <div class="kpi"><div class="kpi-val" id="kpi-skin">8.4</div><div class="kpi-lbl">Skin Score</div></div>
+      <div class="kpi"><div class="kpi-val" id="kpi-hs">72</div><div class="kpi-lbl">Hormone</div></div>
+      <div class="kpi"><div class="kpi-val" id="kpi-skin">8.4</div><div class="kpi-lbl">Skin</div></div>
       <div class="kpi"><div class="kpi-val" id="kpi-sleep">7h 20m</div><div class="kpi-lbl">Sleep</div></div>
       <div class="kpi"><div class="kpi-val" id="kpi-stress">Low</div><div class="kpi-lbl">Stress</div></div>
-      <div class="kpi"><div class="kpi-val" id="kpi-supps">5/7</div><div class="kpi-lbl">Supps Taken</div></div>
+      <div class="kpi"><div class="kpi-val" id="kpi-supps">5/7</div><div class="kpi-lbl">Supps</div></div>
     </div>
   </div>
 
   <div class="grid2 mb16">
     <div class="card card-accent">
       <span class="section-label">Daily Focus</span>
-      <div id="daily-focus" style="font-size:.92rem;line-height:1.9;color:var(--text);"></div>
+      <div id="daily-focus" style="font-size:.88rem;line-height:1.9;color:var(--text);"></div>
     </div>
     <div class="card">
       <span class="section-label">Quick Access</span>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-        <div onclick="go('hormones')" style="padding:14px;border:1px solid var(--border);border-radius:10px;cursor:pointer;text-align:center;transition:all .2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.6rem;">🧬</div><div style="font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:6px;">Hormones</div></div>
-        <div onclick="go('skin')" style="padding:14px;border:1px solid var(--border);border-radius:10px;cursor:pointer;text-align:center;transition:all .2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.6rem;">✨</div><div style="font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:6px;">Skin & Hair</div></div>
-        <div onclick="go('supplements')" style="padding:14px;border:1px solid var(--border);border-radius:10px;cursor:pointer;text-align:center;transition:all .2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.6rem;">💊</div><div style="font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:6px;">Supplements</div></div>
-        <div onclick="go('recipes')" style="padding:14px;border:1px solid var(--border);border-radius:10px;cursor:pointer;text-align:center;transition:all .2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--gold)'"><div style="font-size:1.6rem;">🍳</div><div style="font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:6px;">AI Recipes</div></div>
+        <div onclick="go('hormones')" style="padding:12px;border:1px solid var(--border);border-radius:10px;cursor:pointer;text-align:center;transition:all .2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.4rem;">🧬</div><div style="font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:5px;">Hormones</div></div>
+        <div onclick="go('skin')" style="padding:12px;border:1px solid var(--border);border-radius:10px;cursor:pointer;text-align:center;transition:all .2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.4rem;">✨</div><div style="font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:5px;">Skin & Hair</div></div>
+        <div onclick="go('supplements')" style="padding:12px;border:1px solid var(--border);border-radius:10px;cursor:pointer;text-align:center;transition:all .2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.4rem;">💊</div><div style="font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:5px;">Supplements</div></div>
+        <div onclick="go('workout')" style="padding:12px;border:1px solid var(--border);border-radius:10px;cursor:pointer;text-align:center;transition:all .2s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--gold)'"><div style="font-size:1.4rem;">🏋️</div><div style="font-size:.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:5px;">Workout</div></div>
       </div>
     </div>
   </div>
@@ -438,17 +468,17 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
   <div class="grid3">
     <a href="https://www.google.com/search?q=women+hormonal+health+guide" target="_blank" class="res-link">
       <div class="res-icon">🧬</div>
-      <div><div class="res-title">Hormonal Health</div><div class="res-sub">Google · Science-backed</div></div>
+      <div><div class="res-title">Hormonal Health</div><div class="res-sub">Science-backed guide</div></div>
       <div class="res-arrow">↗</div>
     </a>
     <a href="https://www.google.com/search?q=skin+health+nutrition+women+diet" target="_blank" class="res-link">
       <div class="res-icon">🌿</div>
-      <div><div class="res-title">Skin & Diet</div><div class="res-sub">Google · Beauty nutrition</div></div>
+      <div><div class="res-title">Skin & Diet</div><div class="res-sub">Beauty nutrition</div></div>
       <div class="res-arrow">↗</div>
     </a>
     <a href="https://www.google.com/search?q=sleep+quality+women+hormones" target="_blank" class="res-link">
       <div class="res-icon">🌙</div>
-      <div><div class="res-title">Sleep Science</div><div class="res-sub">Google · Women's sleep</div></div>
+      <div><div class="res-title">Sleep Science</div><div class="res-sub">Women's sleep</div></div>
       <div class="res-arrow">↗</div>
     </a>
   </div>
@@ -458,7 +488,7 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
 <div id="hormones" class="section">
   <div class="page-header">
     <div class="page-title">Hormonal <em>Balance</em> Tracker</div>
-    <div class="page-sub">Monitor your key hormones — log how you feel & identify patterns</div>
+    <div class="page-sub">Monitor your key hormones — log, save, and identify patterns over time</div>
   </div>
 
   <div class="hormone-grid">
@@ -491,7 +521,22 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
   <div class="grid2">
     <div class="card card-accent">
       <span class="section-label">Log Today's Levels</span>
-      <p style="font-size:.82rem;color:var(--muted);margin-bottom:16px;">Rate how each hormone feels based on your symptoms. This builds your pattern over time.</p>
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;">Rate how each hormone feels based on your symptoms. Data is saved to your history.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+        <div>
+          <label>Mood Today</label>
+          <select id="h-mood">
+            <option>Great 😊</option><option>Good 🙂</option><option>Neutral 😐</option>
+            <option>Low 😔</option><option>Anxious 😟</option><option>Irritable 😤</option>
+          </select>
+        </div>
+        <div>
+          <label>Cycle Day</label>
+          <input type="number" id="h-cycleday" placeholder="e.g. 14" min="1" max="35">
+        </div>
+      </div>
+
       <div class="slider-row">
         <div class="slider-label"><span>Estrogen</span><span id="sv-estrogen">5</span></div>
         <input type="range" min="1" max="10" value="5" oninput="updateSlider('estrogen',this.value)">
@@ -508,63 +553,355 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
         <div class="slider-label"><span>Energy (Thyroid)</span><span id="sv-thyroid">6</span></div>
         <input type="range" min="1" max="10" value="6" oninput="updateSlider('thyroid',this.value)">
       </div>
-      <button class="btn btn-gold mt16" onclick="saveHormones()" style="width:100%">Save Today's Log</button>
+
+      <label style="margin-top:12px;">Symptoms Today (optional)</label>
+      <input type="text" id="h-symptoms" placeholder="e.g. bloating, cramps, headache..." style="margin-bottom:12px;">
+
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-gold" onclick="saveHormones()" style="flex:1;">💾 Save Today's Log</button>
+        <button class="btn btn-outline" onclick="clearHormoneHistory()" style="padding:10px 14px;font-size:.72rem;">Clear</button>
+      </div>
     </div>
-    <div class="card">
-      <span class="section-label">Hormonal Support Foods</span>
-      <div style="font-size:.88rem;">
-        <div style="padding:10px 0;border-bottom:1px solid var(--border);">
-          <div class="flex gap8 mb8"><span class="tag-pill pill-blush">Estrogen Balance</span></div>
-          <p style="color:var(--muted);font-size:.82rem;">Flaxseeds, broccoli, soy, pomegranate, whole grains</p>
+
+    <div>
+      <div class="card mb16">
+        <span class="section-label">📋 Saved History</span>
+        <div id="hormone-history-list" style="max-height:260px;overflow-y:auto;">
+          <p style="font-size:.82rem;color:var(--muted);text-align:center;padding:20px 0;">No entries yet. Log your first day above!</p>
         </div>
-        <div style="padding:10px 0;border-bottom:1px solid var(--border);">
-          <div class="flex gap8 mb8"><span class="tag-pill pill-teal">Progesterone Boost</span></div>
-          <p style="color:var(--muted);font-size:.82rem;">Vitamin C rich foods, zinc (pumpkin seeds), magnesium (dark chocolate)</p>
-        </div>
-        <div style="padding:10px 0;border-bottom:1px solid var(--border);">
-          <div class="flex gap8 mb8"><span class="tag-pill pill-gold">Lower Cortisol</span></div>
-          <p style="color:var(--muted);font-size:.82rem;">Ashwagandha, dark berries, green tea, omega-3 fish, probiotic foods</p>
-        </div>
-        <div style="padding:10px 0;">
-          <div class="flex gap8 mb8"><span class="tag-pill pill-lav">Thyroid Health</span></div>
-          <p style="color:var(--muted);font-size:.82rem;">Seaweed, selenium (Brazil nuts), iodized salt, lean proteins</p>
+        <button class="btn btn-outline mt16" onclick="exportHormoneData()" style="width:100%;font-size:.72rem;">Export CSV ↓</button>
+      </div>
+
+      <div class="card">
+        <span class="section-label">Hormonal Support Foods</span>
+        <div style="font-size:.85rem;">
+          <div style="padding:9px 0;border-bottom:1px solid var(--border);">
+            <span class="tag-pill pill-blush">Estrogen Balance</span>
+            <p style="color:var(--muted);font-size:.8rem;margin-top:5px;">Flaxseeds, broccoli, soy, pomegranate, whole grains</p>
+          </div>
+          <div style="padding:9px 0;border-bottom:1px solid var(--border);">
+            <span class="tag-pill pill-teal">Progesterone Boost</span>
+            <p style="color:var(--muted);font-size:.8rem;margin-top:5px;">Vitamin C foods, zinc (pumpkin seeds), magnesium</p>
+          </div>
+          <div style="padding:9px 0;border-bottom:1px solid var(--border);">
+            <span class="tag-pill pill-gold">Lower Cortisol</span>
+            <p style="color:var(--muted);font-size:.8rem;margin-top:5px;">Ashwagandha, dark berries, green tea, omega-3, probiotics</p>
+          </div>
+          <div style="padding:9px 0;">
+            <span class="tag-pill pill-lav">Thyroid Health</span>
+            <p style="color:var(--muted);font-size:.8rem;margin-top:5px;">Seaweed, selenium (Brazil nuts), iodized salt, lean proteins</p>
+          </div>
         </div>
       </div>
-      <a href="https://www.google.com/search?q=foods+for+hormonal+balance+women" target="_blank" class="res-link mt16" style="padding:10px;">
-        <div class="res-icon" style="font-size:1rem;">🔍</div>
-        <div><div class="res-title" style="font-size:.82rem;">Full Hormone Diet Guide</div></div>
-        <div class="res-arrow">↗</div>
-      </a>
     </div>
   </div>
 
   <div class="card mt16">
     <span class="section-label">Hormonal Imbalance Symptoms Guide</span>
-    <div class="grid3" style="margin-top:12px;">
+    <div class="grid3" style="margin-top:10px;">
       <div>
         <div class="tag-pill pill-blush mb8">Low Estrogen</div>
-        <ul style="list-style:none;font-size:.82rem;color:var(--muted);line-height:2;">
+        <ul style="list-style:none;font-size:.8rem;color:var(--muted);line-height:2;">
           <li>Hot flashes & night sweats</li><li>Irregular periods</li><li>Mood swings</li><li>Brain fog</li><li>Dry skin & hair</li>
         </ul>
       </div>
       <div>
         <div class="tag-pill pill-gold mb8">High Cortisol</div>
-        <ul style="list-style:none;font-size:.82rem;color:var(--muted);line-height:2;">
+        <ul style="list-style:none;font-size:.8rem;color:var(--muted);line-height:2;">
           <li>Weight gain (belly)</li><li>Fatigue despite sleep</li><li>Anxiety & irritability</li><li>Blood sugar swings</li><li>Insomnia</li>
         </ul>
       </div>
       <div>
         <div class="tag-pill pill-lav">Thyroid Issues</div>
-        <ul style="list-style:none;font-size:.82rem;color:var(--muted);line-height:2;margin-top:8px;">
+        <ul style="list-style:none;font-size:.8rem;color:var(--muted);line-height:2;margin-top:6px;">
           <li>Unexplained weight change</li><li>Extreme fatigue</li><li>Hair loss</li><li>Cold sensitivity</li><li>Slow metabolism</li>
         </ul>
       </div>
     </div>
     <a href="https://www.google.com/search?q=hormonal+imbalance+symptoms+women+treatment" target="_blank" class="res-link mt16">
       <div class="res-icon">🔍</div>
-      <div><div class="res-title">Learn About Hormonal Imbalance</div><div class="res-sub">Google · Medical resources</div></div>
+      <div><div class="res-title">Learn About Hormonal Imbalance</div><div class="res-sub">Medical resources</div></div>
       <div class="res-arrow">↗</div>
     </a>
+  </div>
+
+  <!-- HOW TO KNOW YOUR HORMONES -->
+  <div class="card mt16" style="border-color:rgba(201,168,76,0.3);">
+    <div class="flex between mb16" style="flex-wrap:wrap;gap:10px;">
+      <div>
+        <span class="section-label" style="margin-bottom:4px;">🔬 How To Know Your Hormone Levels</span>
+        <div style="font-size:.8rem;color:var(--muted);">3 methods — from free at-home signs to lab blood tests</div>
+      </div>
+      <div style="display:flex;gap:6px;">
+        <button class="hmeth-btn btn" onclick="showHMethod('symptoms')" id="hm-symptoms" style="font-size:.7rem;padding:7px 12px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--ink);border:none;">Body Signs</button>
+        <button class="hmeth-btn btn btn-outline" onclick="showHMethod('at-home')" id="hm-at-home" style="font-size:.7rem;padding:7px 12px;">At-Home Tests</button>
+        <button class="hmeth-btn btn btn-outline" onclick="showHMethod('blood')" id="hm-blood" style="font-size:.7rem;padding:7px 12px;">Blood Tests</button>
+      </div>
+    </div>
+
+    <!-- BODY SIGNS METHOD -->
+    <div id="hmethod-symptoms">
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;">Your body gives daily signals about hormone levels. Learn to read them — no test needed.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">
+
+        <div style="background:rgba(212,130,122,0.06);border:1px solid rgba(212,130,122,0.2);border-radius:10px;padding:14px;">
+          <div style="font-size:.85rem;font-weight:600;color:var(--blush);margin-bottom:10px;">🌸 Estrogen Signs</div>
+          <div style="font-size:.78rem;line-height:1.9;color:var(--muted);">
+            <div><span style="color:var(--teal);">HIGH ↑</span> — Breast tenderness, bloating, heavy periods, PMS rage, fibrocystic breasts, water retention before period</div>
+            <div style="margin-top:6px;"><span style="color:var(--blush);">LOW ↓</span> — Hot flashes, night sweats, dry skin/vagina, thin hair, mood swings, brain fog, irregular periods, low libido</div>
+            <div style="margin-top:8px;padding:8px;background:rgba(212,130,122,0.08);border-radius:6px;font-size:.74rem;color:var(--blush);">📍 Best test window: Day 3 of cycle (morning blood draw)</div>
+          </div>
+        </div>
+
+        <div style="background:rgba(155,142,196,0.06);border:1px solid rgba(155,142,196,0.2);border-radius:10px;padding:14px;">
+          <div style="font-size:.85rem;font-weight:600;color:var(--lavender);margin-bottom:10px;">🌙 Progesterone Signs</div>
+          <div style="font-size:.78rem;line-height:1.9;color:var(--muted);">
+            <div><span style="color:var(--blush);">LOW ↓</span> — Anxiety before period, insomnia in luteal phase, spotting before period, short cycles, heavy bleeding, PMS mood crashes</div>
+            <div style="margin-top:6px;"><span style="color:var(--gold);">OPTIMAL ✓</span> — Calm sleep, stable mood in luteal phase, regular periods, minimal PMS</div>
+            <div style="margin-top:8px;padding:8px;background:rgba(155,142,196,0.08);border-radius:6px;font-size:.74rem;color:var(--lavender);">📍 Best test window: Day 21 of cycle (7 days after ovulation)</div>
+          </div>
+        </div>
+
+        <div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:14px;">
+          <div style="font-size:.85rem;font-weight:600;color:var(--gold);margin-bottom:10px;">⚡ Cortisol Signs</div>
+          <div style="font-size:.78rem;line-height:1.9;color:var(--muted);">
+            <div><span style="color:var(--blush);">HIGH ↑</span> — Can't sleep even when tired, belly fat despite exercise, afternoon energy crash, anxiety on waking, always hungry, wired at night</div>
+            <div style="margin-top:6px;"><span style="color:var(--gold);">LOW ↓</span> — Can't get out of bed, extreme fatigue, salt cravings, low blood pressure, dizziness standing up</div>
+            <div style="margin-top:8px;padding:8px;background:rgba(201,168,76,0.08);border-radius:6px;font-size:.74rem;color:var(--gold);">📍 Best test: 4-point salivary cortisol (AM/noon/PM/night)</div>
+          </div>
+        </div>
+
+        <div style="background:rgba(91,191,181,0.06);border:1px solid rgba(91,191,181,0.2);border-radius:10px;padding:14px;">
+          <div style="font-size:.85rem;font-weight:600;color:var(--teal);margin-bottom:10px;">🦋 Thyroid Signs</div>
+          <div style="font-size:.78rem;line-height:1.9;color:var(--muted);">
+            <div><span style="color:var(--blush);">HYPO (Low) ↓</span> — Always cold, unexplained weight gain, hair thinning (including outer eyebrows!), constipation, dry skin, extreme fatigue, slow thinking</div>
+            <div style="margin-top:6px;"><span style="color:var(--gold);">HYPER (High) ↑</span> — Heart palpitations, weight loss despite eating, anxiety, heat intolerance, hair loss, frequent bowel movements</div>
+            <div style="margin-top:8px;padding:8px;background:rgba(91,191,181,0.08);border-radius:6px;font-size:.74rem;color:var(--teal);">📍 Best test: TSH + Free T3 + Free T4 + TPO antibodies</div>
+          </div>
+        </div>
+
+        <div style="background:rgba(212,130,122,0.06);border:1px solid rgba(212,130,122,0.15);border-radius:10px;padding:14px;">
+          <div style="font-size:.85rem;font-weight:600;color:var(--blush);margin-bottom:10px;">💪 Testosterone Signs</div>
+          <div style="font-size:.78rem;line-height:1.9;color:var(--muted);">
+            <div><span style="color:var(--blush);">HIGH ↑</span> — Jawline/chin acne, oily skin, excess facial hair, irregular periods, clitoral enlargement, PCOS pattern</div>
+            <div style="margin-top:6px;"><span style="color:var(--gold);">LOW ↓</span> — No sex drive, poor motivation, muscle weakness, fatigue, depression, difficulty gaining muscle</div>
+            <div style="margin-top:8px;padding:8px;background:rgba(212,130,122,0.06);border-radius:6px;font-size:.74rem;color:var(--blush);">📍 Best test: Total + Free Testosterone (any day, morning)</div>
+          </div>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:14px;">
+          <div style="font-size:.85rem;font-weight:600;color:var(--bright);margin-bottom:10px;">🩸 Insulin Signs</div>
+          <div style="font-size:.78rem;line-height:1.9;color:var(--muted);">
+            <div><span style="color:var(--blush);">RESISTANCE ↑</span> — Dark patches on neck/armpits (acanthosis nigricans), intense sugar cravings, energy crash after carbs, belly fat, PCOS, always hungry</div>
+            <div style="margin-top:6px;"><span style="color:var(--teal);">SENSITIVE ✓</span> — Stable energy after meals, no sugar crashes, healthy weight distribution</div>
+            <div style="margin-top:8px;padding:8px;background:rgba(255,255,255,0.04);border-radius:6px;font-size:.74rem;color:var(--muted);">📍 Best test: Fasting insulin + fasting glucose + HbA1c</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AT-HOME TESTS METHOD -->
+    <div id="hmethod-at-home" style="display:none;">
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;">These tests can be done at home or ordered online without a doctor's prescription in most countries.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">
+
+        <div style="border:1px solid var(--border);border-radius:10px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-size:.88rem;font-weight:600;color:var(--bright);">🌡️ Basal Body Temperature (BBT)</div>
+            <span class="tag-pill pill-teal" style="font-size:.62rem;flex-shrink:0;">Free</span>
+          </div>
+          <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">
+            Take your temperature every morning <em>before</em> getting out of bed. A rise of 0.2°C after ovulation confirms progesterone is being produced.
+            <div style="margin-top:8px;color:var(--text);">📊 <strong>How to read:</strong><br>Pre-ovulation: 36.2–36.5°C<br>Post-ovulation rise: +0.2–0.5°C<br>No rise = possible anovulation (no ovulation)</div>
+            <div style="margin-top:8px;padding:7px;background:rgba(91,191,181,0.08);border-radius:6px;font-size:.73rem;">✓ Reveals: Progesterone presence, ovulation confirmation, cycle regularity</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:10px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-size:.88rem;font-weight:600;color:var(--bright);">🔵 LH Ovulation Strips</div>
+            <span class="tag-pill pill-gold" style="font-size:.62rem;flex-shrink:0;">~$15</span>
+          </div>
+          <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">
+            LH (luteinizing hormone) surges 24-36h before ovulation. Test urine daily from Day 10-18.
+            <div style="margin-top:8px;color:var(--text);">📊 <strong>How to read:</strong><br>Negative: Test line lighter than control<br>Positive: Test line = or darker than control<br>No LH peak = possible anovulation</div>
+            <div style="margin-top:8px;padding:7px;background:rgba(201,168,76,0.08);border-radius:6px;font-size:.73rem;">✓ Reveals: LH surge, ovulation timing, possible PCOS (multiple peaks)</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:10px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-size:.88rem;font-weight:600;color:var(--bright);">💧 Cervical Mucus Tracking</div>
+            <span class="tag-pill pill-teal" style="font-size:.62rem;flex-shrink:0;">Free</span>
+          </div>
+          <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">
+            Estrogen changes cervical mucus throughout the cycle. Track texture daily.
+            <div style="margin-top:8px;color:var(--text);">📊 <strong>How to read:</strong><br>Dry/none: Low estrogen (post-period)<br>Creamy/white: Estrogen rising<br>Egg-white stretchy: Peak estrogen — fertile window<br>Dry again: Progesterone dominant</div>
+            <div style="margin-top:8px;padding:7px;background:rgba(91,191,181,0.08);border-radius:6px;font-size:.73rem;">✓ Reveals: Estrogen levels, fertile window, hormonal patterns</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:10px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-size:.88rem;font-weight:600;color:var(--bright);">🧪 At-Home Hormone Test Kits</div>
+            <span class="tag-pill pill-blush" style="font-size:.62rem;flex-shrink:0;">$50–$200</span>
+          </div>
+          <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">
+            Companies like Everlywell, Lets Get Checked, and DUTCH test offer mail-in urine or dried blood spot tests for hormones.
+            <div style="margin-top:8px;color:var(--text);">📊 <strong>What they test:</strong><br>Estrogen, progesterone, testosterone, DHEA, cortisol (4-point), thyroid panel, fertility hormones</div>
+            <div style="margin-top:8px;padding:7px;background:rgba(212,130,122,0.08);border-radius:6px;font-size:.73rem;">✓ DUTCH test is gold standard for cortisol pattern mapping</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:10px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-size:.88rem;font-weight:600;color:var(--bright);">📱 Symptom Tracking Apps</div>
+            <span class="tag-pill pill-teal" style="font-size:.62rem;flex-shrink:0;">Free–$10/mo</span>
+          </div>
+          <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">
+            Apps like Clue, Natural Cycles, or Flo track symptoms + BBT + mucus to predict hormonal phases using algorithms.
+            <div style="margin-top:8px;color:var(--text);">📊 <strong>Best apps:</strong><br>Clue — best symptom tracking<br>Natural Cycles — FDA-cleared BBT<br>Oura Ring — temp + HRV patterns</div>
+            <div style="margin-top:8px;padding:7px;background:rgba(255,255,255,0.04);border-radius:6px;font-size:.73rem;">✓ Best for: Cycle prediction, hormonal pattern detection over months</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:10px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-size:.88rem;font-weight:600;color:var(--bright);">🩺 Skin & Hair Signs</div>
+            <span class="tag-pill pill-teal" style="font-size:.62rem;flex-shrink:0;">Free</span>
+          </div>
+          <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">
+            Skin and hair are hormone mirrors — changes reflect what's happening internally.
+            <div style="margin-top:8px;color:var(--text);">📊 <strong>Reading the signs:</strong><br>Jawline acne → excess androgens<br>Outer eyebrow loss → thyroid<br>Diffuse hair thinning → iron/thyroid/PCOS<br>Oily T-zone mid-cycle → estrogen peak</div>
+            <div style="margin-top:8px;padding:7px;background:rgba(255,255,255,0.04);border-radius:6px;font-size:.73rem;">✓ Photograph monthly to track trends over time</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOOD TESTS METHOD -->
+    <div id="hmethod-blood" style="display:none;">
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;">The gold standard. Ask your doctor for these specific tests — many labs won't run them all unless you explicitly request each one.</p>
+
+      <!-- Timing guide -->
+      <div style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:14px;margin-bottom:14px;">
+        <div style="font-size:.82rem;font-weight:600;color:var(--gold);margin-bottom:8px;">⏰ Critical: Test Timing Matters</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;font-size:.76rem;color:var(--muted);">
+          <div><span style="color:var(--bright);">Day 2–4 (early morning):</span><br>FSH, LH, Estradiol (E2), AMH — baseline ovarian function</div>
+          <div><span style="color:var(--bright);">Day 21 (or 7 days post-ovulation):</span><br>Progesterone — confirms ovulation occurred</div>
+          <div><span style="color:var(--bright);">Any day (fasting, early morning):</span><br>Thyroid (TSH, Free T3, T4), Cortisol, Testosterone, Insulin, Ferritin</div>
+          <div><span style="color:var(--bright);">Always fast 12h before:</span><br>Insulin, glucose, HbA1c, lipids — fasting mandatory for accurate results</div>
+        </div>
+      </div>
+
+      <!-- Test table -->
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:.78rem;">
+          <thead>
+            <tr style="border-bottom:2px solid var(--border);">
+              <th style="text-align:left;padding:10px 8px;color:var(--gold);font-weight:500;letter-spacing:.5px;font-size:.7rem;text-transform:uppercase;">Test</th>
+              <th style="text-align:left;padding:10px 8px;color:var(--gold);font-weight:500;letter-spacing:.5px;font-size:.7rem;text-transform:uppercase;">What It Reveals</th>
+              <th style="text-align:left;padding:10px 8px;color:var(--gold);font-weight:500;letter-spacing:.5px;font-size:.7rem;text-transform:uppercase;">Optimal Range</th>
+              <th style="text-align:left;padding:10px 8px;color:var(--gold);font-weight:500;letter-spacing:.5px;font-size:.7rem;text-transform:uppercase;">When Tested</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--blush);font-weight:500;">Estradiol (E2)</td>
+              <td style="padding:10px 8px;color:var(--muted);">Ovarian function, menopause status, fertility, bone density risk</td>
+              <td style="padding:10px 8px;color:var(--text);">Follicular: 50–150 pg/mL<br>Luteal: 30–450</td>
+              <td style="padding:10px 8px;color:var(--muted);">Day 3, morning</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--lavender);font-weight:500;">Progesterone</td>
+              <td style="padding:10px 8px;color:var(--muted);">Confirms ovulation, PMS cause, luteal phase defect</td>
+              <td style="padding:10px 8px;color:var(--text);">Luteal mid: >10 ng/mL<br>Follicular: &lt;1</td>
+              <td style="padding:10px 8px;color:var(--muted);">Day 21, morning</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--teal);font-weight:500;">FSH</td>
+              <td style="padding:10px 8px;color:var(--muted);">Ovarian reserve, perimenopause status, pituitary function</td>
+              <td style="padding:10px 8px;color:var(--text);">Follicular: 3–10 mIU/mL<br>>25 = menopause</td>
+              <td style="padding:10px 8px;color:var(--muted);">Day 3, fasting</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--teal);font-weight:500;">LH</td>
+              <td style="padding:10px 8px;color:var(--muted);">Ovulation trigger, PCOS (high LH:FSH ratio = PCOS signal)</td>
+              <td style="padding:10px 8px;color:var(--text);">Follicular: 2–15<br>LH:FSH ratio &lt;2</td>
+              <td style="padding:10px 8px;color:var(--muted);">Day 3, fasting</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--gold);font-weight:500;">AMH</td>
+              <td style="padding:10px 8px;color:var(--muted);">Egg reserve (ovarian reserve) — does NOT change with cycle</td>
+              <td style="padding:10px 8px;color:var(--text);">Age 30: 1.5–4 ng/mL<br>Low: &lt;1.0</td>
+              <td style="padding:10px 8px;color:var(--muted);">Any day</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--teal);font-weight:500;">TSH</td>
+              <td style="padding:10px 8px;color:var(--muted);">Thyroid activity — hypothyroid (high TSH) or hyperthyroid (low TSH)</td>
+              <td style="padding:10px 8px;color:var(--text);">Optimal: 0.5–2.5<br>Lab normal: 0.4–4.0</td>
+              <td style="padding:10px 8px;color:var(--muted);">Any day, AM</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--teal);font-weight:500;">Free T3 + Free T4</td>
+              <td style="padding:10px 8px;color:var(--muted);">Active thyroid hormones — T3 is most important for symptoms</td>
+              <td style="padding:10px 8px;color:var(--text);">FT3: 3.2–4.2 pg/mL<br>FT4: 1.1–1.8 ng/dL</td>
+              <td style="padding:10px 8px;color:var(--muted);">Any day, AM</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--teal);font-weight:500;">TPO Antibodies</td>
+              <td style="padding:10px 8px;color:var(--muted);">Hashimoto's thyroiditis — autoimmune attack on thyroid</td>
+              <td style="padding:10px 8px;color:var(--text);">&lt;35 IU/mL<br>>100 = Hashimoto's</td>
+              <td style="padding:10px 8px;color:var(--muted);">Any day</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--gold);font-weight:500;">Cortisol AM</td>
+              <td style="padding:10px 8px;color:var(--muted);">Adrenal function, chronic stress response, HPA axis</td>
+              <td style="padding:10px 8px;color:var(--text);">Optimal AM: 14–20 μg/dL<br>Lab: 6–23</td>
+              <td style="padding:10px 8px;color:var(--muted);">Before 9am, fasting</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--blush);font-weight:500;">Testosterone (Total + Free)</td>
+              <td style="padding:10px 8px;color:var(--muted);">Libido, energy, muscle, PCOS, acne cause</td>
+              <td style="padding:10px 8px;color:var(--text);">Total: 15–70 ng/dL<br>Free T: 0.3–1.9 pg/mL</td>
+              <td style="padding:10px 8px;color:var(--muted);">Any day, AM</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--blush);font-weight:500;">DHEA-S</td>
+              <td style="padding:10px 8px;color:var(--muted);">Adrenal androgens, PCOS, energy and aging marker</td>
+              <td style="padding:10px 8px;color:var(--text);">Age 30s: 100–300 μg/dL<br>Declines with age</td>
+              <td style="padding:10px 8px;color:var(--muted);">Any day, AM</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--bright);font-weight:500;">Fasting Insulin</td>
+              <td style="padding:10px 8px;color:var(--muted);">Insulin resistance, PCOS risk, metabolic health, weight gain</td>
+              <td style="padding:10px 8px;color:var(--text);">Optimal: &lt;8 μIU/mL<br>Resistance: >15</td>
+              <td style="padding:10px 8px;color:var(--muted);">Fasting 12h, AM</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px;color:var(--bright);font-weight:500;">Ferritin</td>
+              <td style="padding:10px 8px;color:var(--muted);">Iron stores — biggest cause of fatigue + hair loss in women</td>
+              <td style="padding:10px 8px;color:var(--text);">Optimal: 50–150 ng/mL<br>Lab min: 12 ng/mL</td>
+              <td style="padding:10px 8px;color:var(--muted);">Any day, fasting</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 8px;color:var(--bright);font-weight:500;">Vitamin D</td>
+              <td style="padding:10px 8px;color:var(--muted);">Hormone receptor function, mood, immunity, fertility</td>
+              <td style="padding:10px 8px;color:var(--text);">Optimal: 50–80 ng/mL<br>Most women: &lt;30</td>
+              <td style="padding:10px 8px;color:var(--muted);">Any day</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:14px;padding:14px;background:rgba(91,191,181,0.06);border:1px solid rgba(91,191,181,0.2);border-radius:10px;">
+        <div style="font-size:.82rem;font-weight:600;color:var(--teal);margin-bottom:8px;">💬 What to say to your doctor</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">
+          <em style="color:var(--text);">"I'd like a comprehensive hormone panel including: estradiol, progesterone, FSH, LH, AMH, TSH, Free T3, Free T4, TPO antibodies, testosterone (total and free), DHEA-S, fasting insulin, ferritin, and Vitamin D."</em><br><br>
+          If refused: Ask for a referral to an endocrinologist or gynecologist, or order directly through Everlywell / Let's Get Checked / DUTCH test online.
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -638,14 +975,13 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
         </div>
       </div>
       <div class="card">
-        <span class="section-label">Skin-Boosting Foods</span>
+        <span class="section-label">Skin-Boosting Nutrients</span>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
           <a href="https://www.google.com/search?q=collagen+boosting+foods+women+skin" target="_blank" style="text-decoration:none;"><span class="tag-pill pill-gold">🍊 Vitamin C</span></a>
           <a href="https://www.google.com/search?q=omega3+skin+benefits+women" target="_blank" style="text-decoration:none;"><span class="tag-pill pill-teal">🐟 Omega-3</span></a>
           <a href="https://www.google.com/search?q=vitamin+e+skin+almonds+women" target="_blank" style="text-decoration:none;"><span class="tag-pill pill-lav">🥜 Vitamin E</span></a>
           <a href="https://www.google.com/search?q=collagen+foods+diet+skin+hair" target="_blank" style="text-decoration:none;"><span class="tag-pill pill-blush">🍗 Collagen</span></a>
           <a href="https://www.google.com/search?q=zinc+skin+acne+women+diet" target="_blank" style="text-decoration:none;"><span class="tag-pill pill-gold">🎃 Zinc</span></a>
-          <a href="https://www.google.com/search?q=hyaluronic+acid+foods+hydration+skin" target="_blank" style="text-decoration:none;"><span class="tag-pill pill-teal">💧 Hyaluronic</span></a>
         </div>
         <a href="https://www.google.com/search?q=best+foods+for+glowing+skin+women" target="_blank" class="res-link" style="padding:10px;">
           <div class="res-icon" style="font-size:1rem;">🔍</div><div><div class="res-title" style="font-size:.82rem;">Foods for Glowing Skin</div></div><div class="res-arrow">↗</div>
@@ -662,8 +998,58 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
 <div id="supplements" class="section">
   <div class="page-header">
     <div class="page-title">Supplement <em>Planner</em></div>
-    <div class="page-sub">Your personalized daily supplement schedule — never miss a dose</div>
+    <div class="page-sub">Track doses, calculate needs, and get personalized supplement suggestions</div>
   </div>
+
+  <!-- Calculator Section NEW -->
+  <div class="card card-accent mb16">
+    <span class="section-label">🧮 Supplement Needs Calculator</span>
+    <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;">Enter your profile to get personalized supplement recommendations based on your needs.</p>
+    <div class="supp-calc-grid">
+      <div><label>Age</label><input type="number" id="sc-age" placeholder="28" min="18" max="80"></div>
+      <div>
+        <label>Life Stage</label>
+        <select id="sc-stage">
+          <option>Reproductive Age (18-35)</option>
+          <option>Trying to Conceive</option>
+          <option>Pregnant</option>
+          <option>Breastfeeding</option>
+          <option>Perimenopause (40-50)</option>
+          <option>Menopause (50+)</option>
+        </select>
+      </div>
+      <div>
+        <label>Primary Concern</label>
+        <select id="sc-concern">
+          <option>Hormone Balance</option>
+          <option>PMS / Period Pain</option>
+          <option>Energy & Fatigue</option>
+          <option>Hair Loss</option>
+          <option>Skin Health</option>
+          <option>Bone Density</option>
+          <option>Mood & Anxiety</option>
+          <option>PCOS</option>
+          <option>Thyroid Support</option>
+          <option>Weight Management</option>
+        </select>
+      </div>
+      <div>
+        <label>Diet Type</label>
+        <select id="sc-diet">
+          <option>Omnivore</option>
+          <option>Vegetarian</option>
+          <option>Vegan</option>
+          <option>Paleo</option>
+          <option>Keto</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-gold mt16" onclick="calcSupplements()" style="width:100%;">✨ Calculate My Supplements</button>
+    <div id="supp-suggestions" style="display:none;" class="suggestion-box mt16">
+      <div id="sugg-content"></div>
+    </div>
+  </div>
+
   <div class="grid2">
     <div class="card card-accent">
       <span class="section-label">Today's Protocol</span>
@@ -709,32 +1095,28 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
         </div>
       </div>
       <div class="mt16 flex between">
-        <span style="font-size:.82rem;color:var(--muted);">5 of 7 taken today</span>
-        <span class="tag-pill pill-gold">71% Complete</span>
+        <span style="font-size:.8rem;color:var(--muted);" id="supp-count-text">5 of 7 taken today</span>
+        <span class="tag-pill pill-gold" id="supp-pct">71% Complete</span>
       </div>
+      <button class="btn btn-gold mt16" onclick="saveSuppLog()" style="width:100%;">💾 Save Today's Log</button>
     </div>
 
     <div>
       <div class="card mb16">
         <span class="section-label">Women's Core Supplement Guide</span>
-        <div style="font-size:.84rem;">
-          <div style="padding:9px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span style="color:var(--text);">Iron</span><span style="color:var(--muted);">18mg/day · Women lose iron monthly</span></div>
-          <div style="padding:9px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span style="color:var(--text);">Calcium + D3</span><span style="color:var(--muted);">1000mg · Bone density critical</span></div>
-          <div style="padding:9px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span style="color:var(--text);">Magnesium</span><span style="color:var(--muted);">310-400mg · PMS game-changer</span></div>
-          <div style="padding:9px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span style="color:var(--text);">Omega-3</span><span style="color:var(--muted);">1-2g · Brain & skin</span></div>
-          <div style="padding:9px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span style="color:var(--text);">Folate (B9)</span><span style="color:var(--muted);">400mcg · Essential always</span></div>
-          <div style="padding:9px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;"><span style="color:var(--text);">Vitamin B12</span><span style="color:var(--muted);">2.4mcg · Energy & nervous system</span></div>
-          <div style="padding:9px 0;display:flex;justify-content:space-between;"><span style="color:var(--text);">Ashwagandha</span><span style="color:var(--muted);">600mg · Cortisol & stress</span></div>
+        <div style="font-size:.82rem;">
+          <div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;"><span>Iron</span><span style="color:var(--muted);font-size:.76rem;">18mg/day · Women lose iron monthly</span></div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;"><span>Calcium + D3</span><span style="color:var(--muted);font-size:.76rem;">1000mg · Bone density</span></div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;"><span>Magnesium</span><span style="color:var(--muted);font-size:.76rem;">310-400mg · PMS game-changer</span></div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;"><span>Omega-3</span><span style="color:var(--muted);font-size:.76rem;">1-2g · Brain & skin</span></div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;"><span>Folate (B9)</span><span style="color:var(--muted);font-size:.76rem;">400mcg · Essential always</span></div>
+          <div style="padding:8px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;"><span>Vitamin B12</span><span style="color:var(--muted);font-size:.76rem;">2.4mcg · Energy & nervous system</span></div>
+          <div style="padding:8px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;"><span>Ashwagandha</span><span style="color:var(--muted);font-size:.76rem;">600mg · Cortisol & stress</span></div>
         </div>
       </div>
       <a href="https://www.google.com/search?q=best+supplements+for+women+health+guide" target="_blank" class="res-link">
         <div class="res-icon">🔍</div>
-        <div><div class="res-title">Full Supplement Guide for Women</div><div class="res-sub">Google · Evidence-based</div></div>
-        <div class="res-arrow">↗</div>
-      </a>
-      <a href="https://www.google.com/search?q=supplement+timing+guide+morning+evening+women" target="_blank" class="res-link">
-        <div class="res-icon">⏰</div>
-        <div><div class="res-title">Supplement Timing Guide</div><div class="res-sub">Google · AM vs PM dosing</div></div>
+        <div><div class="res-title">Full Supplement Guide</div><div class="res-sub">Evidence-based research</div></div>
         <div class="res-arrow">↗</div>
       </a>
     </div>
@@ -756,13 +1138,13 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
         <div class="measure-row"><span class="measure-name">Hips</span><div class="flex gap8"><span class="measure-val" id="m-hips">94 cm</span><span class="measure-change same">↔</span></div></div>
         <div class="measure-row"><span class="measure-name">Chest</span><div class="flex gap8"><span class="measure-val" id="m-chest">86 cm</span><span class="measure-change same">↔</span></div></div>
         <div class="measure-row"><span class="measure-name">Thigh</span><div class="flex gap8"><span class="measure-val" id="m-thigh">54 cm</span><span class="measure-change down">↓ 0.5</span></div></div>
-        <div class="measure-row"><span class="measure-name">BMI</span><div class="flex gap8"><span class="measure-val" id="m-bmi">22.1</span><span class="tag-pill pill-teal" style="font-size:.68rem;">Healthy</span></div></div>
-        <div class="measure-row"><span class="measure-name">Body Fat %</span><div class="flex gap8"><span class="measure-val" id="m-bf">24%</span><span class="tag-pill pill-gold" style="font-size:.68rem;">Athletic</span></div></div>
+        <div class="measure-row"><span class="measure-name">BMI</span><div class="flex gap8"><span class="measure-val" id="m-bmi">22.1</span><span class="tag-pill pill-teal" style="font-size:.66rem;">Healthy</span></div></div>
+        <div class="measure-row"><span class="measure-name">Body Fat %</span><div class="flex gap8"><span class="measure-val" id="m-bf">24%</span><span class="tag-pill pill-gold" style="font-size:.66rem;">Athletic</span></div></div>
       </div>
     </div>
     <div class="card">
       <span class="section-label">Update Measurements</span>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
         <div><label>Weight (kg)</label><input type="number" id="i-weight" placeholder="62.4" step="0.1"></div>
         <div><label>Waist (cm)</label><input type="number" id="i-waist" placeholder="72"></div>
         <div><label>Hips (cm)</label><input type="number" id="i-hips" placeholder="94"></div>
@@ -773,15 +1155,12 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
       <button class="btn btn-gold mt16" onclick="updateMeasurements()" style="width:100%">Update Measurements</button>
       <hr class="divider">
       <span class="section-label">WHR Health Guide</span>
-      <div style="font-size:.82rem;color:var(--muted);line-height:1.8;">
-        Waist-to-Hip Ratio (WHR) is a key health marker for women.<br>
+      <div style="font-size:.8rem;color:var(--muted);line-height:1.9;">
+        Waist-to-Hip Ratio is a key health marker for women.<br>
         <span style="color:var(--teal);">✓ Healthy:</span> WHR below 0.85<br>
         <span style="color:var(--gold);">⚠ Moderate:</span> WHR 0.85–0.90<br>
         <span style="color:var(--blush);">↑ High risk:</span> WHR above 0.90
       </div>
-      <a href="https://www.google.com/search?q=waist+hip+ratio+women+health+calculator" target="_blank" class="res-link mt16" style="padding:10px;">
-        <div class="res-icon" style="font-size:1rem;">🔍</div><div><div class="res-title" style="font-size:.82rem;">WHR Calculator & Guide</div></div><div class="res-arrow">↗</div>
-      </a>
     </div>
   </div>
 </div>
@@ -796,7 +1175,7 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
     <div class="card card-accent">
       <span class="section-label">Last Night's Analysis</span>
       <div class="sleep-score-ring">
-        <svg width="120" height="120" viewBox="0 0 120 120">
+        <svg width="110" height="110" viewBox="0 0 120 120">
           <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border)" stroke-width="8"/>
           <circle cx="60" cy="60" r="50" fill="none" stroke="var(--gold)" stroke-width="8"
             stroke-dasharray="314" stroke-dashoffset="78" stroke-linecap="round"/>
@@ -806,14 +1185,14 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
           <span class="sleep-ring-lbl">Score</span>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;margin-bottom:16px;">
-        <div><div style="font-family:'Playfair Display',serif;color:var(--bright);font-size:1.1rem;">7h 20m</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">Total</div></div>
-        <div><div style="font-family:'Playfair Display',serif;color:var(--teal);font-size:1.1rem;">1h 45m</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">Deep</div></div>
-        <div><div style="font-family:'Playfair Display',serif;color:var(--lavender);font-size:1.1rem;">1h 55m</div><div style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">REM</div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;margin-bottom:14px;">
+        <div><div style="font-family:'Playfair Display',serif;color:var(--bright);font-size:1rem;">7h 20m</div><div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">Total</div></div>
+        <div><div style="font-family:'Playfair Display',serif;color:var(--teal);font-size:1rem;">1h 45m</div><div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">Deep</div></div>
+        <div><div style="font-family:'Playfair Display',serif;color:var(--lavender);font-size:1rem;">1h 55m</div><div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">REM</div></div>
       </div>
       <span class="section-label">Sleep Stages Timeline</span>
       <div class="sleep-timeline" id="sleep-timeline"></div>
-      <div style="display:flex;gap:12px;font-size:.72rem;color:var(--muted);margin-top:8px;">
+      <div style="display:flex;flex-wrap:wrap;gap:10px;font-size:.7rem;color:var(--muted);margin-top:6px;">
         <span style="color:var(--lavender);">■ REM</span>
         <span style="color:var(--teal);">■ Deep</span>
         <span style="color:var(--gold);">■ Light</span>
@@ -824,22 +1203,22 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
     <div>
       <div class="card mb16">
         <span class="section-label">Log Tonight's Sleep</span>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;">
           <div><label>Bedtime</label><input type="text" placeholder="10:30 PM"></div>
           <div><label>Wake Time</label><input type="text" placeholder="6:00 AM"></div>
         </div>
         <label>Sleep Quality</label>
-        <div style="display:flex;gap:8px;margin-bottom:12px;">
-          <button onclick="selectQ(this,'😴')" style="flex:1;padding:8px;background:var(--panel);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:1.2rem;color:white;" class="qbtn">😴</button>
-          <button onclick="selectQ(this,'😌')" style="flex:1;padding:8px;background:var(--panel);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:1.2rem;color:white;" class="qbtn">😌</button>
-          <button onclick="selectQ(this,'😐')" style="flex:1;padding:8px;background:var(--panel);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:1.2rem;color:white;" class="qbtn">😐</button>
-          <button onclick="selectQ(this,'😫')" style="flex:1;padding:8px;background:var(--panel);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:1.2rem;color:white;" class="qbtn">😫</button>
+        <div style="display:flex;gap:6px;margin-bottom:12px;">
+          <button onclick="selectQ(this)" style="flex:1;padding:8px;background:var(--panel);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:1.1rem;" class="qbtn">😴</button>
+          <button onclick="selectQ(this)" style="flex:1;padding:8px;background:var(--panel);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:1.1rem;" class="qbtn">😌</button>
+          <button onclick="selectQ(this)" style="flex:1;padding:8px;background:var(--panel);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:1.1rem;" class="qbtn">😐</button>
+          <button onclick="selectQ(this)" style="flex:1;padding:8px;background:var(--panel);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:1.1rem;" class="qbtn">😫</button>
         </div>
         <button class="btn btn-gold" onclick="toast('Sleep logged ✨')" style="width:100%">Log Sleep</button>
       </div>
       <div class="card">
         <span class="section-label">Sleep Optimization Tips</span>
-        <ul style="list-style:none;font-size:.85rem;line-height:2.2;color:var(--muted);">
+        <ul style="list-style:none;font-size:.83rem;line-height:2.1;color:var(--muted);">
           <li><span style="color:var(--gold);">🌙</span> Dim all lights 2h before bed</li>
           <li><span style="color:var(--gold);">📱</span> No screens 1h before sleep</li>
           <li><span style="color:var(--gold);">🌡️</span> Keep room 65-68°F / 18-20°C</li>
@@ -847,12 +1226,6 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
           <li><span style="color:var(--gold);">☕</span> No caffeine after 2 PM</li>
           <li><span style="color:var(--gold);">⏰</span> Consistent wake time daily</li>
         </ul>
-        <a href="https://www.youtube.com/results?search_query=sleep+science+women+hormones+insomnia" target="_blank" class="res-link mt16" style="padding:10px;">
-          <div class="res-icon" style="font-size:1rem;">▶</div><div><div class="res-title" style="font-size:.82rem;">Sleep & Hormones — YouTube</div></div><div class="res-arrow">↗</div>
-        </a>
-        <a href="https://www.google.com/search?q=improve+sleep+quality+women+naturally" target="_blank" class="res-link" style="padding:10px;">
-          <div class="res-icon" style="font-size:1rem;">🔍</div><div><div class="res-title" style="font-size:.82rem;">Sleep Improvement Guide</div></div><div class="res-arrow">↗</div>
-        </a>
       </div>
     </div>
   </div>
@@ -868,17 +1241,24 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
     <div class="card card-accent">
       <span class="section-label">Today's Cortisol Pattern</span>
       <div class="cortisol-bars" id="cortisol-bars"></div>
-      <div style="display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);letter-spacing:.5px;">
+      <div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);">
         <span>6AM</span><span>9AM</span><span>12PM</span><span>3PM</span><span>6PM</span><span>9PM</span>
       </div>
-      <p style="font-size:.78rem;color:var(--muted);margin-top:12px;line-height:1.6;">Cortisol naturally peaks at 8am and drops through the day. Abnormal spikes at night signal chronic stress.</p>
       <hr class="divider">
       <span class="section-label">Log Stress Level Now</span>
       <div class="slider-row">
         <div class="slider-label"><span>Stress Level</span><span id="stress-val-display" style="color:var(--blush);">7/10</span></div>
-        <input type="range" min="1" max="10" value="7" oninput="document.getElementById('stress-val-display').textContent=this.value+'/10'">
+        <input type="range" min="1" max="10" value="7" id="stress-slider" oninput="onStressChange(this.value)">
       </div>
-      <span class="section-label" style="margin-top:12px;">Stress Triggers (select all that apply)</span>
+
+      <!-- SITUATION PANEL — Dynamic based on level -->
+      <div id="stress-situation-panel" class="stress-situation-panel">
+        <div class="stress-situation-title" id="stress-sit-title">🔥 High Stress (7-8) — Action Plan</div>
+        <div id="stress-sit-actions"></div>
+      </div>
+
+      <hr class="divider">
+      <span class="section-label">Stress Triggers</span>
       <div class="stress-tags">
         <div class="stress-tag active" onclick="this.classList.toggle('active')">Work deadlines</div>
         <div class="stress-tag" onclick="this.classList.toggle('active')">Relationship</div>
@@ -895,54 +1275,439 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
     <div>
       <div class="card mb16">
         <span class="section-label">Cortisol-Lowering Protocol</span>
-        <div style="font-size:.85rem;">
-          <div style="padding:10px 0;border-bottom:1px solid var(--border);">
-            <div style="color:var(--bright);font-weight:500;margin-bottom:4px;">🌿 Adaptogens</div>
-            <div style="color:var(--muted);font-size:.8rem;">Ashwagandha, Rhodiola, Holy Basil — clinically shown to reduce cortisol</div>
+        <div style="font-size:.83rem;">
+          <div style="padding:9px 0;border-bottom:1px solid var(--border);">
+            <div style="color:var(--bright);font-weight:500;margin-bottom:3px;">🌿 Adaptogens</div>
+            <div style="color:var(--muted);font-size:.78rem;">Ashwagandha, Rhodiola, Holy Basil — clinically shown to reduce cortisol</div>
           </div>
-          <div style="padding:10px 0;border-bottom:1px solid var(--border);">
-            <div style="color:var(--bright);font-weight:500;margin-bottom:4px;">🧘 Breathwork</div>
-            <div style="color:var(--muted);font-size:.8rem;">4-7-8 or box breathing activates parasympathetic nervous system instantly</div>
+          <div style="padding:9px 0;border-bottom:1px solid var(--border);">
+            <div style="color:var(--bright);font-weight:500;margin-bottom:3px;">🧘 Breathwork</div>
+            <div style="color:var(--muted);font-size:.78rem;">4-7-8 or box breathing activates parasympathetic nervous system</div>
           </div>
-          <div style="padding:10px 0;border-bottom:1px solid var(--border);">
-            <div style="color:var(--bright);font-weight:500;margin-bottom:4px;">🏃‍♀️ Zone 2 Cardio</div>
-            <div style="color:var(--muted);font-size:.8rem;">Low-intensity cardio 3x/week lowers baseline cortisol over time</div>
+          <div style="padding:9px 0;border-bottom:1px solid var(--border);">
+            <div style="color:var(--bright);font-weight:500;margin-bottom:3px;">🏃‍♀️ Zone 2 Cardio</div>
+            <div style="color:var(--muted);font-size:.78rem;">Low-intensity cardio 3x/week lowers baseline cortisol</div>
           </div>
-          <div style="padding:10px 0;border-bottom:1px solid var(--border);">
-            <div style="color:var(--bright);font-weight:500;margin-bottom:4px;">😴 Sleep Prioritization</div>
-            <div style="color:var(--muted);font-size:.8rem;">Cortisol and sleep are bidirectional — poor sleep = high cortisol</div>
+          <div style="padding:9px 0;border-bottom:1px solid var(--border);">
+            <div style="color:var(--bright);font-weight:500;margin-bottom:3px;">😴 Sleep Prioritization</div>
+            <div style="color:var(--muted);font-size:.78rem;">Cortisol and sleep are bidirectional — poor sleep = high cortisol</div>
           </div>
-          <div style="padding:10px 0;">
-            <div style="color:var(--bright);font-weight:500;margin-bottom:4px;">🍫 Magnesium + Dark Chocolate</div>
-            <div style="color:var(--muted);font-size:.8rem;">Both blunt cortisol response and support GABA (calming neurotransmitter)</div>
+          <div style="padding:9px 0;">
+            <div style="color:var(--bright);font-weight:500;margin-bottom:3px;">🍫 Magnesium + Dark Chocolate</div>
+            <div style="color:var(--muted);font-size:.78rem;">Both blunt cortisol response and support GABA</div>
           </div>
         </div>
       </div>
       <a href="https://www.google.com/search?q=how+to+lower+cortisol+naturally+women" target="_blank" class="res-link">
         <div class="res-icon">🔍</div>
-        <div><div class="res-title">Lower Cortisol Naturally</div><div class="res-sub">Google · Science-backed guide</div></div>
-        <div class="res-arrow">↗</div>
-      </a>
-      <a href="https://www.youtube.com/results?search_query=reduce+stress+cortisol+women+naturally" target="_blank" class="res-link">
-        <div class="res-icon">▶</div>
-        <div><div class="res-title">Cortisol & Stress — YouTube</div><div class="res-sub">Video guides</div></div>
+        <div><div class="res-title">Lower Cortisol Naturally</div><div class="res-sub">Science-backed guide</div></div>
         <div class="res-arrow">↗</div>
       </a>
     </div>
   </div>
 </div>
 
-<!-- RECIPES -->
+<!-- HORMONE CALCULATOR -->
+<div id="hcalc" class="section">
+  <div class="page-header">
+    <div class="page-title">Hormone <em>Calculator</em></div>
+    <div class="page-sub">Estimate your hormonal status via symptoms or enter your actual lab values</div>
+  </div>
+
+  <!-- Mode Toggle -->
+  <div style="display:flex;gap:8px;margin-bottom:20px;">
+    <button class="btn btn-gold" id="tab-symptom" onclick="switchHCalc('symptom')" style="flex:1;">🩺 Symptom-Based Quiz</button>
+    <button class="btn btn-outline" id="tab-lab" onclick="switchHCalc('lab')" style="flex:1;">🔬 Enter Lab Values</button>
+  </div>
+
+  <!-- SYMPTOM QUIZ -->
+  <div id="hcalc-symptom">
+    <div class="card card-accent mb16">
+      <span class="section-label">Step 1 — Answer These Questions</span>
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:16px;">Select how often you experience each symptom. This estimates your hormonal status — not a medical diagnosis.</p>
+
+      <div id="symptom-questions"></div>
+      <button class="btn btn-gold mt16" onclick="calcSymptoms()" style="width:100%;">🧬 Calculate Hormone Status</button>
+    </div>
+    <div id="symptom-results" style="display:none;"></div>
+  </div>
+
+  <!-- LAB VALUES -->
+  <div id="hcalc-lab" style="display:none;">
+    <div class="grid2">
+      <div class="card card-accent">
+        <span class="section-label">Enter Your Blood Test Results</span>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:14px;">Enter values from your lab report. Leave blank if not tested.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+          <div>
+            <label>Estradiol (E2) <span style="color:var(--muted);font-size:.65rem;">pg/mL</span></label>
+            <input type="number" id="lab-e2" placeholder="50–400 follicular">
+          </div>
+          <div>
+            <label>Progesterone <span style="color:var(--muted);font-size:.65rem;">ng/mL</span></label>
+            <input type="number" id="lab-prog" placeholder="0.1–25" step="0.1">
+          </div>
+          <div>
+            <label>FSH <span style="color:var(--muted);font-size:.65rem;">mIU/mL</span></label>
+            <input type="number" id="lab-fsh" placeholder="3–10 follicular" step="0.1">
+          </div>
+          <div>
+            <label>LH <span style="color:var(--muted);font-size:.65rem;">mIU/mL</span></label>
+            <input type="number" id="lab-lh" placeholder="2–15" step="0.1">
+          </div>
+          <div>
+            <label>TSH <span style="color:var(--muted);font-size:.65rem;">mIU/L</span></label>
+            <input type="number" id="lab-tsh" placeholder="0.4–4.0" step="0.01">
+          </div>
+          <div>
+            <label>Free T3 <span style="color:var(--muted);font-size:.65rem;">pg/mL</span></label>
+            <input type="number" id="lab-ft3" placeholder="2.3–4.2" step="0.01">
+          </div>
+          <div>
+            <label>Free T4 <span style="color:var(--muted);font-size:.65rem;">ng/dL</span></label>
+            <input type="number" id="lab-ft4" placeholder="0.8–1.8" step="0.01">
+          </div>
+          <div>
+            <label>Cortisol AM <span style="color:var(--muted);font-size:.65rem;">μg/dL</span></label>
+            <input type="number" id="lab-cortisol" placeholder="6–23 AM" step="0.1">
+          </div>
+          <div>
+            <label>DHEA-S <span style="color:var(--muted);font-size:.65rem;">μg/dL</span></label>
+            <input type="number" id="lab-dhea" placeholder="35–430" step="1">
+          </div>
+          <div>
+            <label>Testosterone Total <span style="color:var(--muted);font-size:.65rem;">ng/dL</span></label>
+            <input type="number" id="lab-testo" placeholder="15–70" step="1">
+          </div>
+          <div>
+            <label>Insulin (fasting) <span style="color:var(--muted);font-size:.65rem;">μIU/mL</span></label>
+            <input type="number" id="lab-insulin" placeholder="<10 optimal" step="0.1">
+          </div>
+          <div>
+            <label>Ferritin <span style="color:var(--muted);font-size:.65rem;">ng/mL</span></label>
+            <input type="number" id="lab-ferritin" placeholder="20–200" step="1">
+          </div>
+        </div>
+        <div style="margin-bottom:12px;">
+          <label>Cycle Phase When Tested</label>
+          <select id="lab-phase">
+            <option>Follicular (Day 1-13)</option>
+            <option>Ovulation (Day 14)</option>
+            <option>Luteal (Day 15-28)</option>
+            <option>Menopause / Post-menopausal</option>
+            <option>Unknown</option>
+          </select>
+        </div>
+        <button class="btn btn-gold" onclick="calcLabValues()" style="width:100%;">🔬 Analyze My Results</button>
+      </div>
+
+      <div>
+        <div class="card mb16">
+          <span class="section-label">Reference Ranges Guide</span>
+          <div style="font-size:.78rem;">
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="color:var(--gold);font-weight:500;margin-bottom:3px;">Estradiol (E2)</div>
+              <div style="color:var(--muted);">Follicular: 20-150 pg/mL · Ovulation: 150-500 · Luteal: 30-450 · Menopause: &lt;30</div>
+            </div>
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="color:var(--gold);font-weight:500;margin-bottom:3px;">Progesterone</div>
+              <div style="color:var(--muted);">Follicular: 0.1–0.9 ng/mL · Luteal: 2–25 · Menopause: &lt;0.5</div>
+            </div>
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="color:var(--gold);font-weight:500;margin-bottom:3px;">TSH (Thyroid)</div>
+              <div style="color:var(--muted);">Optimal: 0.5–2.5 mIU/L (standard lab range is wider, but functional range is tighter)</div>
+            </div>
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="color:var(--gold);font-weight:500;margin-bottom:3px;">Cortisol AM</div>
+              <div style="color:var(--muted);">Normal: 6–23 μg/dL · Optimal: 14–20 in early morning</div>
+            </div>
+            <div style="padding:8px 0;border-bottom:1px solid var(--border);">
+              <div style="color:var(--gold);font-weight:500;margin-bottom:3px;">Ferritin (Iron Stores)</div>
+              <div style="color:var(--muted);">Lab range: &gt;12 · Functional optimal for women: 50–150 ng/mL</div>
+            </div>
+            <div style="padding:8px 0;">
+              <div style="color:var(--gold);font-weight:500;margin-bottom:3px;">Fasting Insulin</div>
+              <div style="color:var(--muted);">Lab normal: &lt;25 · Optimal: &lt;8 μIU/mL for metabolic health</div>
+            </div>
+          </div>
+        </div>
+        <div id="lab-results"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORKOUT PLANNER -->
+<div id="workout" class="section">
+  <div class="page-header">
+    <div class="page-title">Workout & <em>Exercise</em> Planner</div>
+    <div class="page-sub">Hormone-synced training — the right workout at the right time in your cycle</div>
+  </div>
+
+  <div class="grid2 mb16">
+    <div class="card card-accent">
+      <span class="section-label">Today's Recommended Workout</span>
+      <div style="margin-bottom:14px;">
+        <label>Your Cycle Phase Today</label>
+        <select id="wo-phase" onchange="updateWorkoutPlan()">
+          <option value="menstrual">🩸 Menstrual (Day 1-5)</option>
+          <option value="follicular" selected>🌱 Follicular (Day 6-13)</option>
+          <option value="ovulation">🌸 Ovulation (Day 14)</option>
+          <option value="luteal">🍂 Luteal (Day 15-28)</option>
+        </select>
+      </div>
+      <div style="margin-bottom:14px;">
+        <label>Fitness Goal</label>
+        <select id="wo-goal" onchange="updateWorkoutPlan()">
+          <option value="balance">Hormone Balance</option>
+          <option value="strength">Build Strength</option>
+          <option value="fat">Fat Loss</option>
+          <option value="energy">Boost Energy</option>
+          <option value="stress">Reduce Stress</option>
+        </select>
+      </div>
+      <div style="margin-bottom:14px;">
+        <label>Available Time</label>
+        <select id="wo-time" onchange="updateWorkoutPlan()">
+          <option value="20">20 minutes</option>
+          <option value="30" selected>30 minutes</option>
+          <option value="45">45 minutes</option>
+          <option value="60">60 minutes</option>
+        </select>
+      </div>
+      <div id="workout-recommendation" style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:14px;"></div>
+    </div>
+
+    <div>
+      <div class="card mb16">
+        <span class="section-label">Weekly Workout Log</span>
+        <div id="weekly-log">
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;margin-bottom:8px;">
+            <div style="font-size:.65rem;color:var(--muted);letter-spacing:1px;">MON</div>
+            <div style="font-size:.65rem;color:var(--muted);letter-spacing:1px;">TUE</div>
+            <div style="font-size:.65rem;color:var(--muted);letter-spacing:1px;">WED</div>
+            <div style="font-size:.65rem;color:var(--muted);letter-spacing:1px;">THU</div>
+            <div style="font-size:.65rem;color:var(--muted);letter-spacing:1px;">FRI</div>
+            <div style="font-size:.65rem;color:var(--muted);letter-spacing:1px;">SAT</div>
+            <div style="font-size:.65rem;color:var(--muted);letter-spacing:1px;">SUN</div>
+          </div>
+          <div id="day-dots" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;"></div>
+        </div>
+        <hr class="divider">
+        <span class="section-label">Log Today's Workout</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0;">
+          <div>
+            <label>Type</label>
+            <select id="log-type">
+              <option>Strength Training</option>
+              <option>HIIT</option>
+              <option>Yoga / Pilates</option>
+              <option>Walking</option>
+              <option>Cycling</option>
+              <option>Swimming</option>
+              <option>Dance</option>
+              <option>Rest Day</option>
+            </select>
+          </div>
+          <div>
+            <label>Duration (min)</label>
+            <input type="number" id="log-duration" placeholder="30" min="1" max="180">
+          </div>
+        </div>
+        <div style="margin-bottom:10px;">
+          <label>Energy Level After</label>
+          <div style="display:flex;gap:6px;margin-top:4px;">
+            <button class="ebtn" onclick="selectEnergy(this,'😴')" style="flex:1;padding:7px;background:var(--panel);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:1rem;">😴</button>
+            <button class="ebtn" onclick="selectEnergy(this,'😐')" style="flex:1;padding:7px;background:var(--panel);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:1rem;">😐</button>
+            <button class="ebtn" onclick="selectEnergy(this,'🙂')" style="flex:1;padding:7px;background:var(--panel);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:1rem;">🙂</button>
+            <button class="ebtn" onclick="selectEnergy(this,'🔥')" style="flex:1;padding:7px;background:var(--panel);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:1rem;">🔥</button>
+          </div>
+        </div>
+        <button class="btn btn-gold" onclick="logWorkout()" style="width:100%;">💾 Log Workout</button>
+      </div>
+      <div class="card">
+        <span class="section-label">This Week's Stats</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;margin-top:8px;">
+          <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px;">
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);" id="stat-sessions">0</div>
+            <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:3px;">Sessions</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px;">
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--teal);" id="stat-mins">0</div>
+            <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:3px;">Minutes</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px;">
+            <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--lavender);" id="stat-streak">0🔥</div>
+            <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:3px;">Streak</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cycle-phase exercise guide -->
+  <div class="card">
+    <span class="section-label">🔄 Cycle-Synced Exercise Science</span>
+    <div class="grid3" style="margin-top:12px;gap:10px;">
+      <div style="background:rgba(212,130,122,0.07);border:1px solid rgba(212,130,122,0.2);border-radius:10px;padding:14px;">
+        <div style="color:var(--blush);font-weight:600;font-size:.85rem;margin-bottom:8px;">🩸 Menstrual (Day 1-5)</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">Best: Yoga, gentle walks, stretching<br>Avoid: Heavy HIIT, intense strength<br><span style="color:var(--blush);">Hormones: E2 & P4 lowest</span><br>Energy: Low — honor your body</div>
+      </div>
+      <div style="background:rgba(91,191,181,0.07);border:1px solid rgba(91,191,181,0.2);border-radius:10px;padding:14px;">
+        <div style="color:var(--teal);font-weight:600;font-size:.85rem;margin-bottom:8px;">🌱 Follicular (Day 6-13)</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">Best: Strength training, HIIT, cardio<br>Estrogen rising = peak performance<br><span style="color:var(--teal);">Hormones: E2 rising fast</span><br>Energy: HIGH — push it</div>
+      </div>
+      <div style="background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:14px;">
+        <div style="color:var(--gold);font-weight:600;font-size:.85rem;margin-bottom:8px;">🌸 Ovulation (Day 14)</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">Best: Peak performance workouts<br>Highest strength & pain tolerance<br><span style="color:var(--gold);">Hormones: E2 + testosterone peak</span><br>Energy: PEAK — best workouts</div>
+      </div>
+      <div style="background:rgba(155,142,196,0.07);border:1px solid rgba(155,142,196,0.2);border-radius:10px;padding:14px;">
+        <div style="color:var(--lavender);font-weight:600;font-size:.85rem;margin-bottom:8px;">🍂 Luteal (Day 15-28)</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">Best: Moderate weights, Pilates, walks<br>Avoid: Overtraining (worsens PMS)<br><span style="color:var(--lavender);">Hormones: P4 rises, E2 drops</span><br>Energy: Moderate → fatigue near end</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="color:var(--bright);font-weight:600;font-size:.85rem;margin-bottom:8px;">💡 Key Principles</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">Never exercise fasted if stressed<br>Cortisol spikes kill muscle + hormones<br>Strength training boosts metabolism<br>Zone 2 cardio is best for cortisol<br>Rest days are growth days</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="color:var(--bright);font-weight:600;font-size:.85rem;margin-bottom:8px;">⚠️ Warning Signs</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">Exercise stops period → overtraining<br>Extreme fatigue after workouts<br>Insomnia after PM exercise<br>Always hungry = under-eating<br>Mood crash post-workout</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GOALS -->
+<div id="goals" class="section">
+  <div class="page-header">
+    <div class="page-title">Goal Setting & <em>Progress</em></div>
+    <div class="page-sub">Set meaningful health goals, track progress, and celebrate wins</div>
+  </div>
+
+  <div class="grid2 mb16">
+    <div class="card card-accent">
+      <span class="section-label">Add New Goal</span>
+      <div style="margin-bottom:10px;">
+        <label>Goal Category</label>
+        <select id="goal-cat">
+          <option>🧬 Hormonal Health</option>
+          <option>✨ Skin & Hair</option>
+          <option>💊 Supplement Routine</option>
+          <option>🏋️ Exercise</option>
+          <option>😴 Sleep</option>
+          <option>🧘 Stress Management</option>
+          <option>🥗 Nutrition</option>
+          <option>⚖️ Body Composition</option>
+          <option>💧 Hydration</option>
+          <option>🩺 Health Tests</option>
+        </select>
+      </div>
+      <div style="margin-bottom:10px;">
+        <label>Goal Title</label>
+        <input type="text" id="goal-title" placeholder="e.g. Sleep 8 hours every night">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <div>
+          <label>Target Date</label>
+          <input type="date" id="goal-date">
+        </div>
+        <div>
+          <label>Priority</label>
+          <select id="goal-priority">
+            <option value="high">🔴 High</option>
+            <option value="med" selected>🟡 Medium</option>
+            <option value="low">🟢 Low</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label>Why This Goal Matters (optional)</label>
+        <input type="text" id="goal-why" placeholder="e.g. Better sleep = balanced hormones">
+      </div>
+      <div style="margin-bottom:12px;">
+        <label>Progress Type</label>
+        <select id="goal-type">
+          <option value="pct">% Complete (0→100%)</option>
+          <option value="counter">Counter (daily habit)</option>
+          <option value="done">Done / Not Done</option>
+        </select>
+      </div>
+      <button class="btn btn-gold" onclick="addGoal()" style="width:100%;">✦ Add Goal</button>
+    </div>
+
+    <div class="card">
+      <span class="section-label">Overall Progress</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;text-align:center;">
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:14px;">
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);" id="g-total">0</div>
+          <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:4px;">Total Goals</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:14px;">
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--teal);" id="g-done">0</div>
+          <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:4px;">Completed</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:14px;">
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--lavender);" id="g-inprog">0</div>
+          <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:4px;">In Progress</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:14px;">
+          <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--blush);" id="g-streak">0🔥</div>
+          <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:4px;">Day Streak</div>
+        </div>
+      </div>
+
+      <!-- Overall progress bar -->
+      <div style="margin-bottom:6px;display:flex;justify-content:space-between;font-size:.75rem;">
+        <span style="color:var(--muted);">Overall Completion</span>
+        <span style="color:var(--gold);" id="g-pct-label">0%</span>
+      </div>
+      <div style="background:var(--border);border-radius:4px;height:6px;overflow:hidden;">
+        <div id="g-pct-bar" style="background:linear-gradient(90deg,var(--gold),var(--gold2));height:100%;width:0%;transition:width .5s;border-radius:4px;"></div>
+      </div>
+
+      <hr class="divider">
+      <span class="section-label">🌟 Suggested Health Goals</span>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;">
+        <span onclick="quickGoal('Sleep 8h nightly','😴 Sleep')" class="stress-tag" style="cursor:pointer;">😴 Sleep 8h</span>
+        <span onclick="quickGoal('Take all supplements daily','💊 Supplement Routine')" class="stress-tag" style="cursor:pointer;">💊 Daily Supps</span>
+        <span onclick="quickGoal('Exercise 4x per week','🏋️ Exercise')" class="stress-tag" style="cursor:pointer;">🏋️ 4x Workout</span>
+        <span onclick="quickGoal('Drink 2L water daily','💧 Hydration')" class="stress-tag" style="cursor:pointer;">💧 2L Water</span>
+        <span onclick="quickGoal('Get hormone blood test done','🩺 Health Tests')" class="stress-tag" style="cursor:pointer;">🩺 Blood Test</span>
+        <span onclick="quickGoal('Meditate 10 min daily','🧘 Stress Management')" class="stress-tag" style="cursor:pointer;">🧘 Meditate</span>
+        <span onclick="quickGoal('No caffeine after 2pm','🥗 Nutrition')" class="stress-tag" style="cursor:pointer;">☕ Cut Late Coffee</span>
+        <span onclick="quickGoal('Track period for 3 months','🧬 Hormonal Health')" class="stress-tag" style="cursor:pointer;">🧬 Track Cycle</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Goal List -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <span class="section-label" style="margin:0;">My Goals</span>
+      <div style="display:flex;gap:6px;">
+        <button class="btn btn-outline" onclick="filterGoals('all')" id="gf-all" style="font-size:.68rem;padding:6px 10px;border-color:var(--gold);color:var(--gold);">All</button>
+        <button class="btn btn-outline" onclick="filterGoals('active')" id="gf-active" style="font-size:.68rem;padding:6px 10px;">Active</button>
+        <button class="btn btn-outline" onclick="filterGoals('done')" id="gf-done" style="font-size:.68rem;padding:6px 10px;">Done</button>
+      </div>
+    </div>
+    <div id="goals-list">
+      <p style="font-size:.85rem;color:var(--muted);text-align:center;padding:30px 0;">No goals yet. Add your first health goal above ✨</p>
+    </div>
+  </div>
+</div>
+
+<!-- OLD RECIPES (now hidden/removed) -->
 <div id="recipes" class="section">
   <div class="page-header">
     <div class="page-title">AI Recipe <em>Generator</em></div>
-    <div class="page-sub">Get personalized hormone-healthy recipes instantly — powered by Claude AI</div>
+    <div class="page-sub">Personalized hormone-healthy recipes — powered by Claude AI</div>
   </div>
   <div class="grid2">
     <div class="card card-accent">
       <span class="section-label">Build Your Recipe</span>
-      <label style="margin-top:0;">Health Goal</label>
-      <select id="recipe-goal" style="margin-bottom:12px;">
+      <label>Health Goal</label>
+      <select id="recipe-goal" style="margin-bottom:10px;">
         <option>Hormone Balance</option>
         <option>Period Cramp Relief</option>
         <option>Anti-Inflammatory</option>
@@ -953,93 +1718,64 @@ label { font-size:0.78rem; letter-spacing:1px; text-transform:uppercase; color:v
         <option>Menopause Support</option>
       </select>
       <label>Meal Type</label>
-      <select id="recipe-meal" style="margin-bottom:12px;">
+      <select id="recipe-meal" style="margin-bottom:10px;">
         <option>Breakfast</option><option>Lunch</option><option>Dinner</option>
         <option>Snack</option><option>Smoothie</option><option>Dessert</option>
       </select>
       <label>Dietary Preference</label>
-      <select id="recipe-diet" style="margin-bottom:16px;">
+      <select id="recipe-diet" style="margin-bottom:14px;">
         <option>No Restriction</option><option>Vegetarian</option><option>Vegan</option>
         <option>Gluten-Free</option><option>Dairy-Free</option><option>Paleo</option>
       </select>
       <span class="section-label">Quick Add Ingredients</span>
       <div class="ingredient-tags">
-        <div class="ing-tag" onclick="addIng(this,'Spinach')">🥬 Spinach</div>
-        <div class="ing-tag" onclick="addIng(this,'Salmon')">🐟 Salmon</div>
-        <div class="ing-tag" onclick="addIng(this,'Lentils')">🫘 Lentils</div>
-        <div class="ing-tag" onclick="addIng(this,'Eggs')">🥚 Eggs</div>
-        <div class="ing-tag" onclick="addIng(this,'Avocado')">🥑 Avocado</div>
-        <div class="ing-tag" onclick="addIng(this,'Chia Seeds')">🌱 Chia</div>
-        <div class="ing-tag" onclick="addIng(this,'Sweet Potato')">🍠 Sweet Potato</div>
-        <div class="ing-tag" onclick="addIng(this,'Blueberries')">🫐 Blueberries</div>
+        <div class="ing-tag" onclick="toggleIng(this,'Spinach')">🥬 Spinach</div>
+        <div class="ing-tag" onclick="toggleIng(this,'Salmon')">🐟 Salmon</div>
+        <div class="ing-tag" onclick="toggleIng(this,'Lentils')">🫘 Lentils</div>
+        <div class="ing-tag" onclick="toggleIng(this,'Eggs')">🥚 Eggs</div>
+        <div class="ing-tag" onclick="toggleIng(this,'Avocado')">🥑 Avocado</div>
+        <div class="ing-tag" onclick="toggleIng(this,'Chia Seeds')">🌱 Chia</div>
+        <div class="ing-tag" onclick="toggleIng(this,'Sweet Potato')">🍠 Sweet Potato</div>
+        <div class="ing-tag" onclick="toggleIng(this,'Blueberries')">🫐 Blueberries</div>
       </div>
-      <label style="margin-top:4px;">Custom Ingredients / Notes</label>
+      <label style="margin-top:6px;">Custom Ingredients / Notes</label>
       <input type="text" id="custom-ings" placeholder="e.g. quinoa, turmeric, no nuts..." style="margin-bottom:12px;">
       <button class="btn btn-gold" onclick="generateRecipe()" style="width:100%" id="recipe-btn">✨ Generate Recipe</button>
     </div>
     <div class="card">
       <span class="section-label">Your Recipe</span>
       <div id="recipe-output" class="recipe-output">
-        <div style="text-align:center;padding:40px;color:var(--muted);">
-          <div style="font-size:2rem;margin-bottom:12px;">🍳</div>
-          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;">Select your preferences and generate a personalized recipe tailored to your hormonal health...</div>
+        <div style="text-align:center;padding:30px;color:var(--muted);">
+          <div style="font-size:1.8rem;margin-bottom:10px;">🍳</div>
+          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;">Select your preferences and generate a personalized recipe tailored to your hormonal health...</div>
         </div>
       </div>
       <div class="mt16 flex gap8">
-        <a href="https://www.google.com/search?q=hormone+healthy+recipes+women" target="_blank" class="btn btn-outline" style="text-decoration:none;font-size:.72rem;padding:9px 14px;">Browse More ↗</a>
-        <a href="https://www.youtube.com/results?search_query=healthy+recipes+women+hormones" target="_blank" class="btn btn-outline" style="text-decoration:none;font-size:.72rem;padding:9px 14px;">YouTube Recipes ▶</a>
+        <a href="https://www.google.com/search?q=hormone+healthy+recipes+women" target="_blank" class="btn btn-outline" style="text-decoration:none;font-size:.7rem;padding:9px 12px;">Browse More ↗</a>
+        <a href="https://www.youtube.com/results?search_query=healthy+recipes+women+hormones" target="_blank" class="btn btn-outline" style="text-decoration:none;font-size:.7rem;padding:9px 12px;">YouTube Recipes ▶</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- AI COACH -->
-<div id="coach" class="section">
-  <div class="page-header">
-    <div class="page-title">Inner <em>Coach</em></div>
-    <div class="page-sub">Your AI specialist in women's hormonal health, body, and wellness — always available</div>
-  </div>
-  <div class="prompt-chips">
-    <button class="chip" onclick="chip('What causes hormonal imbalance and how do I fix it naturally?')">🧬 Hormonal Imbalance</button>
-    <button class="chip" onclick="chip('Which supplements are most important for women over 30?')">💊 Supplements 30+</button>
-    <button class="chip" onclick="chip('How does cortisol affect weight gain in women and how to fix it?')">⚡ Cortisol & Weight</button>
-    <button class="chip" onclick="chip('What foods improve skin collagen and reduce aging?')">✨ Skin Nutrition</button>
-    <button class="chip" onclick="chip('How do I optimize my sleep for hormonal health?')">🌙 Sleep Hormones</button>
-    <button class="chip" onclick="chip('What is PCOS and how is it managed naturally?')">🌸 PCOS Guide</button>
-    <button class="chip" onclick="chip('How do I boost my metabolism naturally as a woman?')">🔥 Boost Metabolism</button>
-    <button class="chip" onclick="chip('What are the best anti-inflammatory habits for women?')">🌿 Anti-Inflammatory</button>
-    <button class="chip" onclick="chip('How does gut health affect womens hormones?')">🦠 Gut-Hormone Axis</button>
-    <button class="chip" onclick="chip('I feel exhausted all the time. What could be the cause?')">😴 Chronic Fatigue</button>
-  </div>
-  <div class="chat-wrap" id="chat-container">
-    <div class="bubble ai">
-      <strong>Welcome to Lumina's Inner Coach 🌙</strong><br><br>
-      I'm your specialized AI advisor for women's hormonal health, body composition, supplement science, skin nutrition, sleep optimization, and stress management.<br><br>
-      My knowledge is rooted in evidence-based research. Ask me anything — from complex hormonal questions to what to eat tonight for glowing skin. ✨
-    </div>
-  </div>
-  <div class="ai-input-row">
-    <input class="ai-input" id="ai-input" placeholder="Ask about hormones, supplements, skin, sleep, stress, body composition..." onkeypress="if(event.key==='Enter')sendAI()">
-    <button class="ai-send" id="ai-send" onclick="sendAI()">Send ✦</button>
-  </div>
-  <div style="text-align:center;font-size:.72rem;color:var(--muted);letter-spacing:.5px;margin-top:10px;">POWERED BY ANTHROPIC CLAUDE · EVIDENCE-BASED · 24/7 AVAILABLE</div>
-</div>
+<!-- OLD RECIPES (now hidden/removed) -->
+<div id="coach" class="section" style="display:none!important;"></div>
 
 <div id="toast" class="toast"></div>
 
 <script>
-// ── Navigation ─────────────────────────────────────────────
+// ─── Navigation ────────────────────────────────────────────
 function go(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const ids = ['home','hormones','skin','supplements','body','sleep','stress','recipes','coach'];
+  const ids = ['home','hormones','skin','supplements','body','sleep','stress','hcalc','workout','goals'];
   const idx = ids.indexOf(id);
   if (idx >= 0) document.querySelectorAll('.nav-tab')[idx]?.classList.add('active');
   window.scrollTo(0, 0);
 }
 
-// ── Toast ──────────────────────────────────────────────────
+// ─── Toast ─────────────────────────────────────────────────
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -1047,19 +1783,19 @@ function toast(msg) {
   setTimeout(() => t.classList.remove('show'), 2600);
 }
 
-// ── Date ───────────────────────────────────────────────────
+// ─── Date ──────────────────────────────────────────────────
 const now = new Date();
 document.getElementById('hero-date').textContent = now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}).toUpperCase();
 
-// ── Daily Focus ────────────────────────────────────────────
+// ─── Daily Focus ───────────────────────────────────────────
 const focuses = [
-  "🌿 <span style='color:var(--gold)'>Hormone Tip:</span> Your liver metabolizes estrogen — eat cruciferous vegetables (broccoli, cauliflower) to support estrogen clearance and balance.<br><br>⚡ <span style='color:var(--gold)'>Cortisol Reminder:</span> Avoid intense exercise after 6 PM — evening HIIT can spike cortisol and disrupt your sleep onset.<br><br>💊 <span style='color:var(--gold)'>Supplement:</span> Take magnesium glycinate before bed tonight — it activates GABA receptors for deeper, restorative sleep.",
-  "✨ <span style='color:var(--gold)'>Skin Today:</span> Collagen synthesis peaks in the morning — take Vitamin C with your breakfast for maximum skin benefit.<br><br>🧬 <span style='color:var(--gold)'>Hormone Insight:</span> Progesterone naturally drops in the week before menstruation — increase magnesium and B6 now to ease PMS symptoms.<br><br>🌙 <span style='color:var(--gold)'>Sleep Prep:</span> Set an alarm for 9 PM as your wind-down cue — consistency in sleep timing resets circadian rhythms within 3 days.",
-  "🦠 <span style='color:var(--gold)'>Gut-Hormone:</span> Your gut microbiome produces 90% of your serotonin and modulates estrogen — add fermented foods daily.<br><br>🧘 <span style='color:var(--gold)'>Stress Reset:</span> Even 10 minutes of quiet walking lowers cortisol by 15% — take a phone-free walk after lunch today.<br><br>💧 <span style='color:var(--gold)'>Hydration:</span> Dehydration mimics hunger and spikes cortisol — drink 500ml water before your first coffee.",
+  "🌿 <strong style='color:var(--gold)'>Hormone Tip:</strong> Your liver metabolizes estrogen — eat cruciferous vegetables (broccoli, cauliflower) to support estrogen clearance.<br><br>⚡ <strong style='color:var(--gold)'>Cortisol Reminder:</strong> Avoid intense exercise after 6 PM — evening HIIT can spike cortisol and disrupt sleep onset.<br><br>💊 <strong style='color:var(--gold)'>Supplement:</strong> Take magnesium glycinate before bed tonight for deeper, restorative sleep.",
+  "✨ <strong style='color:var(--gold)'>Skin Today:</strong> Collagen synthesis peaks in the morning — take Vitamin C with breakfast for maximum skin benefit.<br><br>🧬 <strong style='color:var(--gold)'>Hormone Insight:</strong> Progesterone drops before menstruation — increase magnesium and B6 now to ease PMS.<br><br>🌙 <strong style='color:var(--gold)'>Sleep Prep:</strong> Consistency in sleep timing resets circadian rhythms within 3 days.",
+  "🦠 <strong style='color:var(--gold)'>Gut-Hormone:</strong> Your gut modulates estrogen — add fermented foods daily.<br><br>🧘 <strong style='color:var(--gold)'>Stress Reset:</strong> Even 10 minutes of quiet walking lowers cortisol by 15%.<br><br>💧 <strong style='color:var(--gold)'>Hydration:</strong> Drink 500ml water before your first coffee — dehydration mimics hunger and spikes cortisol.",
 ];
 document.getElementById('daily-focus').innerHTML = focuses[now.getDate() % focuses.length];
 
-// ── Sleep Timeline ─────────────────────────────────────────
+// ─── Sleep Timeline ────────────────────────────────────────
 const sleepData = [
   {h:20,c:'var(--gold)'},{h:55,c:'var(--lavender)'},{h:80,c:'var(--teal)'},{h:65,c:'var(--lavender)'},
   {h:30,c:'var(--gold)'},{h:10,c:'var(--border)'},{h:45,c:'var(--lavender)'},{h:70,c:'var(--teal)'},
@@ -1073,7 +1809,7 @@ sleepData.forEach(d => {
   tl.appendChild(b);
 });
 
-// ── Cortisol Bars ──────────────────────────────────────────
+// ─── Cortisol Bars ─────────────────────────────────────────
 const cortisolData = [
   {h:85,label:'6AM'},{h:95,label:'9AM'},{h:65,label:'12PM'},
   {h:72,label:'3PM'},{h:55,label:'6PM'},{h:68,label:'9PM'}
@@ -1083,9 +1819,8 @@ cortisolData.forEach(d => {
   const wrap = document.createElement('div');
   wrap.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;';
   const bar = document.createElement('div');
-  const isHigh = d.h > 80;
   bar.className = 'c-bar';
-  bar.style.cssText = `height:${d.h}%;background:${isHigh ? 'var(--blush)' : d.h > 60 ? 'var(--gold)' : 'var(--teal)'};opacity:.75;border-radius:4px 4px 0 0;width:100%;`;
+  bar.style.cssText = `height:${d.h}%;background:${d.h > 80 ? 'var(--blush)' : d.h > 60 ? 'var(--gold)' : 'var(--teal)'};opacity:.75;border-radius:4px 4px 0 0;width:100%;`;
   const lbl = document.createElement('div');
   lbl.className = 'c-label';
   lbl.textContent = d.label;
@@ -1094,13 +1829,93 @@ cortisolData.forEach(d => {
   cb.appendChild(wrap);
 });
 
-// ── Hormone Sliders ────────────────────────────────────────
+// ─── Stress Situation Panel (NEW) ──────────────────────────
+const stressSituations = {
+  low: {   // 1-3
+    title: '🌿 Low Stress (1-3) — Maintain & Thrive',
+    color: 'var(--teal)',
+    actions: [
+      { icon: '🧘', text: 'Continue your current routine', sub: 'Low stress is precious — protect it by keeping consistent sleep and meal times.' },
+      { icon: '🌱', text: 'Invest in prevention today', sub: 'Take your adaptogens, eat anti-inflammatory foods, and do 20 min of movement.' },
+      { icon: '📓', text: 'Journal what\'s working', sub: 'Note the habits, foods, and routines keeping your stress low — replicate them.' },
+      { icon: '💧', text: 'Optimize your hydration', sub: 'Electrolytes support adrenal function. Add a pinch of sea salt to your water.' },
+      { icon: '✨', text: 'Extend social connection', sub: 'Oxytocin (the bonding hormone) actively lowers cortisol — connect with loved ones.' },
+    ]
+  },
+  mild: {  // 4-6
+    title: '🌤 Mild Stress (4-6) — Gentle Intervention',
+    color: 'var(--gold)',
+    actions: [
+      { icon: '🌬️', text: 'Box breathing — do it now', sub: '4 counts in → hold 4 → out 4 → hold 4. Repeat 5x. Activates parasympathetic in 90 seconds.' },
+      { icon: '🎵', text: 'Play calming music immediately', sub: '60 BPM binaural beats or classical music lowers cortisol measurably in 15 min.' },
+      { icon: '🚶‍♀️', text: '15-minute phone-free walk', sub: 'Nature exposure + movement reduces cortisol by up to 21%. No headphones — just presence.' },
+      { icon: '🍵', text: 'Switch to green tea or chamomile', sub: 'L-theanine in green tea raises GABA without sedation. Chamomile binds GABA receptors.' },
+      { icon: '📵', text: 'Reduce screen input for 1 hour', sub: 'Information overload keeps the amygdala activated. Give your brain a break now.' },
+    ]
+  },
+  high: {  // 7-8
+    title: '🔥 High Stress (7-8) — Urgent Reset',
+    color: 'var(--blush)',
+    actions: [
+      { icon: '🆘', text: '4-7-8 breathing — start immediately', sub: 'In 4 → hold 7 → out 8 (long). This triggers the vagal brake and slows heart rate fast.' },
+      { icon: '🧊', text: 'Cold water on face & wrists', sub: 'Activates the dive reflex — instantly drops heart rate and cortisol. 30 seconds minimum.' },
+      { icon: '🛑', text: 'Stop and do nothing for 5 minutes', sub: 'Set a timer. Lie down. Close your eyes. Your nervous system needs a complete pause.' },
+      { icon: '🤸', text: 'Shake or stretch your body', sub: 'Animals shake off stress — it\'s biological. Shake your arms and legs for 60 seconds to discharge tension.' },
+      { icon: '💊', text: 'Take magnesium glycinate now', sub: '200-400mg immediately — blocks cortisol at the cellular level and reduces anxiety.' },
+    ]
+  },
+  extreme: { // 9-10
+    title: '🚨 Extreme Stress (9-10) — Emergency Protocol',
+    color: '#D4827A',
+    actions: [
+      { icon: '📞', text: 'Call someone you trust — NOW', sub: 'Human voice (not text) activates the social nervous system and drops cortisol within minutes.' },
+      { icon: '🌬️', text: 'Physiological sigh', sub: 'Double inhale through nose (sniff-sniff) → long exhale through mouth. Fastest cortisol reducer known.' },
+      { icon: '🛑', text: 'Remove yourself from the stressor', sub: 'Physically leave the room, building, or situation. Even 5 minutes of distance breaks the cortisol loop.' },
+      { icon: '🧊', text: 'Cold shower or ice pack on neck', sub: 'Stimulates the vagus nerve through cold thermoreceptors. Shown to reduce panic attack intensity.' },
+      { icon: '🩺', text: 'Consider professional support', sub: 'Chronic 9-10 stress is a medical situation. Chronic cortisol at this level damages the hippocampus. Speak to a doctor.' },
+    ]
+  }
+};
+
+function onStressChange(val) {
+  document.getElementById('stress-val-display').textContent = val + '/10';
+  updateStressSituation(parseInt(val));
+}
+
+function updateStressSituation(val) {
+  let key = 'low';
+  if (val >= 9) key = 'extreme';
+  else if (val >= 7) key = 'high';
+  else if (val >= 4) key = 'mild';
+
+  const sit = stressSituations[key];
+  const panel = document.getElementById('stress-situation-panel');
+  panel.style.borderColor = sit.color + '44';
+
+  document.getElementById('stress-sit-title').textContent = sit.title;
+  document.getElementById('stress-sit-title').style.color = sit.color;
+
+  const actionsEl = document.getElementById('stress-sit-actions');
+  actionsEl.innerHTML = '';
+  sit.actions.forEach(a => {
+    const div = document.createElement('div');
+    div.className = 'stress-action';
+    div.innerHTML = `<div class="stress-action-icon">${a.icon}</div><div><div class="stress-action-text">${a.text}</div><div class="stress-action-sub">${a.sub}</div></div>`;
+    actionsEl.appendChild(div);
+  });
+}
+
+// Initialize with default value 7
+updateStressSituation(7);
+
+// ─── Hormone Sliders ───────────────────────────────────────
 const hormoneLabels = {
   estrogen:   [null,'Very Low','Low','Low','Medium','Medium','Balanced','Balanced','High','High','Very High'],
   progesterone:[null,'Very Low','Low','Low','Low','Medium','Balanced','Balanced','High','High','Very High'],
   cortisol:   [null,'Very Low','Low','Low','Calm','Normal','Normal','Elevated','High','Very High','Extreme'],
   thyroid:    [null,'Very Low','Low','Below','Below','Normal','Normal','Normal','High','High','Hyper'],
 };
+
 function updateSlider(h, val) {
   document.getElementById('sv-'+h).textContent = val;
   const labels = hormoneLabels[h];
@@ -1118,13 +1933,91 @@ function updateSlider(h, val) {
     else { statusEl.textContent='Elevated'; statusEl.className='hormone-status status-high'; }
   }
 }
+
 function selectHormone(el) {
   document.querySelectorAll('.hormone-card').forEach(c => c.classList.remove('active-card'));
   el.classList.add('active-card');
 }
-function saveHormones() { toast('Hormone log saved ✦'); }
 
-// ── Skin & Hair Checks ─────────────────────────────────────
+// ─── Hormone History (Save Data) ───────────────────────────
+let hormoneHistory = [];
+
+function saveHormones() {
+  const e = parseInt(document.getElementById('sv-estrogen').textContent);
+  const p = parseInt(document.getElementById('sv-progesterone').textContent);
+  const c = parseInt(document.getElementById('sv-cortisol').textContent);
+  const th = parseInt(document.getElementById('sv-thyroid').textContent);
+  const mood = document.getElementById('h-mood').value;
+  const cycleDay = document.getElementById('h-cycleday').value;
+  const symptoms = document.getElementById('h-symptoms').value;
+
+  const entry = {
+    date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
+    time: new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}),
+    estrogen: e, progesterone: p, cortisol: c, thyroid: th,
+    mood, cycleDay: cycleDay || '—', symptoms: symptoms || '—'
+  };
+
+  hormoneHistory.unshift(entry);
+  renderHormoneHistory();
+  // Clear symptoms input
+  document.getElementById('h-symptoms').value = '';
+  document.getElementById('h-cycleday').value = '';
+  toast('✦ Hormone log saved to history!');
+}
+
+function renderHormoneHistory() {
+  const el = document.getElementById('hormone-history-list');
+  if (hormoneHistory.length === 0) {
+    el.innerHTML = '<p style="font-size:.82rem;color:var(--muted);text-align:center;padding:20px 0;">No entries yet. Log your first day above!</p>';
+    return;
+  }
+  el.innerHTML = hormoneHistory.map((e,i) => `
+    <div class="hormone-history-entry">
+      <div>
+        <div style="font-size:.8rem;color:var(--bright);">${e.date} <span style="color:var(--muted);">${e.time}</span></div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:3px;">Cycle day: ${e.cycleDay} · Mood: ${e.mood}</div>
+        ${e.symptoms !== '—' ? `<div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Symptoms: ${e.symptoms}</div>` : ''}
+      </div>
+      <div style="text-align:right;display:flex;flex-direction:column;gap:3px;align-items:flex-end;">
+        <span class="tag-pill pill-blush" style="font-size:.62rem;">E:${e.estrogen}</span>
+        <span class="tag-pill pill-teal" style="font-size:.62rem;">P:${e.progesterone}</span>
+        <span class="tag-pill pill-gold" style="font-size:.62rem;">C:${e.cortisol}</span>
+        <span class="tag-pill pill-lav" style="font-size:.62rem;">T:${e.thyroid}</span>
+        <button onclick="deleteHormoneEntry(${i})" style="font-size:.65rem;color:var(--muted);background:none;border:none;cursor:pointer;margin-top:3px;">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function deleteHormoneEntry(i) {
+  hormoneHistory.splice(i, 1);
+  renderHormoneHistory();
+  toast('Entry deleted');
+}
+
+function clearHormoneHistory() {
+  if (hormoneHistory.length === 0) { toast('No data to clear'); return; }
+  hormoneHistory = [];
+  renderHormoneHistory();
+  toast('History cleared');
+}
+
+function exportHormoneData() {
+  if (hormoneHistory.length === 0) { toast('No data to export'); return; }
+  const headers = 'Date,Time,Cycle Day,Estrogen,Progesterone,Cortisol,Thyroid,Mood,Symptoms\n';
+  const rows = hormoneHistory.map(e =>
+    `"${e.date}","${e.time}","${e.cycleDay}",${e.estrogen},${e.progesterone},${e.cortisol},${e.thyroid},"${e.mood}","${e.symptoms}"`
+  ).join('\n');
+  const blob = new Blob([headers + rows], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'lumina-hormone-data.csv';
+  a.click();
+  toast('✓ CSV exported!');
+}
+
+// ─── Skin & Hair Checks ────────────────────────────────────
 function toggleCheck(item) {
   const cb = item.querySelector('.checkbox');
   cb.classList.toggle('checked');
@@ -1133,11 +2026,10 @@ function toggleCheck(item) {
 function updateSkinScore() {
   const total = document.querySelectorAll('#skin-checks .checkbox').length;
   const checked = document.querySelectorAll('#skin-checks .checkbox.checked').length;
-  const score = ((checked / total) * 10).toFixed(1);
-  document.getElementById('skin-score-val').textContent = score;
+  document.getElementById('skin-score-val').textContent = ((checked / total) * 10).toFixed(1);
 }
 
-// ── Supplements ────────────────────────────────────────────
+// ─── Supplements ───────────────────────────────────────────
 function toggleSupp(el) {
   el.classList.toggle('taken');
   const check = el.querySelector('.taken-check');
@@ -1147,12 +2039,175 @@ function toggleSupp(el) {
   } else {
     if (check) check.remove();
   }
+  updateSuppCount();
+}
+
+function updateSuppCount() {
   const total = document.querySelectorAll('#supp-list .supp-item').length;
   const taken = document.querySelectorAll('#supp-list .supp-item.taken').length;
   document.getElementById('kpi-supps').textContent = `${taken}/${total}`;
+  document.getElementById('supp-count-text').textContent = `${taken} of ${total} taken today`;
+  const pct = Math.round((taken/total)*100);
+  document.getElementById('supp-pct').textContent = `${pct}% Complete`;
 }
 
-// ── Measurements ───────────────────────────────────────────
+function saveSuppLog() {
+  const taken = document.querySelectorAll('#supp-list .supp-item.taken').length;
+  const total = document.querySelectorAll('#supp-list .supp-item').length;
+  toast(`✦ Supplement log saved — ${taken}/${total} completed`);
+}
+
+// ─── Supplement Calculator (NEW) ──────────────────────────
+const suppDatabase = {
+  'Hormone Balance': [
+    {name:'Magnesium Glycinate', dose:'300-400mg PM', reason:'Regulates estrogen metabolism and reduces PMS', priority:'Essential'},
+    {name:'Vitamin D3 + K2', dose:'5000 IU AM', reason:'Critical for hormonal signaling and receptor function', priority:'Essential'},
+    {name:'Omega-3 (EPA/DHA)', dose:'2g AM', reason:'Reduces inflammation that disrupts hormonal balance', priority:'Essential'},
+    {name:'DIM (Diindolylmethane)', dose:'100-200mg', reason:'Promotes healthy estrogen metabolism', priority:'Recommended'},
+    {name:'Vitex (Chaste Tree)', dose:'400mg AM', reason:'Supports progesterone and LH regulation', priority:'Recommended'},
+  ],
+  'PMS / Period Pain': [
+    {name:'Magnesium Glycinate', dose:'400mg PM', reason:'Proven to reduce PMS symptoms by 40% in studies', priority:'Essential'},
+    {name:'Vitamin B6', dose:'50-100mg AM', reason:'Reduces mood-related PMS symptoms; works with magnesium', priority:'Essential'},
+    {name:'Evening Primrose Oil', dose:'1-3g PM', reason:'GLA reduces prostaglandins that cause cramping', priority:'Recommended'},
+    {name:'Ginger Extract', dose:'500-1000mg', reason:'As effective as ibuprofen for period pain in some studies', priority:'Recommended'},
+    {name:'Zinc', dose:'15-25mg AM', reason:'Reduces prostaglandins and period cramp severity', priority:'Recommended'},
+  ],
+  'Energy & Fatigue': [
+    {name:'Iron (ferrous bisglycinate)', dose:'18-36mg AM', reason:'Iron deficiency is #1 cause of fatigue in women', priority:'Essential'},
+    {name:'Vitamin B12', dose:'1000mcg sublingual', reason:'Essential for cellular energy production (ATP)', priority:'Essential'},
+    {name:'CoQ10', dose:'100-200mg AM', reason:'Mitochondrial energy production — especially over 35', priority:'Essential'},
+    {name:'Ashwagandha (KSM-66)', dose:'600mg PM', reason:'Reduces cortisol-driven fatigue without stimulants', priority:'Recommended'},
+    {name:'Rhodiola Rosea', dose:'200-400mg AM', reason:'Adaptogen that improves mental and physical energy', priority:'Recommended'},
+  ],
+  'Hair Loss': [
+    {name:'Biotin', dose:'2500-5000mcg AM', reason:'Essential cofactor for keratin production', priority:'Essential'},
+    {name:'Iron', dose:'18-36mg AM', reason:'Iron deficiency causes telogen effluvium (hair shedding)', priority:'Essential'},
+    {name:'Zinc', dose:'15-25mg AM', reason:'Supports hair follicle integrity and reduces shedding', priority:'Essential'},
+    {name:'Collagen Peptides', dose:'10g AM', reason:'Provides amino acids for hair shaft structure', priority:'Recommended'},
+    {name:'Saw Palmetto', dose:'320mg', reason:'Blocks DHT conversion associated with female hair loss', priority:'Recommended'},
+  ],
+  'Skin Health': [
+    {name:'Collagen Peptides (Type I & III)', dose:'10g AM', reason:'Directly builds skin matrix; improves elasticity by 20% in studies', priority:'Essential'},
+    {name:'Vitamin C', dose:'500-1000mg AM', reason:'Essential for collagen synthesis and antioxidant protection', priority:'Essential'},
+    {name:'Omega-3', dose:'2g AM', reason:'Reduces inflammatory skin conditions; improves hydration', priority:'Essential'},
+    {name:'Astaxanthin', dose:'4-12mg AM', reason:'Most powerful antioxidant for UV protection and anti-aging', priority:'Recommended'},
+    {name:'Hyaluronic Acid', dose:'120-200mg AM', reason:'Oral HA increases skin moisture and reduces wrinkle depth', priority:'Recommended'},
+  ],
+  'Bone Density': [
+    {name:'Calcium (from food + supp)', dose:'1000-1200mg total', reason:'Primary bone mineral; split into 2 doses for absorption', priority:'Essential'},
+    {name:'Vitamin D3 + K2', dose:'5000 IU D3 + 100mcg K2', reason:'K2 directs calcium to bones instead of arteries', priority:'Essential'},
+    {name:'Magnesium Glycinate', dose:'300mg PM', reason:'Works synergistically with calcium; 50% of women are deficient', priority:'Essential'},
+    {name:'Collagen (Type II)', dose:'10g AM', reason:'Provides the protein matrix that calcium mineralizes into', priority:'Recommended'},
+    {name:'Boron', dose:'3mg AM', reason:'Enhances calcium and magnesium retention in bones', priority:'Recommended'},
+  ],
+  'Mood & Anxiety': [
+    {name:'Magnesium Glycinate', dose:'400mg PM', reason:'Acts on GABA receptors — natural anxiolytic effect', priority:'Essential'},
+    {name:'Ashwagandha (KSM-66)', dose:'600mg PM', reason:'Shown to reduce cortisol by 27% and anxiety scores significantly', priority:'Essential'},
+    {name:'Omega-3 (EPA-rich)', dose:'2g AM', reason:'EPA specifically supports mood regulation and reduces depression', priority:'Essential'},
+    {name:'Saffron Extract', dose:'30mg AM', reason:'As effective as SSRIs for mild depression in multiple RCTs', priority:'Recommended'},
+    {name:'L-Theanine', dose:'200mg PM', reason:'Promotes calm alertness; crosses blood-brain barrier', priority:'Recommended'},
+  ],
+  'PCOS': [
+    {name:'Inositol (Myo + D-Chiro 40:1)', dose:'4g AM', reason:'Improves insulin sensitivity and ovulation — best PCOS supplement', priority:'Essential'},
+    {name:'Berberine', dose:'500mg 3x/day with meals', reason:'Matches metformin for insulin resistance in studies', priority:'Essential'},
+    {name:'Vitamin D3', dose:'5000 IU AM', reason:'Most PCOS women are deficient; D3 improves insulin and hormones', priority:'Essential'},
+    {name:'NAC (N-Acetyl Cysteine)', dose:'600mg 3x/day', reason:'Reduces androgens and improves ovulation in PCOS', priority:'Recommended'},
+    {name:'Chromium', dose:'200mcg AM', reason:'Improves insulin sensitivity and reduces carb cravings', priority:'Recommended'},
+  ],
+  'Thyroid Support': [
+    {name:'Selenium (selenomethionine)', dose:'200mcg AM', reason:'Required for T4→T3 conversion; reduces thyroid antibodies', priority:'Essential'},
+    {name:'Iodine (kelp or potassium iodide)', dose:'150-300mcg AM', reason:'Building block of thyroid hormones — most women are mildly deficient', priority:'Essential'},
+    {name:'Zinc', dose:'15-25mg AM', reason:'Required for thyroid hormone synthesis and receptor function', priority:'Essential'},
+    {name:'Iron', dose:'18mg AM', reason:'Iron deficiency impairs thyroid peroxidase enzyme activity', priority:'Recommended'},
+    {name:'Ashwagandha', dose:'600mg PM', reason:'Shown to improve T3 and T4 levels in hypothyroid patients', priority:'Recommended'},
+  ],
+  'Weight Management': [
+    {name:'Berberine', dose:'500mg 3x/day with meals', reason:'Activates AMPK — the metabolism switch. Comparable to metformin', priority:'Essential'},
+    {name:'Magnesium Glycinate', dose:'400mg PM', reason:'Insulin resistance is linked to magnesium deficiency', priority:'Essential'},
+    {name:'Chromium Picolinate', dose:'200-400mcg AM', reason:'Reduces insulin spikes and carbohydrate cravings', priority:'Recommended'},
+    {name:'Green Tea Extract (EGCG)', dose:'400mg AM', reason:'Modestly increases fat oxidation; synergizes with exercise', priority:'Recommended'},
+    {name:'Ashwagandha', dose:'600mg PM', reason:'High cortisol directly causes belly fat — ashwagandha lowers it', priority:'Recommended'},
+  ],
+};
+
+// Adjustments for life stages
+const stageAdjustments = {
+  'Trying to Conceive': [
+    {name:'Folate (5-MTHF, not folic acid)', dose:'800mcg AM', reason:'Prevents neural tube defects — start 3 months before conception', priority:'CRITICAL'},
+    {name:'CoQ10 (ubiquinol form)', dose:'400-600mg AM', reason:'Dramatically improves egg quality — most studied fertility supplement', priority:'Essential'},
+  ],
+  'Pregnant': [
+    {name:'Prenatal with Folate 5-MTHF', dose:'Per label AM', reason:'Complete prenatal nutrition — consult your OB for brand', priority:'CRITICAL'},
+    {name:'DHA (algae-based if vegan)', dose:'300-500mg AM', reason:'Brain development — critical in 2nd and 3rd trimester', priority:'CRITICAL'},
+  ],
+  'Breastfeeding': [
+    {name:'Postnatal Multivitamin', dose:'Per label AM', reason:'Breastfeeding depletes nutrients — postnatal formula maintains reserves', priority:'CRITICAL'},
+    {name:'Omega-3 DHA', dose:'500mg AM', reason:'Transferred to breast milk for infant brain development', priority:'Essential'},
+  ],
+  'Perimenopause (40-50)': [
+    {name:'Black Cohosh', dose:'20-40mg', reason:'Most studied supplement for hot flashes and perimenopausal symptoms', priority:'Recommended'},
+    {name:'Maca Root (red/black)', dose:'3g AM', reason:'Shown to reduce menopausal symptoms and improve energy in women', priority:'Recommended'},
+  ],
+  'Menopause (50+)': [
+    {name:'Calcium + D3 + K2', dose:'1200mg + 5000IU + 100mcg', reason:'Bone loss accelerates post-menopause — this combo is essential', priority:'CRITICAL'},
+    {name:'Black Cohosh or Phytoestrogens', dose:'Per label', reason:'Addresses estrogen decline symptoms naturally', priority:'Essential'},
+    {name:'Collagen Peptides', dose:'10g AM', reason:'Skin, joints, and bone collagen decline sharply post-menopause', priority:'Essential'},
+  ],
+};
+
+function calcSupplements() {
+  const concern = document.getElementById('sc-concern').value;
+  const stage = document.getElementById('sc-stage').value;
+  const diet = document.getElementById('sc-diet').value;
+  const age = parseInt(document.getElementById('sc-age').value) || 30;
+
+  let suggestions = [...(suppDatabase[concern] || [])];
+
+  // Add stage-specific
+  if (stageAdjustments[stage]) {
+    const stageSupps = stageAdjustments[stage].filter(s =>
+      !suggestions.some(existing => existing.name === s.name)
+    );
+    suggestions = [...stageSupps, ...suggestions];
+  }
+
+  // Vegan/vegetarian: add B12 and Iron if not already
+  if (diet === 'Vegan' || diet === 'Vegetarian') {
+    if (!suggestions.find(s => s.name.includes('B12'))) {
+      suggestions.unshift({name:'Vitamin B12 (methylcobalamin)', dose:'1000mcg sublingual daily', reason:'Completely absent from plant foods — deficiency causes irreversible nerve damage', priority:'CRITICAL'});
+    }
+  }
+
+  const box = document.getElementById('supp-suggestions');
+  const content = document.getElementById('sugg-content');
+  box.style.display = 'block';
+
+  const priorityColors = {CRITICAL:'var(--blush)', Essential:'var(--gold)', Recommended:'var(--teal)'};
+
+  content.innerHTML = `
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--bright);margin-bottom:12px;">
+      Personalized for: <span style="color:var(--gold);font-style:italic;">${concern}</span>
+      ${stage !== 'Reproductive Age (18-35)' ? ` · <span style="color:var(--lavender);">${stage}</span>` : ''}
+      ${diet !== 'Omnivore' ? ` · <span style="color:var(--teal);">${diet}</span>` : ''}
+    </div>
+    ${suggestions.slice(0,6).map(s => `
+      <div class="sugg-item">
+        <div>
+          <div style="color:var(--bright);font-size:.85rem;font-weight:500;">${s.name}</div>
+          <div style="color:var(--muted);font-size:.72rem;margin-top:2px;">📦 ${s.dose}</div>
+          <div style="color:var(--muted);font-size:.73rem;margin-top:3px;">${s.reason}</div>
+        </div>
+        <span style="font-size:.65rem;padding:3px 8px;border-radius:10px;background:${priorityColors[s.priority]}22;color:${priorityColors[s.priority]};border:1px solid ${priorityColors[s.priority]}44;flex-shrink:0;margin-left:8px;">${s.priority}</span>
+      </div>
+    `).join('')}
+    <p style="font-size:.72rem;color:var(--muted);margin-top:12px;line-height:1.6;">⚕️ Always consult your healthcare provider before starting new supplements, especially if pregnant, breastfeeding, or on medication.</p>
+  `;
+  toast('✨ Supplement plan calculated!');
+  box.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+// ─── Measurements ──────────────────────────────────────────
 function updateMeasurements() {
   const fields = ['weight','waist','hips','chest','thigh','bf'];
   const units = {weight:'kg',waist:'cm',hips:'cm',chest:'cm',thigh:'cm',bf:'%'};
@@ -1169,157 +2224,415 @@ function updateMeasurements() {
   else toast('Enter at least one value');
 }
 
-// ── Sleep Quality Select ────────────────────────────────────
+// ─── Sleep Quality Select ──────────────────────────────────
 function selectQ(el) {
   document.querySelectorAll('.qbtn').forEach(b => b.style.borderColor='var(--border)');
   el.style.borderColor = 'var(--gold)';
 }
 
-// ── Recipe Ingredients ─────────────────────────────────────
-let selectedIngs = [];
-function addIng(el, name) {
-  if (selectedIngs.includes(name)) {
-    selectedIngs = selectedIngs.filter(i => i !== name);
-    el.style.background = 'rgba(201,168,76,0.08)';
-    el.style.borderColor = 'rgba(201,168,76,0.2)';
-    el.style.color = 'var(--gold)';
-    toast(`${name} removed`);
-  } else {
-    selectedIngs.push(name);
-    el.style.background = 'rgba(212,130,122,0.12)';
-    el.style.borderColor = 'var(--blush)';
-    el.style.color = 'var(--blush)';
-    toast(`✓ ${name} added`);
+// ─── HORMONE METHOD TABS ──────────────────────────────────
+function showHMethod(mode) {
+  ['symptoms','at-home','blood'].forEach(m => {
+    document.getElementById('hmethod-'+m).style.display = m===mode ? '' : 'none';
+    const btn = document.getElementById('hm-'+m);
+    if(m===mode){btn.className='hmeth-btn btn btn-gold';btn.style.background='linear-gradient(135deg,var(--gold),var(--gold2))';btn.style.color='var(--ink)';btn.style.border='none';}
+    else{btn.className='hmeth-btn btn btn-outline';btn.style.background='transparent';btn.style.color='var(--muted)';btn.style.border='1px solid var(--border)';}
+  });
+}
+
+// ─── HORMONE CALCULATOR ────────────────────────────────────
+function switchHCalc(mode) {
+  document.getElementById('hcalc-symptom').style.display = mode === 'symptom' ? '' : 'none';
+  document.getElementById('hcalc-lab').style.display = mode === 'lab' ? '' : 'none';
+  document.getElementById('tab-symptom').className = mode === 'symptom' ? 'btn btn-gold' : 'btn btn-outline';
+  document.getElementById('tab-lab').className = mode === 'lab' ? 'btn btn-gold' : 'btn btn-outline';
+}
+
+const symptomQuestions = [
+  { id:'q1', text:'Hot flashes or night sweats', hormone:'estrogen' },
+  { id:'q2', text:'Irregular or missed periods', hormone:'estrogen' },
+  { id:'q3', text:'Mood swings or irritability before period', hormone:'progesterone' },
+  { id:'q4', text:'PMS symptoms (bloating, cramps, breast tenderness)', hormone:'progesterone' },
+  { id:'q5', text:'Unexplained weight gain especially belly fat', hormone:'cortisol' },
+  { id:'q6', text:'Fatigue despite sleeping enough', hormone:'thyroid' },
+  { id:'q7', text:'Hair loss or thinning', hormone:'thyroid' },
+  { id:'q8', text:'Anxiety, worry, or wired but tired feeling', hormone:'cortisol' },
+  { id:'q9', text:'Cold sensitivity — always cold hands or feet', hormone:'thyroid' },
+  { id:'q10', text:'Low libido or reduced sex drive', hormone:'estrogen' },
+  { id:'q11', text:'Acne or oily skin around jaw or chin', hormone:'testosterone' },
+  { id:'q12', text:'Brain fog or difficulty concentrating', hormone:'estrogen' },
+  { id:'q13', text:'Insomnia or poor sleep quality', hormone:'cortisol' },
+  { id:'q14', text:'Dry skin, hair, or vaginal dryness', hormone:'estrogen' },
+  { id:'q15', text:'Blood sugar swings or intense sugar cravings', hormone:'insulin' },
+];
+
+(function buildSymptomForm() {
+  const container = document.getElementById('symptom-questions');
+  if (!container) return;
+  container.innerHTML = symptomQuestions.map(q => `
+    <div style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+      <div style="font-size:.84rem;color:var(--text);flex:1;min-width:160px;">${q.text}</div>
+      <div style="display:flex;gap:3px;flex-shrink:0;">
+        <button class="sq-btn" data-id="${q.id}" data-val="0" onclick="setSQ(this)" style="padding:5px 8px;font-size:.7rem;border-radius:5px;border:1px solid var(--border);background:var(--panel);color:var(--muted);cursor:pointer;">Never</button>
+        <button class="sq-btn" data-id="${q.id}" data-val="1" onclick="setSQ(this)" style="padding:5px 8px;font-size:.7rem;border-radius:5px;border:1px solid var(--border);background:var(--panel);color:var(--muted);cursor:pointer;">Sometimes</button>
+        <button class="sq-btn" data-id="${q.id}" data-val="2" onclick="setSQ(this)" style="padding:5px 8px;font-size:.7rem;border-radius:5px;border:1px solid var(--border);background:var(--panel);color:var(--muted);cursor:pointer;">Often</button>
+        <button class="sq-btn" data-id="${q.id}" data-val="3" onclick="setSQ(this)" style="padding:5px 8px;font-size:.7rem;border-radius:5px;border:1px solid var(--border);background:var(--panel);color:var(--muted);cursor:pointer;">Always</button>
+      </div>
+    </div>`).join('');
+})();
+
+const symptomAnswers = {};
+function setSQ(btn) {
+  const id = btn.dataset.id;
+  symptomAnswers[id] = parseInt(btn.dataset.val);
+  document.querySelectorAll(`.sq-btn[data-id="${id}"]`).forEach(b => {
+    b.style.background='var(--panel)'; b.style.color='var(--muted)'; b.style.borderColor='var(--border)';
+  });
+  btn.style.background='rgba(201,168,76,0.15)'; btn.style.color='var(--gold)'; btn.style.borderColor='var(--gold)';
+}
+
+function calcSymptoms() {
+  const scores = {estrogen:0,progesterone:0,cortisol:0,thyroid:0,testosterone:0,insulin:0};
+  const counts = {estrogen:0,progesterone:0,cortisol:0,thyroid:0,testosterone:0,insulin:0};
+  symptomQuestions.forEach(q => {
+    counts[q.hormone]++; scores[q.hormone] += (symptomAnswers[q.id]||0);
+  });
+
+  const info = {
+    estrogen:     {name:'Estrogen',icon:'🌸',foods:'Flaxseeds, broccoli, pomegranate, whole grains',supps:'DIM 200mg, Vitex 400mg, Magnesium 400mg'},
+    progesterone: {name:'Progesterone',icon:'🌙',foods:'Pumpkin seeds, Vit C foods, dark chocolate, avocado',supps:'Magnesium 400mg, Vitex 400mg, B6 50mg'},
+    cortisol:     {name:'Cortisol / Stress',icon:'⚡',foods:'Dark berries, green tea, salmon, dark chocolate',supps:'Ashwagandha 600mg, Rhodiola 400mg, Magnesium'},
+    thyroid:      {name:'Thyroid (T3/T4)',icon:'🦋',foods:'Brazil nuts, seaweed, iodized salt, lean protein',supps:'Selenium 200mcg, Zinc 25mg, Iodine 150mcg'},
+    testosterone: {name:'Testosterone',icon:'💪',foods:'Zinc-rich foods, healthy fats, cruciferous veg',supps:'Zinc 25mg, DIM 200mg, Spearmint tea 2x/day'},
+    insulin:      {name:'Insulin / Blood Sugar',icon:'🩸',foods:'Low GI foods, fiber, vinegar before meals, cinnamon',supps:'Berberine 500mg 3x, Myo-Inositol 4g, Chromium 200mcg'},
+  };
+
+  const resultEl = document.getElementById('symptom-results');
+  resultEl.style.display='';
+
+  const highStress = ['cortisol','testosterone','insulin'];
+  const items = Object.entries(scores).map(([h,score]) => {
+    const max = counts[h]*3||3;
+    const pct = Math.round((score/max)*100);
+    let status, color;
+    if (highStress.includes(h)) {
+      color = pct>=60?'var(--blush)':pct>=30?'var(--gold)':'var(--teal)';
+      status = pct>=60?'⚠️ Possibly Elevated':pct>=30?'🟡 Mildly Elevated':'✅ Likely Normal';
+    } else {
+      color = pct>=60?'var(--blush)':pct>=30?'var(--gold)':'var(--teal)';
+      status = pct>=60?'⚠️ Signs of Deficiency':pct>=30?'🟡 Mild Imbalance':'✅ Likely Balanced';
+    }
+    return {h,pct,status,color,inf:info[h]};
+  }).sort((a,b)=>b.pct-a.pct);
+
+  resultEl.innerHTML = `<div class="card card-accent mb16">
+    <span class="section-label">📊 Your Symptom Analysis</span>
+    <p style="font-size:.75rem;color:var(--muted);margin-bottom:14px;">NOT a medical diagnosis — confirm with blood tests and your doctor.</p>
+    ${items.map(({h,pct,status,color,inf})=>`
+      <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
+          <span style="font-size:.88rem;color:var(--bright);">${inf.icon} ${inf.name}</span>
+          <span style="font-size:.7rem;padding:2px 9px;border-radius:10px;background:${color}18;color:${color};border:1px solid ${color}33;">${status}</span>
+        </div>
+        <div style="background:var(--border);border-radius:4px;height:5px;overflow:hidden;margin-bottom:8px;">
+          <div style="background:${color};height:100%;width:${pct}%;border-radius:4px;"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.75rem;">
+          <div><span style="color:var(--gold);">🥗 Foods:</span><br><span style="color:var(--muted);">${inf.foods}</span></div>
+          <div><span style="color:var(--teal);">💊 Supps:</span><br><span style="color:var(--muted);">${inf.supps}</span></div>
+        </div>
+      </div>`).join('')}
+    <p style="font-size:.73rem;color:var(--muted);margin-top:12px;line-height:1.7;">🩺 Next step: Book a comprehensive hormone blood panel — estradiol, progesterone, TSH, free T3, cortisol AM, DHEA-S, fasting insulin, and ferritin. Use the Lab Values tab to interpret results.</p>
+  </div>`;
+  resultEl.scrollIntoView({behavior:'smooth'});
+  toast('✦ Analysis complete!');
+}
+
+function calcLabValues() {
+  const vals = {
+    e2: parseFloat(document.getElementById('lab-e2').value),
+    prog: parseFloat(document.getElementById('lab-prog').value),
+    tsh: parseFloat(document.getElementById('lab-tsh').value),
+    ft3: parseFloat(document.getElementById('lab-ft3').value),
+    cortisol: parseFloat(document.getElementById('lab-cortisol').value),
+    insulin: parseFloat(document.getElementById('lab-insulin').value),
+    ferritin: parseFloat(document.getElementById('lab-ferritin').value),
+    testo: parseFloat(document.getElementById('lab-testo').value),
+    fsh: parseFloat(document.getElementById('lab-fsh').value),
+    ft4: parseFloat(document.getElementById('lab-ft4').value),
+  };
+  const phase = document.getElementById('lab-phase').value;
+  const entered = Object.values(vals).filter(v=>!isNaN(v));
+  if (!entered.length) { toast('Enter at least one lab value'); return; }
+
+  const analyses = [];
+
+  if (!isNaN(vals.e2)) {
+    let status,color,msg;
+    const v=vals.e2;
+    if (phase.includes('Follicular')) {
+      if(v<20){status='Very Low';color='var(--blush)';msg='Low E2 in follicular phase — poor follicular development, high stress, or premature ovarian insufficiency possible. Foods: flaxseeds, soy. Supps: DIM, Vitex.';}
+      else if(v<=150){status='Normal';color='var(--teal)';msg='Estradiol in healthy follicular range. Good ovarian function indicator.';}
+      else{status='Elevated';color='var(--gold)';msg='Estrogen dominance pattern. Often occurs with low progesterone, high body fat, alcohol, or slow liver detox. Supps: DIM 200mg, calcium-D-glucarate, broccoli sprouts.';}
+    } else {
+      status=v<30?'Low':v<=400?'Normal':'High'; color=v<30?'var(--blush)':v<=400?'var(--teal)':'var(--gold)';
+      msg=`E2: ${v} pg/mL — context depends on cycle phase. Re-test Day 3 for baseline.`;
+    }
+    analyses.push({label:'Estradiol (E2)',value:`${v} pg/mL`,status,color,msg,ref:'Follicular: 20-150 | Luteal: 30-450 | Menopause: <30'});
   }
-}
 
-// ── Recipe Generator (AI) ─────────────────────────────────
-async function generateRecipe() {
-  const goal = document.getElementById('recipe-goal').value;
-  const meal = document.getElementById('recipe-meal').value;
-  const diet = document.getElementById('recipe-diet').value;
-  const custom = document.getElementById('custom-ings').value;
-  const ings = [...selectedIngs, ...(custom ? custom.split(',') : [])].join(', ');
-  const btn = document.getElementById('recipe-btn');
-  const out = document.getElementById('recipe-output');
-  btn.disabled = true;
-  btn.textContent = '⏳ Creating recipe...';
-  out.innerHTML = '<div class="recipe-loading"><div style="font-size:1.6rem;margin-bottom:12px;">✨</div>Crafting your personalized recipe...</div>';
-
-  const prompt = `Create a detailed, delicious recipe for a woman with this profile:
-- Health Goal: ${goal}
-- Meal Type: ${meal}  
-- Dietary Preference: ${diet}
-- Key Ingredients to include: ${ings || 'flexible'}
-
-Format the recipe as:
-**[Recipe Name]**
-*Why it's perfect for ${goal}*
-
-⏱ Prep: X min | Cook: X min | Serves: X
-
-**Ingredients:**
-- [list each ingredient with amount]
-
-**Instructions:**
-1. [step by step]
-
-**Nutritional Highlights:**
-[Key nutrients relevant to the health goal]
-
-**Pro Tips:**
-[1-2 tips to enhance the hormonal benefit]
-
-Keep it practical, delicious, and tailored specifically for women's health.`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    const data = await res.json();
-    const text = data.content?.[0]?.text || 'Could not generate recipe. Please try again.';
-    out.innerHTML = text
-      .replace(/\*\*(.*?)\*\*/g, '<strong style="color:var(--gold2);">$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em style="color:var(--muted);">$1</em>')
-      .replace(/\n/g, '<br>');
-  } catch (e) {
-    out.innerHTML = '<div style="color:var(--blush);text-align:center;padding:30px;">Connection issue. Please try again! 🌿</div>';
+  if (!isNaN(vals.prog)) {
+    const v=vals.prog;
+    let status,color,msg;
+    if(v<1){status='Very Low';color='var(--blush)';msg='Anovulatory cycle possible. Low P4 = estrogen dominance symptoms, anxiety, insomnia. Supps: Vitex 400mg, Magnesium 400mg, B6 50mg.';}
+    else if(v<5){status='Low';color='var(--gold)';msg='Suboptimal if in luteal phase. Target >10 ng/mL for mid-luteal. Supports: Vitex, Magnesium, reduce cortisol.';}
+    else if(v<=25){status='Normal';color='var(--teal)';msg='Good progesterone — indicates ovulation occurred and luteal function is healthy.';}
+    else{status='High';color='var(--lavender)';msg='Very high P4 — may indicate supplementation, adrenal issue, or luteal cyst. Discuss with doctor.';}
+    analyses.push({label:'Progesterone',value:`${v} ng/mL`,status,color,msg,ref:'Follicular: <1 | Mid-luteal: 5-25 | Menopause: <0.5'});
   }
-  btn.disabled = false;
-  btn.textContent = '✨ Generate Recipe';
-}
 
-// ── AI Chat ────────────────────────────────────────────────
-const chatHistory = [];
-const SYS = `You are an elite AI wellness specialist named Lumina, focused exclusively on women's health. Your expertise covers:
-- Hormonal health (estrogen, progesterone, cortisol, thyroid, insulin, testosterone in women)
-- Body composition, metabolism, and women-specific weight management  
-- Supplement science for women (what actually works, dosing, timing, interactions)
-- Skin and hair health from a nutritional and hormonal perspective
-- Sleep optimization (especially the sleep-hormone connection)
-- Chronic stress, cortisol management, and the HPA axis in women
-- Women-specific conditions: PCOS, endometriosis, hypothyroidism, perimenopause, menopause
-- Gut-hormone axis and microbiome's role in estrogen metabolism
-
-Speak with authority, warmth, and precision. Use evidence-based information. Format responses clearly with line breaks. Use bullet points when listing multiple items. Always recommend consulting a healthcare provider for diagnosis or medical treatment. You are not a replacement for a doctor.`;
-
-async function sendAI() {
-  const input = document.getElementById('ai-input');
-  const msg = input.value.trim();
-  if (!msg) return;
-  addBubble(msg, 'user');
-  input.value = '';
-  const btn = document.getElementById('ai-send');
-  btn.disabled = true;
-  btn.textContent = '...';
-  const thinking = addBubble('Analyzing... ✦', 'ai', true);
-  chatHistory.push({ role: 'user', content: msg });
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: SYS,
-        messages: chatHistory
-      })
-    });
-    const data = await res.json();
-    const reply = data.content?.[0]?.text || 'I had a connection issue. Please try again!';
-    thinking.remove();
-    addBubble(reply, 'ai');
-    chatHistory.push({ role: 'assistant', content: reply });
-    if (chatHistory.length > 20) chatHistory.splice(0, 2);
-  } catch (e) {
-    thinking.remove();
-    addBubble('Connection issue — please check your internet and try again. ✦', 'ai');
+  if (!isNaN(vals.tsh)) {
+    const v=vals.tsh;
+    let status,color,msg;
+    if(v<0.4){status='Low — Hyperthyroid Risk';color='var(--blush)';msg='TSH suppressed — possible hyperthyroidism or overmedication. See your doctor urgently.';}
+    else if(v<=2.5){status='Optimal';color='var(--teal)';msg='TSH in the functional optimal range (0.5-2.5). Most women feel best here.';}
+    else if(v<=4.0){status='Normal but Suboptimal';color='var(--gold)';msg='Technically "normal" but functionally high. Many women feel better <2.5. Supps: Selenium 200mcg, Iodine, Zinc.';}
+    else{status='High — Hypothyroid Risk';color='var(--blush)';msg='TSH above 4.0 strongly suggests hypothyroidism. Consult doctor for Synthroid/Levothyroxine evaluation.';}
+    analyses.push({label:'TSH',value:`${v} mIU/L`,status,color,msg,ref:'Lab normal: 0.4-4.0 | Functional optimal: 0.5-2.5'});
   }
-  btn.disabled = false;
-  btn.textContent = 'Send ✦';
+
+  if (!isNaN(vals.ft3)) {
+    const v=vals.ft3;
+    const status=v<2.3?'Low':v<=4.2?'Normal':'High';
+    const color=v<2.3?'var(--blush)':v<=4.2?'var(--teal)':'var(--gold)';
+    const msg=v<2.3?'Low Free T3 even with normal TSH = poor T4→T3 conversion. Supps: Selenium, Zinc. Reduce gut inflammation.':v<=4.2?'Free T3 (active thyroid hormone) in normal range.':'Elevated Free T3 — may indicate hyperthyroidism.';
+    analyses.push({label:'Free T3',value:`${v} pg/mL`,status,color,msg,ref:'Normal: 2.3-4.2 | Optimal: 3.2-4.2'});
+  }
+
+  if (!isNaN(vals.cortisol)) {
+    const v=vals.cortisol;
+    let status,color,msg;
+    if(v<6){status='Low — Adrenal Fatigue Risk';color='var(--blush)';msg='Very low morning cortisol. Possible adrenal insufficiency. Medical evaluation needed.';}
+    else if(v<=14){status='Low-Normal';color='var(--gold)';msg='Lower end of normal. Supports: B5, adaptogens, adequate sleep, reduce fasting periods.';}
+    else if(v<=23){status='Normal';color='var(--teal)';msg='Morning cortisol in healthy range. Good adrenal function.';}
+    else{status='Elevated';color='var(--blush)';msg='Chronically elevated cortisol. Actions: Ashwagandha 600mg, 8h sleep, cut HIIT, add zone 2 cardio, magnesium.';}
+    analyses.push({label:'Cortisol AM',value:`${v} μg/dL`,status,color,msg,ref:'Normal: 6-23 | Optimal AM: 14-20'});
+  }
+
+  if (!isNaN(vals.insulin)) {
+    const v=vals.insulin;
+    const status=v<=5?'Optimal':v<=10?'Good':v<=20?'Mildly Elevated':'Insulin Resistance';
+    const color=v<=10?'var(--teal)':v<=20?'var(--gold)':'var(--blush)';
+    const msg=v<=5?'Excellent insulin sensitivity.':v<=10?'Good sensitivity. Maintain with low-GI diet and exercise.':v<=20?'Mild insulin resistance. Supps: Berberine 500mg 3x, Inositol 4g, Chromium. Reduce refined carbs.':'Significant insulin resistance. High PCOS and diabetes risk. See your doctor. Start Berberine + Inositol immediately.';
+    analyses.push({label:'Fasting Insulin',value:`${v} μIU/mL`,status,color,msg,ref:'Lab normal: <25 | Optimal: <8 | Excellent: <5'});
+  }
+
+  if (!isNaN(vals.ferritin)) {
+    const v=vals.ferritin;
+    const status=v<12?'Deficient':v<30?'Low':v<=150?'Optimal':'Elevated';
+    const color=v<30?'var(--blush)':v<=150?'var(--teal)':'var(--gold)';
+    const msg=v<12?'Clinical iron deficiency. See doctor for IV iron or prescription therapy.':v<30?'Below functional optimal for women. Take ferrous bisglycinate 36mg AM with Vit C.':v<=150?'Ferritin optimal — good iron stores for energy, thyroid, and hair.':'High ferritin — do NOT take iron. May indicate inflammation or hemochromatosis. See doctor.';
+    analyses.push({label:'Ferritin (Iron Stores)',value:`${v} ng/mL`,status,color,msg,ref:'Lab normal: >12 | Functional optimal: 30-150'});
+  }
+
+  if (!isNaN(vals.testo)) {
+    const v=vals.testo;
+    const status=v<15?'Low':v<=70?'Normal':'Elevated';
+    const color=v<15?'var(--gold)':v<=70?'var(--teal)':'var(--blush)';
+    const msg=v<15?'Low testosterone causes fatigue, low libido, poor motivation. Supps: Zinc, strength training, DHEA (with guidance).':v<=70?'Testosterone in normal female range.':'High testosterone — associated with PCOS. Supps: DIM 200mg, spearmint tea 2x/day, Inositol 4g.';
+    analyses.push({label:'Total Testosterone',value:`${v} ng/dL`,status,color,msg,ref:'Women normal: 15-70 ng/dL'});
+  }
+
+  document.getElementById('lab-results').innerHTML = `<div class="card card-accent">
+    <span class="section-label">🔬 Lab Analysis Results</span>
+    <p style="font-size:.73rem;color:var(--muted);margin-bottom:12px;">Functional interpretation — not a substitute for medical advice.</p>
+    ${analyses.map(a=>`
+      <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:5px;">
+          <span style="font-size:.87rem;font-weight:500;color:var(--bright);">${a.label}</span>
+          <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
+            <span style="font-family:'Playfair Display',serif;color:${a.color};font-size:.88rem;">${a.value}</span>
+            <span style="font-size:.65rem;padding:2px 7px;border-radius:10px;background:${a.color}18;color:${a.color};border:1px solid ${a.color}33;">${a.status}</span>
+          </div>
+        </div>
+        <div style="font-size:.77rem;color:var(--muted);line-height:1.6;margin-bottom:3px;">${a.msg}</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,0.2);">Ref: ${a.ref}</div>
+      </div>`).join('')}
+    <p style="font-size:.7rem;color:var(--muted);margin-top:10px;line-height:1.6;">⚕️ Always discuss lab results with a qualified healthcare provider before making treatment changes.</p>
+  </div>`;
+  document.getElementById('lab-results').scrollIntoView({behavior:'smooth'});
+  toast('✦ Lab analysis complete!');
 }
 
-function addBubble(text, role, isTemp = false) {
-  const c = document.getElementById('chat-container');
-  const d = document.createElement('div');
-  d.className = `bubble ${role}`;
-  if (role === 'ai') d.innerHTML = text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  else d.textContent = text;
-  c.appendChild(d);
-  c.scrollTop = c.scrollHeight;
-  return d;
+// ─── WORKOUT PLANNER ─────────────────────────────────────
+const workoutPlans = {
+  menstrual: {
+    balance:{name:'Restorative Flow',emoji:'🧘',type:'Yoga',intensity:'Low',desc:'Honor your body — rest and gentle movement are healing during menstruation.',exercises:['Cat-cow stretches 3 min','Child\'s pose flow 5 min','Supine twists 4 min each','4-7-8 breathwork 10 min','Legs up the wall 5 min']},
+    strength:{name:'Gentle Upper Body',emoji:'💪',type:'Light Resistance',intensity:'Low-Med',desc:'Focus on upper body only — avoid heavy lower body loading during bleeding.',exercises:['Wall push-ups 3x12','Seated dumbbell curls 3x10','Bird-dog hold 3x30s','Resistance band rows 3x12','Hip circles and hip flexor stretch']},
+    fat:{name:'Walk & Restore',emoji:'🚶',type:'Walking + Yoga',intensity:'Low',desc:'Gentle movement only — fasted HIIT during menstruation spikes cortisol and worsens cramps.',exercises:['20 min easy outdoor walk','10 min yoga cool-down','Focus on breathing deeply']},
+    energy:{name:'Morning Gentle Yoga',emoji:'☀️',type:'Yoga',intensity:'Low',desc:'Restorative sequences to stimulate circulation without taxing the adrenals.',exercises:['Slow sun salutations 5 rounds','Seated forward fold','Reclined butterfly pose','Shavasana 5 min']},
+    stress:{name:'Yin + Meditation',emoji:'🌙',type:'Yin Yoga',intensity:'Very Low',desc:'Yin yoga holds 3-5 min each — the most cortisol-lowering workout possible.',exercises:['Dragon pose L+R 3 min each','Sleeping swan 4 min each','Butterfly pose 5 min','Guided meditation 10 min']},
+  },
+  follicular: {
+    balance:{name:'Strength + Cardio',emoji:'⚡',type:'Strength Training',intensity:'High',desc:'Rising estrogen = peak performance. Best window for building muscle and burning fat.',exercises:['Squats 4x10','Romanian deadlift 3x10','Bench press 3x12','Lat pulldown 3x12','20 min zone 2 cardio']},
+    strength:{name:'Heavy Compounds',emoji:'🏋️',type:'Powerlifting',intensity:'High',desc:'Estrogen peaks = strength peaks. Go heavy. Focus on progressive overload this week.',exercises:['Barbell squat 5x5','Deadlift 4x5','Bench press 4x6','Pull-ups 4x6','Plank 3x45s']},
+    fat:{name:'HIIT + Weights',emoji:'🔥',type:'HIIT + Strength',intensity:'High',desc:'Best fat-burning window of the month. High estrogen supports fat mobilization.',exercises:['HIIT warm-up 3 rounds','Kettlebell swings 4x15','Jump squats 3x12','Mountain climbers 3x30s','Sprint intervals 8x20s']},
+    energy:{name:'Power Cardio',emoji:'💥',type:'Plyometrics',intensity:'High',desc:'Energy naturally high — channel it into dynamic movement.',exercises:['Jump squats 3x15','Burpees 3x10','Box jumps 3x8','Lateral shuffles 3x30s','10 min jog finisher']},
+    stress:{name:'Dance Cardio',emoji:'💃',type:'Dance + Flow',intensity:'Medium',desc:'Joyful movement lowers cortisol while leveraging high follicular energy.',exercises:['20 min dance or Zumba','10 min cool-down yoga','5 min gratitude meditation']},
+  },
+  ovulation: {
+    balance:{name:'Peak Performance',emoji:'🏆',type:'Full Body Power',intensity:'Peak',desc:'Testosterone + estrogen both peak — you are strongest and most resilient today.',exercises:['Personal bests: squat, deadlift, bench','Plyometric circuit 4 rounds','HIIT finisher 15 min','Record your numbers!']},
+    strength:{name:'Max Strength Day',emoji:'🏋️',type:'Powerlifting',intensity:'Peak',desc:'Highest testosterone of the month. Set PRs, lift heavy, go all out.',exercises:['Max effort squat test','Heavy deadlift sets','Bench press near-max','Pull-up max reps','Record every number!']},
+    fat:{name:'Metabolic Circuit',emoji:'🔥',type:'Circuit Training',intensity:'Peak',desc:'Peak metabolic rate today — best fat-burning workout of the month.',exercises:['Full body circuit x4 rounds','30s each: squat jumps, push-ups, burpees, mountain climbers','Rest 30s between rounds','20 min LISS finisher']},
+    energy:{name:'Sprint Intervals',emoji:'⚡',type:'Cardio Intervals',intensity:'High',desc:'Channel peak energy into best cardio session of the month.',exercises:['5 min warm-up','10 x 1-min sprints at 85%','2 min recovery jog between','10 min cool-down']},
+    stress:{name:'Outdoor Adventure',emoji:'🌿',type:'Nature Movement',intensity:'Medium',desc:'Peak energy for outdoor joyful movement — hiking, cycling, or swimming.',exercises:['45 min outdoor hike or bike','Choose scenic route for mental boost','Natural movement over gym today']},
+  },
+  luteal: {
+    balance:{name:'Moderate Strength',emoji:'🍂',type:'Moderate Weights',intensity:'Medium',desc:'Progesterone rises — energy shifts lower. Moderate intensity prevents PMS worsening.',exercises:['Compound lifts at 70% effort','Squats 3x10 moderate weight','Upper body 3x12','15 min yoga or stretching','Skip HIIT this week']},
+    strength:{name:'Volume Maintenance',emoji:'💪',type:'Strength',intensity:'Medium',desc:'Maintain gains without overtraining. Save PRs for follicular phase.',exercises:['3x12 all main lifts at 65-75%','More rest between sets','Focus on mind-muscle connection','Stop if energy crashes']},
+    fat:{name:'Zone 2 + Pilates',emoji:'🚲',type:'Cardio + Core',intensity:'Low-Med',desc:'Zone 2 cardio (HR 120-140) lowers cortisol and supports fat metabolism without overtraining.',exercises:['25 min cycling or brisk walk HR 120-140','15 min Pilates core work','No sprints — steady state only']},
+    energy:{name:'Pilates + Walk',emoji:'🧘',type:'Pilates + Walking',intensity:'Low-Med',desc:'Sustainable movement to maintain energy without adrenal crash.',exercises:['20 min Pilates core + glutes','10 min mindful outdoor walk','Evening stretching before bed']},
+    stress:{name:'Yin Yoga + Walk',emoji:'🌸',type:'Yoga + Gentle Cardio',intensity:'Low',desc:'Most important phase for stress management — progesterone is cortisol-sensitive.',exercises:['15 min phone-free nature walk','15 min yin yoga','4-7-8 breathing 5 min','Journal after']},
+  }
+};
+
+let workoutLog=[], selectedEnergy='';
+
+function selectEnergy(btn,val) {
+  document.querySelectorAll('.ebtn').forEach(b=>{b.style.borderColor='var(--border)';});
+  btn.style.borderColor='var(--gold)'; selectedEnergy=val;
 }
 
-function chip(text) {
-  document.getElementById('ai-input').value = text;
-  sendAI();
+function updateWorkoutPlan() {
+  const phase=document.getElementById('wo-phase').value;
+  const goal=document.getElementById('wo-goal').value;
+  const plan=workoutPlans[phase]?.[goal];
+  if(!plan) return;
+  document.getElementById('workout-recommendation').innerHTML=`
+    <div style="margin-bottom:10px;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold);">${plan.emoji} ${plan.name}</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;">
+        <span class="tag-pill pill-teal" style="font-size:.63rem;">💪 ${plan.type}</span>
+        <span class="tag-pill pill-blush" style="font-size:.63rem;">🔥 ${plan.intensity}</span>
+      </div>
+    </div>
+    <p style="font-size:.77rem;color:var(--muted);margin-bottom:10px;line-height:1.6;">${plan.desc}</p>
+    <div style="font-size:.7rem;color:var(--muted);font-weight:500;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;">Exercises:</div>
+    <ul style="list-style:none;font-size:.78rem;color:var(--text);line-height:2.1;">${plan.exercises.map(e=>`<li>✦ ${e}</li>`).join('')}</ul>`;
 }
-</script>
-</body>
-</html>
+updateWorkoutPlan();
+
+function renderDayDots() {
+  const el=document.getElementById('day-dots');
+  if(!el) return;
+  const todayMon=((new Date().getDay())+6)%7;
+  el.innerHTML=Array.from({length:7}).map((_,i)=>{
+    const logged=workoutLog.find(w=>w.dayIdx===i);
+    const isToday=i===todayMon;
+    const bg=logged?(logged.type==='Rest Day'?'rgba(91,191,181,0.15)':'rgba(201,168,76,0.15)'):'var(--panel)';
+    const border=logged?(logged.type==='Rest Day'?'var(--teal)':'var(--gold)'):(isToday?'var(--gold)':'var(--border)');
+    const emoji=logged?(logged.type==='Rest Day'?'😴':'✓'):(isToday?'●':'');
+    return `<div style="width:34px;height:34px;border-radius:50%;margin:0 auto;background:${bg};border:2px solid ${border};display:flex;align-items:center;justify-content:center;font-size:.72rem;color:${isToday?'var(--gold)':'var(--muted)'};">${emoji}</div>`;
+  }).join('');
+}
+renderDayDots();
+
+function logWorkout() {
+  const type=document.getElementById('log-type').value;
+  const dur=parseInt(document.getElementById('log-duration').value)||30;
+  const todayMon=((new Date().getDay())+6)%7;
+  workoutLog=workoutLog.filter(w=>w.dayIdx!==todayMon);
+  workoutLog.push({dayIdx:todayMon,type,duration:dur,energy:selectedEnergy});
+  const sessions=workoutLog.filter(w=>w.type!=='Rest Day').length;
+  const mins=workoutLog.filter(w=>w.type!=='Rest Day').reduce((s,w)=>s+w.duration,0);
+  document.getElementById('stat-sessions').textContent=sessions;
+  document.getElementById('stat-mins').textContent=mins;
+  document.getElementById('stat-streak').textContent=sessions+'🔥';
+  renderDayDots();
+  toast(`✦ ${type} (${dur} min) logged!`);
+}
+
+// ─── GOALS ───────────────────────────────────────────────
+let goals=[], goalsFilter='all';
+
+function addGoal() {
+  const title=document.getElementById('goal-title').value.trim();
+  if(!title){toast('Please enter a goal title');return;}
+  goals.unshift({
+    id:Date.now(),
+    cat:document.getElementById('goal-cat').value,
+    title,
+    date:document.getElementById('goal-date').value,
+    priority:document.getElementById('goal-priority').value,
+    why:document.getElementById('goal-why').value,
+    type:document.getElementById('goal-type').value,
+    progress:0,counter:0,done:false,completed:false,
+    created:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+  });
+  renderGoals(); updateGoalStats();
+  document.getElementById('goal-title').value='';
+  document.getElementById('goal-why').value='';
+  document.getElementById('goal-date').value='';
+  toast('✦ Goal added!');
+}
+
+function quickGoal(title,cat) {
+  document.getElementById('goal-title').value=title;
+  document.getElementById('goal-cat').value=cat;
+  toast('✓ Quick goal filled — click Add Goal');
+}
+
+function filterGoals(f) {
+  goalsFilter=f;
+  document.querySelectorAll('[id^="gf-"]').forEach(b=>{b.style.borderColor='var(--border)';b.style.color='var(--muted)';});
+  document.getElementById('gf-'+f).style.borderColor='var(--gold)';
+  document.getElementById('gf-'+f).style.color='var(--gold)';
+  renderGoals();
+}
+
+function updateGoalProgress(id,delta) {
+  const g=goals.find(g=>g.id===id); if(!g) return;
+  if(g.type==='pct'){g.progress=Math.min(100,Math.max(0,(g.progress||0)+delta));}
+  else if(g.type==='counter'){g.counter=Math.max(0,(g.counter||0)+delta);}
+  else{g.done=!g.done;}
+  if((g.type==='pct'&&g.progress>=100)||(g.type==='done'&&g.done)){g.completed=true;toast('🎉 Goal completed!');}
+  updateGoalStats(); renderGoals();
+}
+
+function deleteGoal(id){goals=goals.filter(g=>g.id!==id);updateGoalStats();renderGoals();toast('Goal deleted');}
+
+function updateGoalStats() {
+  const total=goals.length, done=goals.filter(g=>g.completed).length, inprog=total-done;
+  document.getElementById('g-total').textContent=total;
+  document.getElementById('g-done').textContent=done;
+  document.getElementById('g-inprog').textContent=inprog;
+  document.getElementById('g-streak').textContent=done+'🔥';
+  const pct=total>0?Math.round((done/total)*100):0;
+  document.getElementById('g-pct-label').textContent=pct+'%';
+  document.getElementById('g-pct-bar').style.width=pct+'%';
+}
+
+function renderGoals() {
+  const el=document.getElementById('goals-list');
+  let filtered=goals;
+  if(goalsFilter==='active') filtered=goals.filter(g=>!g.completed);
+  else if(goalsFilter==='done') filtered=goals.filter(g=>g.completed);
+  if(!filtered.length){el.innerHTML=`<p style="font-size:.84rem;color:var(--muted);text-align:center;padding:24px 0;">${goals.length===0?'No goals yet. Add your first health goal above ✨':'No goals in this category.'}</p>`;return;}
+  const pc={high:'var(--blush)',med:'var(--gold)',low:'var(--teal)'};
+  const pl={high:'🔴 High',med:'🟡 Medium',low:'🟢 Low'};
+  el.innerHTML=filtered.map(g=>{
+    const dl=g.date?Math.ceil((new Date(g.date)-new Date())/86400000):null;
+    const bar=g.type==='pct'?`<div style="margin:10px 0;"><div style="display:flex;justify-content:space-between;font-size:.7rem;margin-bottom:4px;"><span style="color:var(--muted);">Progress</span><span style="color:var(--gold);">${g.progress||0}%</span></div><div style="background:var(--border);border-radius:4px;height:5px;overflow:hidden;"><div style="background:linear-gradient(90deg,var(--gold),var(--gold2));height:100%;width:${g.progress||0}%;border-radius:4px;"></div></div><div style="display:flex;gap:6px;margin-top:8px;"><button onclick="updateGoalProgress(${g.id},-10)" style="flex:1;padding:5px;border-radius:5px;border:1px solid var(--border);background:var(--panel);color:var(--muted);cursor:pointer;font-size:.75rem;">−10%</button><button onclick="updateGoalProgress(${g.id},10)" style="flex:1;padding:5px;border-radius:5px;background:var(--gold);border:none;color:var(--ink);cursor:pointer;font-size:.75rem;font-weight:600;">+10%</button></div></div>`
+      :g.type==='counter'?`<div style="display:flex;align-items:center;gap:10px;margin:10px 0;"><button onclick="updateGoalProgress(${g.id},-1)" style="width:28px;height:28px;border-radius:50%;background:var(--panel);border:1px solid var(--border);color:var(--text);cursor:pointer;">−</button><span style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);">${g.counter||0}</span><button onclick="updateGoalProgress(${g.id},1)" style="width:28px;height:28px;border-radius:50%;background:var(--gold);border:none;color:var(--ink);cursor:pointer;font-weight:700;">+</button><span style="font-size:.73rem;color:var(--muted);">days</span></div>`
+      :`<div style="margin:10px 0;"><button onclick="updateGoalProgress(${g.id},1)" style="padding:7px 16px;border-radius:6px;border:1px solid ${g.done?'var(--teal)':'var(--border)'};background:${g.done?'rgba(91,191,181,0.15)':'var(--panel)'};color:${g.done?'var(--teal)':'var(--muted)'};cursor:pointer;font-size:.78rem;">${g.done?'✅ Completed!':'○ Mark Complete'}</button></div>`;
+    return `<div style="padding:14px;border:1px solid ${g.completed?'var(--teal)':pc[g.priority]+'44'};border-radius:10px;margin-bottom:9px;background:${g.completed?'rgba(91,191,181,0.04)':'rgba(255,255,255,0.02)'};">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:0;"><div style="font-size:.7rem;color:var(--muted);margin-bottom:3px;">${g.cat} · ${g.created}</div><div style="font-size:.9rem;color:var(--bright);font-weight:500;">${g.title}</div>${g.why?`<div style="font-size:.73rem;color:var(--muted);margin-top:2px;font-style:italic;">${g.why}</div>`:''}</div>
+        <div style="display:flex;gap:4px;align-items:center;flex-shrink:0;"><span style="font-size:.63rem;padding:2px 7px;border-radius:8px;background:${pc[g.priority]}18;color:${pc[g.priority]};border:1px solid ${pc[g.priority]}33;">${pl[g.priority]}</span><button onclick="deleteGoal(${g.id})" style="color:var(--muted);background:none;border:none;cursor:pointer;font-size:.9rem;padding:2px 5px;">✕</button></div>
+      </div>
+      ${bar}
+      ${dl!==null?`<div style="font-size:.7rem;color:${dl<0?'var(--blush)':dl<7?'var(--gold)':'var(--muted)'};">${dl<0?'⚠️ '+Math.abs(dl)+' days overdue':dl===0?'⏰ Due today!':'📅 '+dl+' days left'}</div>`:''}
+    </div>`;
+  }).join('');
+}
+</script></body></html>
