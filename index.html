@@ -19,6 +19,7 @@
   --text: #E8DDD5;
   --muted: #8A7A7E;
   --bright: #F5EDE8;
+  --sidebar-w: 220px;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
@@ -36,22 +37,138 @@ body::before {
   pointer-events:none; z-index:0; opacity:.5;
 }
 
-/* NAV */
+/* ═══════════════════ SIDEBAR ═══════════════════ */
+.sidebar {
+  position:fixed;
+  top:0; left:0;
+  width:var(--sidebar-w);
+  height:100vh;
+  background:rgba(13,10,11,0.97);
+  border-right:1px solid var(--border);
+  z-index:300;
+  display:flex;
+  flex-direction:column;
+  overflow:visible;
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+}
+.sidebar-logo {
+  padding:20px 18px 16px;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.sidebar-logo-text {
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem; letter-spacing:5px; font-weight:400;
+  background:linear-gradient(135deg, var(--gold), var(--gold2), var(--gold));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  text-transform:uppercase; display:block;
+}
+.sidebar-logo-sub {
+  font-size:.62rem; letter-spacing:2px; text-transform:uppercase;
+  color:var(--muted); margin-top:3px;
+}
+.sidebar-nav {
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:10px 0;
+  scrollbar-width:thin;
+  scrollbar-color: var(--border) transparent;
+  min-height:0;
+}
+.sidebar-item {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 18px;
+  cursor:pointer;
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  font-family:'Jost',sans-serif;
+  font-size:.82rem;
+  font-weight:400;
+  letter-spacing:.5px;
+  width:100%;
+  text-align:left;
+  transition:all .2s;
+  border-left:3px solid transparent;
+  position:relative;
+}
+.sidebar-item:hover {
+  color:var(--text);
+  background:rgba(255,255,255,0.03);
+  border-left-color:rgba(201,168,76,0.3);
+}
+.sidebar-item.active {
+  color:var(--gold);
+  background:rgba(201,168,76,0.07);
+  border-left-color:var(--gold);
+}
+.sidebar-item-emoji {
+  font-size:1rem;
+  width:22px;
+  text-align:center;
+  flex-shrink:0;
+}
+.sidebar-item-label { flex:1; }
+.sidebar-guide-item {
+  background:rgba(201,168,76,0.06);
+  border-top:1px solid var(--border);
+  margin-top:4px;
+}
+.sidebar-guide-item.active,
+.sidebar-guide-item:hover {
+  background:rgba(201,168,76,0.12);
+}
+.sidebar-section-label {
+  font-size:.6rem;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:rgba(138,122,126,0.5);
+  padding:10px 18px 4px;
+  display:block;
+}
+.sidebar-footer {
+  padding:10px 18px;
+  border-top:1px solid var(--border);
+  font-size:.62rem;
+  color:rgba(138,122,126,0.4);
+  letter-spacing:1px;
+  line-height:1.6;
+  flex-shrink:0;
+}
+
+/* Sidebar overlay for mobile */
+.sidebar-overlay {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  z-index:299;
+  backdrop-filter:blur(4px);
+}
+.sidebar-overlay.show { display:block; }
+
+/* ═══════════════════ NAV (TOP) ═══════════════════ */
 nav {
   position:sticky; top:0; z-index:200;
   background:rgba(13,10,11,0.95);
   backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
-  padding:0 16px;
+  padding:0 16px 0 calc(var(--sidebar-w) + 16px);
   display:flex; align-items:center; justify-content:space-between;
   height:56px; gap:12px;
 }
-.logo {
-  font-family:'Playfair Display',serif;
-  font-size:1.3rem; letter-spacing:5px; font-weight:400;
-  background:linear-gradient(135deg, var(--gold), var(--gold2), var(--gold));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  text-transform:uppercase; flex-shrink:0;
+.nav-hamburger {
+  display:none;
+  background:none;
+  border:none;
+  color:var(--muted);
+  font-size:1.3rem;
+  cursor:pointer;
+  padding:6px;
+  flex-shrink:0;
 }
 .nav-tabs {
   display:flex; gap:2px;
@@ -68,6 +185,21 @@ nav {
 }
 .nav-tab:hover { color:var(--gold); }
 .nav-tab.active { background:var(--panel); color:var(--gold); border:1px solid var(--border); }
+.nav-tab-guide {
+  color:var(--gold) !important;
+  border:1px solid rgba(201,168,76,0.3) !important;
+  border-radius:4px !important;
+}
+.nav-tab-guide.active {
+  background:rgba(201,168,76,0.1) !important;
+}
+
+/* ═══════════════════ LAYOUT WRAPPER ═══════════════════ */
+.main-content {
+  margin-left:var(--sidebar-w);
+  min-height:calc(100vh - 56px);
+  position:relative;
+}
 
 /* SECTIONS */
 .section { display:none; padding:20px 16px; max-width:1060px; margin:0 auto; position:relative; z-index:1; }
@@ -376,7 +508,7 @@ input[type=range]::-webkit-slider-thumb {
   display:flex; align-items:center; gap:12px;
   padding:12px 14px; background:rgba(255,255,255,0.02);
   border:1px solid var(--border); border-radius:10px;
-  text-decoration:none; color:var(--text); transition:all .25s; margin-bottom:8px;
+  text-decoration:none; color:var(--text); transition:all .25px; margin-bottom:8px;
 }
 .res-link:hover { border-color:var(--gold); background:rgba(201,168,76,0.04); }
 .res-icon { font-size:1.2rem; width:30px; text-align:center; flex-shrink:0; }
@@ -443,6 +575,25 @@ label { font-size:0.75rem; letter-spacing:.8px; text-transform:uppercase; color:
 }
 .toast.show { transform:translateY(0); opacity:1; }
 
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar {
+    transform:translateX(-220px);
+    width:220px;
+    overflow:hidden;
+  }
+  .sidebar.open {
+    transform:translateX(0);
+    overflow:visible;
+  }
+  .sidebar.open .sidebar-nav {
+    overflow-y:auto;
+  }
+  nav { padding-left:16px; }
+  .main-content { margin-left:0; }
+  .nav-hamburger { display:flex; align-items:center; }
+}
 @media(max-width:640px) {
   .grid2 { grid-template-columns:1fr; }
   .grid3 { grid-template-columns:1fr; }
@@ -462,10 +613,76 @@ label { font-size:0.75rem; letter-spacing:.8px; text-transform:uppercase; color:
 </head>
 <body>
 
+<!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <span class="sidebar-logo-text">Lumina</span>
+    <div class="sidebar-logo-sub">Women's Wellness</div>
+  </div>
+  <nav class="sidebar-nav">
+    <!-- Guide first -->
+    <button class="sidebar-item sidebar-guide-item active" id="sb-guide" onclick="go('guide')">
+      <span class="sidebar-item-emoji">📖</span>
+      <span class="sidebar-item-label">Guide</span>
+    </button>
+    <span class="sidebar-section-label">Tracking</span>
+    <button class="sidebar-item" id="sb-home" onclick="go('home')">
+      <span class="sidebar-item-emoji">🏠</span>
+      <span class="sidebar-item-label">Home</span>
+    </button>
+    <button class="sidebar-item" id="sb-hormones" onclick="go('hormones')">
+      <span class="sidebar-item-emoji">🧬</span>
+      <span class="sidebar-item-label">Hormones</span>
+    </button>
+    <button class="sidebar-item" id="sb-skin" onclick="go('skin')">
+      <span class="sidebar-item-emoji">✨</span>
+      <span class="sidebar-item-label">Skin & Hair</span>
+    </button>
+    <button class="sidebar-item" id="sb-supplements" onclick="go('supplements')">
+      <span class="sidebar-item-emoji">💊</span>
+      <span class="sidebar-item-label">Supplements</span>
+    </button>
+    <button class="sidebar-item" id="sb-body" onclick="go('body')">
+      <span class="sidebar-item-emoji">⚖️</span>
+      <span class="sidebar-item-label">Body</span>
+    </button>
+    <span class="sidebar-section-label">Wellness</span>
+    <button class="sidebar-item" id="sb-sleep" onclick="go('sleep')">
+      <span class="sidebar-item-emoji">🌙</span>
+      <span class="sidebar-item-label">Sleep</span>
+    </button>
+    <button class="sidebar-item" id="sb-stress" onclick="go('stress')">
+      <span class="sidebar-item-emoji">🧘</span>
+      <span class="sidebar-item-label">Stress</span>
+    </button>
+    <span class="sidebar-section-label">Tools</span>
+    <button class="sidebar-item" id="sb-hcalc" onclick="go('hcalc')">
+      <span class="sidebar-item-emoji">🔬</span>
+      <span class="sidebar-item-label">H. Calculator</span>
+    </button>
+    <button class="sidebar-item" id="sb-workout" onclick="go('workout')">
+      <span class="sidebar-item-emoji">🏋️</span>
+      <span class="sidebar-item-label">Workout</span>
+    </button>
+    <button class="sidebar-item" id="sb-goals" onclick="go('goals')">
+      <span class="sidebar-item-emoji">🎯</span>
+      <span class="sidebar-item-label">Goals</span>
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    Designed by Maria Kanwal<br>
+    For educational purposes only
+  </div>
+</aside>
+
+<!-- ═══════════════════ TOP NAV ═══════════════════ -->
 <nav>
-  <div class="logo">Lumina</div>
+  <button class="nav-hamburger" onclick="toggleSidebar()" aria-label="Toggle sidebar">☰</button>
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="go('home')">Home</button>
+    <!-- Guide tab FIRST -->
+    <button class="nav-tab nav-tab-guide active" onclick="go('guide')">📖 Guide</button>
+    <button class="nav-tab" onclick="go('home')">Home</button>
     <button class="nav-tab" onclick="go('hormones')">Hormones</button>
     <button class="nav-tab" onclick="go('skin')">Skin & Hair</button>
     <button class="nav-tab" onclick="go('supplements')">Supplements</button>
@@ -475,12 +692,14 @@ label { font-size:0.75rem; letter-spacing:.8px; text-transform:uppercase; color:
     <button class="nav-tab" onclick="go('hcalc')">H. Calculator</button>
     <button class="nav-tab" onclick="go('workout')">Workout</button>
     <button class="nav-tab" onclick="go('goals')">Goals</button>
-    <button class="nav-tab" onclick="go('guide')" style="color:var(--gold);border:1px solid rgba(201,168,76,0.3);border-radius:4px;">📖 Guide</button>
   </div>
 </nav>
 
+<!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+<div class="main-content">
+
 <!-- ═══════════════════════════════════════════════════════ HOME -->
-<div id="home" class="section active">
+<div id="home" class="section">
   <div class="hero-strip">
     <div class="date-line" id="hero-date">—</div>
     <h1>Your inner <span>health</span> universe</h1>
@@ -1181,9 +1400,8 @@ label { font-size:0.75rem; letter-spacing:.8px; text-transform:uppercase; color:
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ GUIDE TAB -->
-<div id="guide" class="section">
+<div id="guide" class="section active">
 
-  <!-- Hero -->
   <div class="guide-hero">
     <div class="author-badge">✦ Created by Maria Kanwal ✦</div>
     <h1>Lumina <em>User Guide</em></h1>
@@ -1196,7 +1414,6 @@ label { font-size:0.75rem; letter-spacing:.8px; text-transform:uppercase; color:
     </div>
   </div>
 
-  <!-- Table of Contents -->
   <div class="guide-toc">
     <div class="guide-toc-title">📚 Jump to Any Section</div>
     <div class="toc-grid">
@@ -1213,7 +1430,6 @@ label { font-size:0.75rem; letter-spacing:.8px; text-transform:uppercase; color:
     </div>
   </div>
 
-  <!-- Quick Start Box -->
   <div class="quick-start-box">
     <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:12px;">⚡ Quick Start — New to Lumina?</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;">
@@ -1224,7 +1440,6 @@ label { font-size:0.75rem; letter-spacing:.8px; text-transform:uppercase; color:
     </div>
   </div>
 
-  <!-- ── HOME DASHBOARD ── -->
   <div class="guide-section" id="g-home">
     <div class="guide-section-header">
       <div class="guide-section-emoji">🏠</div>
@@ -1235,517 +1450,210 @@ label { font-size:0.75rem; letter-spacing:.8px; text-transform:uppercase; color:
       <p>The Home tab is your <strong>daily overview</strong>. It loads automatically when you open Lumina and shows the current date, a 5-metric KPI row, a rotating daily health focus, quick-access shortcuts, and resource links.</p>
     </div>
     <div style="margin-top:16px;">
-      <div class="guide-step">
-        <div class="guide-step-num">①</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">KPI Row — 5 Health Metrics at a Glance</div>
-          <div class="guide-step-desc">At the top you'll see 5 cards: <span class="highlight">Hormone score</span>, <span class="highlight">Skin score</span>, <span class="highlight">Sleep time</span>, <span class="highlight">Stress level</span>, and <span class="highlight">Supplements taken</span>. These update automatically as you log data in other tabs. The Supplements KPI shows "5/7" style — how many you've marked taken vs total in your protocol.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">②</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Daily Focus Card — Rotates Every Day</div>
-          <div class="guide-step-desc">The left card under KPIs shows a science-backed daily health tip that rotates based on the date. It covers hormone tips, supplement reminders, and sleep prep advice. It refreshes automatically every day — no setup needed.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">③</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Quick Access Grid — 4 Tap Shortcuts</div>
-          <div class="guide-step-desc">The right card contains 4 icon shortcuts: Hormones 🧬, Skin & Hair ✨, Supplements 💊, and Workout 🏋️. Tapping any of these takes you directly to that tab — useful for a fast morning routine check-in without scrolling the nav bar.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">④</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Resource Links — 3 External Guides</div>
-          <div class="guide-step-desc">At the bottom of Home are 3 resource tiles: Hormonal Health, Skin & Diet, and Sleep Science. Each links to Google searches for up-to-date medical information. Tap the ↗ arrow to open in a new tab.</div>
-        </div>
-      </div>
+      <div class="guide-step"><div class="guide-step-num">①</div><div class="guide-step-content"><div class="guide-step-title">KPI Row — 5 Health Metrics at a Glance</div><div class="guide-step-desc">At the top you'll see 5 cards: Hormone score, Skin score, Sleep time, Stress level, and Supplements taken. These update automatically as you log data in other tabs.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">②</div><div class="guide-step-content"><div class="guide-step-title">Daily Focus Card — Rotates Every Day</div><div class="guide-step-desc">The left card under KPIs shows a science-backed daily health tip that rotates based on the date. It refreshes automatically every day.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">③</div><div class="guide-step-content"><div class="guide-step-title">Quick Access Grid — 4 Tap Shortcuts</div><div class="guide-step-desc">The right card contains 4 icon shortcuts to Hormones, Skin & Hair, Supplements, and Workout for a fast morning routine check-in.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">④</div><div class="guide-step-content"><div class="guide-step-title">Resource Links — 3 External Guides</div><div class="guide-step-desc">At the bottom are 3 resource tiles linking to science-based articles on Hormonal Health, Skin & Diet, and Sleep Science.</div></div></div>
     </div>
-    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>The Home tab always reflects the current date — so open it fresh each morning as your daily ritual to see what health focus Lumina has curated for you today.</div></div>
+    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>The Home tab always reflects the current date — open it fresh each morning as your daily ritual.</div></div>
   </div>
 
-  <!-- ── HORMONES ── -->
   <div class="guide-section" id="g-hormones">
     <div class="guide-section-header">
       <div class="guide-section-emoji">🧬</div>
       <div><div class="guide-section-title">Hormonal Balance Tracker</div><div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Log · Save · Learn · Export</div></div>
       <div class="guide-section-badge">Most Feature-Rich Tab</div>
     </div>
-    <div class="guide-section-body">
-      <p>This is the <strong>most powerful tab</strong> in Lumina. It lets you daily-log your perceived hormone levels, saves a full history, educates you on symptoms, and teaches you 3 methods to actually test your hormones. It has 4 separate sub-sections.</p>
-    </div>
+    <div class="guide-section-body"><p>The <strong>most powerful tab</strong> in Lumina. Log daily hormone levels, save history, export CSV, and learn 3 methods to test your hormones.</p></div>
     <div style="margin-top:16px;">
-      <div class="guide-step">
-        <div class="guide-step-num">①</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">The 4 Hormone Cards (Top Row)</div>
-          <div class="guide-step-desc">You'll see cards for <strong>Estrogen 🌸, Progesterone 🌙, Cortisol ⚡, and Thyroid 🦋</strong>. Each shows a level label and a colored status (Balanced = teal, Below Optimal = pink, Elevated = gold). These update live as you move the sliders below. You can also click a card to highlight it.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">②</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Log Today's Levels — The Main Logging Form</div>
-          <div class="guide-step-desc">This is the heart of the Hormones tab. You have:<br>• <strong>Mood dropdown</strong> — pick how you're feeling today (Great, Good, Neutral, Low, Anxious, Irritable)<br>• <strong>Cycle Day input</strong> — enter what day of your cycle you're on (1-35)<br>• <strong>4 sliders</strong> — drag each from 1-10 to rate Estrogen, Progesterone, Cortisol/Stress, and Energy (Thyroid). The cards update in real time.<br>• <strong>Symptoms text field</strong> — type any symptoms you're experiencing (optional)<br>• <strong>Save button</strong> — tap "💾 Save Today's Log" to store the entry to your history.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">③</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Saved History — View & Export Past Logs</div>
-          <div class="guide-step-desc">After saving, every entry appears in the history panel on the right. Each entry shows the <strong>date, time, cycle day, mood, symptoms</strong>, and colored pills for each hormone value (E, P, C, T). You can delete individual entries with the ✕ button. The <strong>Export CSV</strong> button downloads all your hormone history as a spreadsheet file you can open in Excel or Google Sheets — perfect for sharing with your doctor.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">④</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Hormonal Support Foods</div>
-          <div class="guide-step-desc">Below the history is a quick food guide organized by hormone: Estrogen Balance foods, Progesterone Boost foods, Cortisol Lowering foods, and Thyroid Health foods. These are evidence-based dietary recommendations you can start using today.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">⑤</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Symptoms Guide (Card at Bottom)</div>
-          <div class="guide-step-desc">A 3-column reference showing symptoms of <strong>Low Estrogen, High Cortisol, and Thyroid Issues</strong>. Use this to cross-reference what you're feeling with potential hormonal causes. There's also an external link to learn more.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">⑥</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">🔬 "How To Know Your Hormone Levels" — 3-Method Panel</div>
-          <div class="guide-step-desc">This expandable panel at the bottom is an educational resource with <strong>3 tabs</strong>:<br>
-          • <strong>Body Signs</strong> (default) — lists High/Low symptoms for Estrogen, Progesterone, Cortisol, Thyroid, Testosterone, and Insulin. No test needed — read your body.<br>
-          • <strong>At-Home Tests</strong> — explains BBT thermometry (free), LH ovulation strips (~$15), cervical mucus tracking (free), at-home hormone kits ($50-200), and symptom tracking apps.<br>
-          • <strong>Blood Tests</strong> — a full table of 14 lab tests with what each reveals, optimal ranges, and when to test during your cycle. Includes a script for what to say to your doctor to get the full panel ordered.</div>
-        </div>
-      </div>
+      <div class="guide-step"><div class="guide-step-num">①</div><div class="guide-step-content"><div class="guide-step-title">The 4 Hormone Cards</div><div class="guide-step-desc">Cards for Estrogen 🌸, Progesterone 🌙, Cortisol ⚡, and Thyroid 🦋. Each shows a level label and colored status updated live from sliders.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">②</div><div class="guide-step-content"><div class="guide-step-title">Log Today's Levels</div><div class="guide-step-desc">Select mood, enter cycle day, drag 4 sliders (1-10) for each hormone, add symptoms, then tap "💾 Save Today's Log" to store the entry.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">③</div><div class="guide-step-content"><div class="guide-step-title">Saved History & Export CSV</div><div class="guide-step-desc">Every saved entry shows date, time, cycle day, mood, symptoms, and hormone values. Use "Export CSV" to download a spreadsheet for your doctor.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">④</div><div class="guide-step-content"><div class="guide-step-title">🔬 How To Know Your Hormone Levels</div><div class="guide-step-desc">3-tab panel: Body Signs (free symptom reading), At-Home Tests (BBT, LH strips, mail-in kits), and Blood Tests (full reference table with optimal ranges).</div></div></div>
     </div>
-    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Log your hormones at the same time every day — ideally morning — so your history data is consistent. After 7+ days of logging, you'll start to see patterns tied to your cycle phase.</div></div>
-    <div class="guide-warning"><div class="guide-warning-icon">⚠️</div><div>The sliders reflect your <em>perceived</em> hormone levels based on symptoms — not actual lab values. For accurate hormone levels, use the Hormone Calculator tab and/or get a blood test.</div></div>
+    <div class="guide-warning"><div class="guide-warning-icon">⚠️</div><div>Sliders reflect perceived hormone levels based on symptoms — not actual lab values. Use the Hormone Calculator tab for lab interpretation.</div></div>
   </div>
 
-  <!-- ── SKIN & HAIR ── -->
   <div class="guide-section" id="g-skin">
     <div class="guide-section-header">
       <div class="guide-section-emoji">✨</div>
       <div><div class="guide-section-title">Skin & Hair Health</div><div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Daily care checklists with live scoring</div></div>
       <div class="guide-section-badge">Daily Checklist</div>
     </div>
-    <div class="guide-section-body">
-      <p>This tab runs two <strong>interactive daily checklists</strong> — one for skin care and one for hair care — and calculates a live skin score based on how many items you've completed today.</p>
-    </div>
+    <div class="guide-section-body"><p>Two interactive daily checklists — skin care and hair care — with a live skin score that updates as you check off items.</p></div>
     <div style="margin-top:16px;">
-      <div class="guide-step">
-        <div class="guide-step-num">①</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Skin Checklist — 6 Daily Items</div>
-          <div class="guide-step-desc">Tap any checklist item to toggle it checked (gold box ✓) or unchecked. The 6 items are: SPF 30+ applied, Double cleansed PM, Moisturizer applied, Retinol/Vitamin C, Gua sha/Facial massage, and 8 glasses of water. Some start pre-checked as examples — change them to reflect your actual routine.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">②</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Live Skin Score — Calculated Automatically</div>
-          <div class="guide-step-desc">Below the checklist is a large number (0.0–10.0) called your <strong>Skin Score</strong>. It's calculated as: <em>(checked items ÷ total items) × 10</em>. Check all 6 → score is 10. Check 3 → score is 5. It updates instantly with every tap. The Home KPI also reflects this score.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">③</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Hair Health Checklist — 4 Daily Items</div>
-          <div class="guide-step-desc">Separate checklist on the right: Scalp massage (3 min), Biotin supplement taken, No heat styling today, and Silk pillowcase used. Same tap-to-toggle behavior as the skin checklist.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">④</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Skin-Boosting Nutrients Panel</div>
-          <div class="guide-step-desc">Below the hair checklist are 5 nutrient pills (Vitamin C, Omega-3, Vitamin E, Collagen, Zinc) with a link to a Google search for foods that support glowing skin. Use these as a daily reminder of which nutrients to prioritize in your diet.</div>
-        </div>
-      </div>
+      <div class="guide-step"><div class="guide-step-num">①</div><div class="guide-step-content"><div class="guide-step-title">Skin Checklist — 6 Items</div><div class="guide-step-desc">Tap any item to toggle checked/unchecked: SPF, double cleanse, moisturizer, Retinol/Vit C, Gua sha, and 8 glasses of water.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">②</div><div class="guide-step-content"><div class="guide-step-title">Live Skin Score</div><div class="guide-step-desc">Calculated as (checked ÷ total) × 10. Updates instantly with every tap. Reflected on the Home KPI.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">③</div><div class="guide-step-content"><div class="guide-step-title">Hair Health Checklist — 4 Items</div><div class="guide-step-desc">Scalp massage, Biotin supplement, no heat styling, and silk pillowcase.</div></div></div>
     </div>
-    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Use this tab as your morning and evening skin/hair ritual reminder. Check off each item as you do it — the score gamifies your routine and motivates consistency.</div></div>
+    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Use this as your morning and evening ritual reminder — the score gamifies your routine.</div></div>
   </div>
 
-  <!-- ── SUPPLEMENTS ── -->
   <div class="guide-section" id="g-supplements">
     <div class="guide-section-header">
       <div class="guide-section-emoji">💊</div>
       <div><div class="guide-section-title">Supplement Planner</div><div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Daily tracking + personalized calculator</div></div>
       <div class="guide-section-badge">2 Features</div>
     </div>
-    <div class="guide-section-body">
-      <p>This tab has two main features: a <strong>personalized supplement calculator</strong> that recommends what you should take, and a <strong>daily protocol tracker</strong> where you mark each supplement as taken.</p>
-    </div>
+    <div class="guide-section-body"><p>A <strong>personalized supplement calculator</strong> that recommends what you should take, plus a <strong>daily protocol tracker</strong> to mark each supplement taken.</p></div>
     <div style="margin-top:16px;">
-      <div class="guide-step">
-        <div class="guide-step-num">①</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">🧮 Supplement Needs Calculator</div>
-          <div class="guide-step-desc">Fill in 4 fields: <strong>Age, Life Stage</strong> (reproductive age / TTC / pregnant / breastfeeding / perimenopause / menopause), <strong>Primary Concern</strong> (10 options including hormone balance, PMS, energy, hair loss, skin, PCOS, thyroid), and <strong>Diet Type</strong> (omnivore, vegetarian, vegan, paleo, keto). Then tap <em>"Calculate My Supplements"</em>. The app generates a personalized list of up to 6 supplements with doses, reasons, and priority ratings (Critical / Essential / Recommended). Vegans automatically get B12 flagged as Critical.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">②</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Today's Protocol — 7 Supplement Items</div>
-          <div class="guide-step-desc">This is your daily supplement checklist. It pre-loads with 7 common women's supplements: Magnesium Glycinate, Vitamin D3+K2, Omega-3, Iron, Folate, Ashwagandha, and Probiotic. Each shows a colored dot, name, dose/benefit, and AM/PM timing. <strong>Tap any item to mark it taken</strong> — it turns teal with a ✓ checkmark. The counter at the bottom shows "X of 7 taken" and a percentage.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">③</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Save Today's Log</div>
-          <div class="guide-step-desc">Tap <em>"💾 Save Today's Log"</em> to confirm your supplement record for the day. A toast confirmation appears. This is a manual save action — it won't auto-save unless you tap the button.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">④</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Women's Core Supplement Guide (Reference)</div>
-          <div class="guide-step-desc">A quick reference table on the right listing the most important supplements for women with typical doses and key benefits. Use this as an educational reference when deciding what to buy or discuss with your doctor.</div>
-        </div>
-      </div>
+      <div class="guide-step"><div class="guide-step-num">①</div><div class="guide-step-content"><div class="guide-step-title">🧮 Supplement Needs Calculator</div><div class="guide-step-desc">Fill in Age, Life Stage, Primary Concern, and Diet Type. Tap "Calculate" for a personalized list of up to 6 supplements with doses and priority ratings.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">②</div><div class="guide-step-content"><div class="guide-step-title">Today's Protocol — 7 Supplements</div><div class="guide-step-desc">Tap any supplement to mark it taken (turns teal ✓). Counter shows "X of 7 taken" and percentage.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">③</div><div class="guide-step-content"><div class="guide-step-title">Save Today's Log</div><div class="guide-step-desc">Tap "💾 Save Today's Log" to confirm your supplement record for the day.</div></div></div>
     </div>
-    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Run the calculator first if you're new — it'll tell you exactly what to prioritize for your specific life stage and health concern. Then track those supplements in the protocol below.</div></div>
     <div class="guide-warning"><div class="guide-warning-icon">⚠️</div><div>Always consult a healthcare provider before starting new supplements, especially if pregnant, breastfeeding, or on prescription medication.</div></div>
   </div>
 
-  <!-- ── BODY ── -->
   <div class="guide-section" id="g-body">
     <div class="guide-section-header">
       <div class="guide-section-emoji">⚖️</div>
       <div><div class="guide-section-title">Body Measurements</div><div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Track composition with kindness</div></div>
       <div class="guide-section-badge">Tracking Tab</div>
     </div>
-    <div class="guide-section-body">
-      <p>The Body tab tracks 7 body metrics over time and includes a <strong>WHR (Waist-to-Hip Ratio) health guide</strong>. The focus is on holistic composition, not just weight.</p>
-    </div>
+    <div class="guide-section-body"><p>Track 7 body metrics over time with a WHR health guide. Focus is on holistic composition, not just weight.</p></div>
     <div style="margin-top:16px;">
-      <div class="guide-step">
-        <div class="guide-step-num">①</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Current Measurements Display</div>
-          <div class="guide-step-desc">The left card shows your current logged values for: Weight, Waist, Hips, Chest, Thigh, BMI, and Body Fat %. Each measurement shows a <strong>change indicator</strong>: ↓ down (teal), ↑ up (pink), or ↔ unchanged (grey). BMI and Body Fat also show a health category pill (Healthy, Athletic, etc.).</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">②</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Update Measurements Form</div>
-          <div class="guide-step-desc">On the right, enter new values in the 6 input fields (Weight in kg, Waist/Hips/Chest/Thigh in cm, Body Fat in %). Leave any field blank to keep the previous value. Tap <em>"Update Measurements"</em> to apply — a toast tells you how many fields were updated.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">③</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">WHR Health Guide</div>
-          <div class="guide-step-desc">Below the form is an explanation of Waist-to-Hip Ratio — a stronger predictor of cardiovascular health than BMI alone for women. Healthy is below 0.85, Moderate is 0.85-0.90, and High Risk is above 0.90. To calculate: divide your waist measurement by your hip measurement.</div>
-        </div>
-      </div>
+      <div class="guide-step"><div class="guide-step-num">①</div><div class="guide-step-content"><div class="guide-step-title">Current Measurements Display</div><div class="guide-step-desc">Shows Weight, Waist, Hips, Chest, Thigh, BMI, and Body Fat % with ↓↑↔ change indicators.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">②</div><div class="guide-step-content"><div class="guide-step-title">Update Measurements Form</div><div class="guide-step-desc">Enter new values in any field (blank = keep previous). Tap "Update Measurements" to apply.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">③</div><div class="guide-step-content"><div class="guide-step-title">WHR Health Guide</div><div class="guide-step-desc">Waist-to-Hip Ratio: Healthy &lt;0.85, Moderate 0.85-0.90, High Risk &gt;0.90. Calculate: waist ÷ hips.</div></div></div>
     </div>
-    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Measure yourself once a week at the same time (morning, before eating) for the most consistent trends. Focus on the waist and hip measurements over weight alone — hormones affect water retention and muscle composition significantly.</div></div>
+    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Measure weekly at the same time (morning, before eating) for consistent trends.</div></div>
   </div>
 
-  <!-- ── SLEEP ── -->
   <div class="guide-section" id="g-sleep">
     <div class="guide-section-header">
       <div class="guide-section-emoji">🌙</div>
       <div><div class="guide-section-title">Sleep Quality Analyzer</div><div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Visualize stages · Log nightly · Optimize</div></div>
       <div class="guide-section-badge">Wellness Tab</div>
     </div>
-    <div class="guide-section-body">
-      <p>Sleep is the <strong>#1 hormonal reset mechanism</strong>. This tab shows a visual sleep stage analysis, a circular quality score, and a nightly logging form with science-backed optimization tips.</p>
-    </div>
+    <div class="guide-section-body"><p>Sleep is the <strong>#1 hormonal reset</strong>. Visualize sleep stages, log nightly quality, and follow science-backed optimization tips.</p></div>
     <div style="margin-top:16px;">
-      <div class="guide-step">
-        <div class="guide-step-num">①</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Sleep Score Ring</div>
-          <div class="guide-step-desc">The golden circular ring shows your sleep score (0-100). The arc fills based on your score — a fuller ring = better sleep. Below the ring are 3 sub-stats: Total sleep time, Deep sleep time (teal — for physical recovery), and REM sleep time (lavender — for emotional and hormonal processing).</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">②</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Sleep Stages Timeline</div>
-          <div class="guide-step-desc">The bar chart below the stats shows your sleep stages across the night as colored bars: <strong>Lavender = REM, Teal = Deep, Gold = Light, Dark grey = Awake</strong>. Healthy sleep cycles through these stages every 90 minutes. Taller bars indicate more time in that stage at that point of the night.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">③</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Log Tonight's Sleep</div>
-          <div class="guide-step-desc">Enter your bedtime and wake time in the right panel. Then tap one of the 4 emoji quality buttons (😴 excellent, 😌 good, 😐 okay, 😫 poor) to rate your sleep quality — the selected emoji gets a gold border. Tap <em>"Log Sleep"</em> to save the entry with a toast confirmation.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">④</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Sleep Optimization Tips</div>
-          <div class="guide-step-desc">6 evidence-based sleep tips: dim lights 2h before bed, no screens 1h prior, bedroom temperature 18-20°C, magnesium PM supplement, no caffeine after 2 PM, and consistent wake time. These are displayed as a permanent reference card.</div>
-        </div>
-      </div>
+      <div class="guide-step"><div class="guide-step-num">①</div><div class="guide-step-content"><div class="guide-step-title">Sleep Score Ring & Stage Stats</div><div class="guide-step-desc">Golden ring shows 0-100 score. Three sub-stats: Total sleep, Deep sleep (teal — physical recovery), REM (lavender — hormonal processing).</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">②</div><div class="guide-step-content"><div class="guide-step-title">Sleep Stages Timeline</div><div class="guide-step-desc">Bar chart showing REM (lavender), Deep (teal), Light (gold), and Awake (grey) stages across the night.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">③</div><div class="guide-step-content"><div class="guide-step-title">Log Tonight's Sleep</div><div class="guide-step-desc">Enter bedtime, wake time, tap emoji quality rating (😴😌😐😫), and tap "Log Sleep".</div></div></div>
     </div>
-    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Deep sleep (teal) is when growth hormone is released — critical for muscle repair, weight management, and cortisol regulation. If your deep sleep is low, try magnesium glycinate 400mg 30 min before bed and keeping your room cooler.</div></div>
+    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Low deep sleep? Try magnesium glycinate 400mg 30 min before bed and keeping your room cooler.</div></div>
   </div>
 
-  <!-- ── STRESS ── -->
   <div class="guide-section" id="g-stress">
     <div class="guide-section-header">
       <div class="guide-section-emoji">🧘</div>
       <div><div class="guide-section-title">Stress & Cortisol Log</div><div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Dynamic action plans based on your stress level</div></div>
       <div class="guide-section-badge">Interactive Tab</div>
     </div>
-    <div class="guide-section-body">
-      <p>This tab tracks stress and cortisol patterns throughout the day. Its most powerful feature is the <strong>dynamic situational panel</strong> — it changes its advice based on exactly how stressed you are right now, from 1 to 10.</p>
-    </div>
+    <div class="guide-section-body"><p>Dynamic situational action plans that change based on your exact stress level from 1-10, plus cortisol pattern visualization and trigger tagging.</p></div>
     <div style="margin-top:16px;">
-      <div class="guide-step">
-        <div class="guide-step-num">①</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Cortisol Bar Chart — Today's Pattern</div>
-          <div class="guide-step-desc">The bar chart at the top shows a sample cortisol pattern across 6 time points (6AM, 9AM, 12PM, 3PM, 6PM, 9PM). <strong>Teal bars = low cortisol (good), Gold bars = moderate, Pink bars = elevated</strong>. Normally cortisol should be highest in the morning and gradually decrease — this is called the cortisol awakening response. Bars that are tall at night indicate chronic stress or poor sleep hygiene.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">②</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Stress Level Slider — The Core Feature</div>
-          <div class="guide-step-desc">Drag the slider from 1-10 to indicate your current stress level. As you move it, two things happen: the number updates (e.g. "7/10") and the <strong>situation panel below changes completely</strong>.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">③</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Dynamic Situation Panel — 4 Stress Levels</div>
-          <div class="guide-step-desc">This panel gives you <strong>5 specific, science-backed actions</strong> customized to your exact stress level:<br>
-          • <strong>1-3 (Low 🌿)</strong> — maintain routines, journal what's working, electrolytes, social connection<br>
-          • <strong>4-6 (Mild 🌤)</strong> — box breathing, binaural beats, 15-min walk, green tea, reduce screen input<br>
-          • <strong>7-8 (High 🔥)</strong> — 4-7-8 breathing, cold water on face/wrists, full stop for 5 min, body shaking, magnesium glycinate<br>
-          • <strong>9-10 (Extreme 🚨)</strong> — call someone you trust, physiological sigh, physically leave the stressor, cold shower, consider professional support</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">④</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Stress Triggers — Select All That Apply</div>
-          <div class="guide-step-desc">8 pre-set trigger tags: Work deadlines, Relationship, Financial, Overwhelm, Poor sleep, Physical pain, Loneliness, and Hormonal. Tap any tag to toggle it active (lavender). You can select multiple. These are saved with your log when you tap <em>"Save Log"</em>.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">⑤</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Cortisol-Lowering Protocol (Right Panel)</div>
-          <div class="guide-step-desc">A permanent educational reference on the right covering: Adaptogens (Ashwagandha, Rhodiola, Holy Basil), Breathwork (4-7-8 and box breathing), Zone 2 Cardio (low-intensity 3x/week), Sleep Prioritization (sleep and cortisol are bidirectional), and Magnesium + Dark Chocolate (blunt cortisol at cellular level).</div>
-        </div>
-      </div>
+      <div class="guide-step"><div class="guide-step-num">①</div><div class="guide-step-content"><div class="guide-step-title">Stress Level Slider</div><div class="guide-step-desc">Drag 1-10. The situation panel below updates automatically with 5 science-backed actions tailored to your exact stress level.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">②</div><div class="guide-step-content"><div class="guide-step-title">Dynamic Situation Panel — 4 Levels</div><div class="guide-step-desc">Low (1-3): maintain routines · Mild (4-6): box breathing, walk · High (7-8): 4-7-8 breathing, cold water · Extreme (9-10): call someone, physiological sigh.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">③</div><div class="guide-step-content"><div class="guide-step-title">Stress Triggers</div><div class="guide-step-desc">Tap tags to identify what's causing stress: Work, Relationship, Financial, Overwhelm, Poor sleep, Physical pain, Loneliness, Hormonal.</div></div></div>
     </div>
-    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Use the stress slider daily — morning, afternoon, and evening — to identify your cortisol pattern over time. High stress consistently at 9PM? That suggests poor sleep hygiene. High only during work hours? Trigger-specific work stress that can be addressed.</div></div>
   </div>
 
-  <!-- ── HORMONE CALCULATOR ── -->
   <div class="guide-section" id="g-hcalc">
     <div class="guide-section-header">
       <div class="guide-section-emoji">🔬</div>
       <div><div class="guide-section-title">Hormone Calculator</div><div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Symptom quiz + lab value interpreter</div></div>
       <div class="guide-section-badge">2 Modes</div>
     </div>
-    <div class="guide-section-body">
-      <p>This tab has two completely different modes switchable via buttons at the top: <strong>Symptom-Based Quiz</strong> (no lab test needed) and <strong>Lab Values Interpreter</strong> (enter your actual blood test numbers).</p>
-    </div>
+    <div class="guide-section-body"><p>Two modes: <strong>Symptom-Based Quiz</strong> (no lab needed) and <strong>Lab Values Interpreter</strong> (enter actual blood test numbers).</p></div>
     <div style="margin-top:16px;">
-      <div class="guide-step">
-        <div class="guide-step-num">①</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Mode 1: Symptom-Based Quiz — 15 Questions</div>
-          <div class="guide-step-desc">15 symptom questions covering hot flashes, irregular periods, PMS mood, belly fat, fatigue, hair loss, anxiety, cold sensitivity, low libido, jaw acne, brain fog, insomnia, dry skin, and sugar cravings. For each, tap one of 4 frequency buttons: <strong>Never (0), Sometimes (1), Often (2), Always (3)</strong>. The selected button turns gold. Answer all 15 and tap <em>"Calculate Hormone Status"</em>.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">②</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Symptom Results — 6 Hormone Scores</div>
-          <div class="guide-step-desc">Results appear as a scored breakdown for: Estrogen, Progesterone, Cortisol, Thyroid, Testosterone, and Insulin. Each shows a progress bar, a status label (Likely Balanced / Mild Imbalance / Signs of Deficiency), and specific food and supplement recommendations for that hormone. Results are sorted by most-imbalanced first.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">③</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Mode 2: Lab Values Entry — 12 Blood Tests</div>
-          <div class="guide-step-desc">Switch to "🔬 Enter Lab Values" mode. Enter numbers from your actual blood test results for up to 12 markers: E2, Progesterone, FSH, LH, TSH, Free T3, Free T4, Cortisol AM, DHEA-S, Testosterone, Fasting Insulin, and Ferritin. Also select which <strong>cycle phase</strong> you were in when tested — this affects result interpretation significantly.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">④</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Lab Analysis Results</div>
-          <div class="guide-step-desc">Tap <em>"Analyze My Results"</em>. For each value you entered, the app provides: your value, a status label (Optimal / Low / Elevated), a color-coded indicator, and detailed plain-language explanation of what the number means plus specific actionable supplements and foods to address any issues. Reference ranges are shown for context.</div>
-        </div>
-      </div>
+      <div class="guide-step"><div class="guide-step-num">①</div><div class="guide-step-content"><div class="guide-step-title">Mode 1: Symptom-Based Quiz</div><div class="guide-step-desc">15 questions — tap Never/Sometimes/Often/Always for each symptom. Results show 6 hormone scores with foods and supplement recommendations.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">②</div><div class="guide-step-content"><div class="guide-step-title">Mode 2: Lab Values Entry</div><div class="guide-step-desc">Enter up to 12 blood test values (E2, Progesterone, TSH, Cortisol, Ferritin, etc.). Select cycle phase. Get detailed clinical interpretation with actionable advice.</div></div></div>
     </div>
-    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Use the Symptom Quiz first if you've never had blood tests. Then use those results to decide which specific tests to ask your doctor for. Once you have lab results, come back and use the Lab Values mode to get a full interpretation.</div></div>
-    <div class="guide-warning"><div class="guide-warning-icon">⚠️</div><div>This calculator is an educational tool, not a medical diagnosis. Always discuss your lab results and symptoms with a qualified healthcare provider before making treatment changes.</div></div>
+    <div class="guide-warning"><div class="guide-warning-icon">⚠️</div><div>Educational tool only — not a medical diagnosis. Discuss results with a qualified healthcare provider.</div></div>
   </div>
 
-  <!-- ── WORKOUT ── -->
   <div class="guide-section" id="g-workout">
     <div class="guide-section-header">
       <div class="guide-section-emoji">🏋️</div>
-      <div><div class="guide-section-title">Workout & Exercise Planner</div><div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Cycle-synced, goal-based workout recommendations</div></div>
+      <div><div class="guide-section-title">Workout & Exercise Planner</div><div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Cycle-synced, goal-based recommendations</div></div>
       <div class="guide-section-badge">Smart Planner</div>
     </div>
-    <div class="guide-section-body">
-      <p>This tab generates <strong>personalized workout recommendations based on your cycle phase and fitness goal</strong>. It also includes a weekly log, session tracker, and a comprehensive cycle-exercise science education panel.</p>
-    </div>
+    <div class="guide-section-body"><p>Personalized workout recommendations based on your cycle phase and fitness goal, plus a weekly log and session tracker.</p></div>
     <div style="margin-top:16px;">
-      <div class="guide-step">
-        <div class="guide-step-num">①</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Today's Recommended Workout — 3 Selectors</div>
-          <div class="guide-step-desc">Select 3 things: <strong>Cycle Phase</strong> (Menstrual / Follicular / Ovulation / Luteal), <strong>Fitness Goal</strong> (Hormone Balance, Build Strength, Fat Loss, Boost Energy, Reduce Stress), and <strong>Available Time</strong> (20/30/45/60 min). The recommendation card updates instantly as you change selections — it shows a workout name, type tag, intensity tag, description, and specific exercises to do.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">②</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Weekly Workout Dot Tracker</div>
-          <div class="guide-step-desc">The 7-day grid (Mon–Sun) shows colored dot indicators for each day: <strong>Gold dot = workout logged, Teal dot = rest day, Gold border = today</strong>. After logging a workout (step 3 below), today's dot fills in automatically.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">③</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Log Today's Workout</div>
-          <div class="guide-step-desc">Select workout type from the dropdown (8 options), enter duration in minutes, and tap an energy emoji (😴😐🙂🔥) to rate how you felt after. Tap <em>"💾 Log Workout"</em>. Stats below update: Sessions count, total Minutes, and a Streak counter.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">④</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Cycle-Synced Exercise Science Panel</div>
-          <div class="guide-step-desc">A 6-card reference grid at the bottom explains the science behind cycle-synced training: best exercises for each phase (Menstrual/Follicular/Ovulation/Luteal), key principles (never fasted if stressed, zone 2 cardio, rest days = growth days), and warning signs of overtraining (exercise stops your period, extreme fatigue, insomnia after PM workouts).</div>
-        </div>
-      </div>
+      <div class="guide-step"><div class="guide-step-num">①</div><div class="guide-step-content"><div class="guide-step-title">Today's Recommended Workout</div><div class="guide-step-desc">Select Cycle Phase, Fitness Goal, and Available Time. Recommendation updates instantly with workout name, type, intensity, and specific exercises.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">②</div><div class="guide-step-content"><div class="guide-step-title">Log Today's Workout</div><div class="guide-step-desc">Select type, enter duration, rate energy after (😴😐🙂🔥), tap "💾 Log Workout". Weekly dot tracker and stats update automatically.</div></div></div>
     </div>
-    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>The Follicular phase (Day 6-13) is when estrogen rises and you'll feel naturally strongest and most energetic. This is the best time to try new personal bests, heavy compound lifts, or high-intensity workouts.</div></div>
+    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Follicular phase (Day 6-13) is your peak performance window — try new personal bests during this time.</div></div>
   </div>
 
-  <!-- ── GOALS ── -->
   <div class="guide-section" id="g-goals">
     <div class="guide-section-header">
       <div class="guide-section-emoji">🎯</div>
       <div><div class="guide-section-title">Goal Setting & Progress</div><div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Set, track, filter, and celebrate health goals</div></div>
       <div class="guide-section-badge">Tracking Tab</div>
     </div>
-    <div class="guide-section-body">
-      <p>The Goals tab is your <strong>health goal accountability system</strong>. You can add unlimited custom goals with different tracking types, priority levels, and target dates. It shows overall progress statistics and allows filtering by status.</p>
-    </div>
+    <div class="guide-section-body"><p>Your health goal accountability system with unlimited custom goals, 3 tracking types, priority levels, and progress statistics.</p></div>
     <div style="margin-top:16px;">
-      <div class="guide-step">
-        <div class="guide-step-num">①</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Adding a New Goal — 6 Fields</div>
-          <div class="guide-step-desc">Fill in the form on the left: <strong>Category</strong> (10 options like Hormonal Health, Exercise, Sleep, Skin & Hair, etc.), <strong>Goal Title</strong> (what you want to achieve), <strong>Target Date</strong> (optional), <strong>Priority</strong> (High/Medium/Low), <strong>Why This Matters</strong> (optional motivation note), and <strong>Progress Type</strong>:<br>• <em>% Complete</em> — track by percentage increments (+10%/-10% buttons)<br>• <em>Counter</em> — track by day count (+/- buttons)<br>• <em>Done/Not Done</em> — simple completion toggle</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">②</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Quick Goals — 8 Pre-set Suggestions</div>
-          <div class="guide-step-desc">On the right panel, 8 pre-written goal tags are available: Sleep 8h, Daily Supps, 4x Workout, 2L Water, Blood Test, Meditate, Cut Late Coffee, and Track Cycle. Tapping any tag <strong>auto-fills the goal title and category</strong> into the form — you just tap "Add Goal" to confirm. This makes adding common health goals take 2 taps.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">③</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Progress Statistics — 4 Counters</div>
-          <div class="guide-step-desc">The right card shows live stats: Total Goals, Completed goals, In Progress goals, and a Day Streak counter. Below is an <strong>Overall Completion progress bar</strong> that fills in gold as you complete more goals. The percentage updates automatically.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">④</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Goals List — View, Filter & Update</div>
-          <div class="guide-step-desc">All your goals appear in a card list. Use the <strong>All / Active / Done filter buttons</strong> to view subsets. Each goal card shows: category, date added, title, motivation note, priority badge, progress controls, deadline countdown (overdue = pink, <7 days = gold), and a ✕ delete button. Completed goals automatically get a teal border.</div>
-        </div>
-      </div>
+      <div class="guide-step"><div class="guide-step-num">①</div><div class="guide-step-content"><div class="guide-step-title">Add a Goal — 6 Fields</div><div class="guide-step-desc">Category, Title, Target Date, Priority (High/Med/Low), Why it matters, and Progress Type (% Complete, Counter, or Done/Not Done).</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">②</div><div class="guide-step-content"><div class="guide-step-title">Quick Goals — 8 Pre-sets</div><div class="guide-step-desc">Tap any suggestion tag (Sleep 8h, Daily Supps, 4x Workout, etc.) to auto-fill the form, then tap Add Goal.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">③</div><div class="guide-step-content"><div class="guide-step-title">Filter & Track</div><div class="guide-step-desc">Filter goals by All/Active/Done. Each card shows progress controls, deadline countdown, and priority badge.</div></div></div>
     </div>
-    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Start with 3-5 goals max. Mix one easy daily habit (like 💧 2L Water as a Counter goal) with one bigger goal (like 🩺 Get Blood Test as a Done/Not Done). Seeing the counter climb every day builds powerful momentum.</div></div>
+    <div class="guide-tip"><div class="guide-tip-icon">💡</div><div>Start with 3-5 goals max. Mix an easy daily habit (Counter) with a bigger milestone (Done/Not Done).</div></div>
   </div>
 
-  <!-- FAQ / Troubleshooting -->
+  <!-- FAQ -->
   <div class="guide-section" style="margin-top:24px;">
     <div class="guide-section-header">
       <div class="guide-section-emoji">❓</div>
       <div><div class="guide-section-title">Frequently Asked Questions</div><div style="font-size:.72rem;color:var(--muted);margin-top:2px;">Common questions & troubleshooting</div></div>
     </div>
     <div style="margin-top:4px;">
-      <div class="guide-step">
-        <div class="guide-step-num">Q</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Does Lumina save my data permanently?</div>
-          <div class="guide-step-desc">Lumina runs entirely in your browser. Data persists while your session is active. For permanent storage, use the <strong>Export CSV</strong> button in the Hormones tab to download your hormone history as a file you can save and re-import or share with a doctor.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">Q</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">The hormone sliders — are they based on real lab values?</div>
-          <div class="guide-step-desc">No. The sliders (1-10) reflect your <em>subjective perception</em> of how each hormone feels based on your symptoms. For actual lab value interpretation, use the <strong>Hormone Calculator</strong> tab → Enter Lab Values mode, where you input real blood test numbers.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">Q</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">How do I use this app for my morning routine?</div>
-          <div class="guide-step-desc">Recommended daily flow: <strong>1)</strong> Open Home → read daily tip. <strong>2)</strong> Supplements → tap taken pills for AM doses. <strong>3)</strong> Hormones → drag sliders + save. <strong>4)</strong> Stress → set morning stress level. <strong>5)</strong> Goals → update any counters. Total time: under 3 minutes.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">Q</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">Can I share data with my doctor?</div>
-          <div class="guide-step-desc">Yes — use the <strong>Export CSV</strong> button in the Hormones tab to download a spreadsheet of your full hormone history (date, time, cycle day, mood, all 4 hormone scores, and symptoms). This is a clean data file you can email to your doctor or import into any spreadsheet app.</div>
-        </div>
-      </div>
-      <div class="guide-step">
-        <div class="guide-step-num">Q</div>
-        <div class="guide-step-content">
-          <div class="guide-step-title">What's the difference between the Hormone Tracker and Hormone Calculator?</div>
-          <div class="guide-step-desc"><strong>Hormone Tracker</strong> (Hormones tab) = daily symptom diary. You rate how you feel, save history, and build a log over time. <strong>Hormone Calculator</strong> (H. Calculator tab) = analysis tool. Either run the 15-question symptom quiz to get a score-based breakdown, or enter your actual blood test lab values for a detailed clinical interpretation.</div>
-        </div>
-      </div>
+      <div class="guide-step"><div class="guide-step-num">Q</div><div class="guide-step-content"><div class="guide-step-title">Does Lumina save my data permanently?</div><div class="guide-step-desc">Lumina runs in your browser. Data persists while your session is active. Use the Export CSV button in the Hormones tab to download your history as a file.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">Q</div><div class="guide-step-content"><div class="guide-step-title">The hormone sliders — are they real lab values?</div><div class="guide-step-desc">No — sliders reflect subjective perception based on symptoms. For lab value interpretation, use the Hormone Calculator tab → Enter Lab Values mode.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">Q</div><div class="guide-step-content"><div class="guide-step-title">How do I use this for my morning routine?</div><div class="guide-step-desc">1) Home → read daily tip. 2) Supplements → mark AM doses. 3) Hormones → drag sliders + save. 4) Stress → set morning level. 5) Goals → update counters. Total: under 3 minutes.</div></div></div>
+      <div class="guide-step"><div class="guide-step-num">Q</div><div class="guide-step-content"><div class="guide-step-title">What's the difference between Hormone Tracker and Hormone Calculator?</div><div class="guide-step-desc">Hormone Tracker = daily symptom diary (log + history). Hormone Calculator = analysis tool (15-question quiz OR lab value interpretation for a detailed clinical breakdown).</div></div></div>
     </div>
   </div>
 
-  <!-- Footer Credit -->
   <div style="text-align:center;padding:32px 0 16px;border-top:1px solid var(--border);margin-top:24px;">
     <div style="font-family:'Playfair Display',serif;font-size:1.4rem;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;">Lumina</div>
     <div style="font-size:.75rem;color:var(--muted);letter-spacing:1px;">Women's Inner Wellness Dashboard</div>
     <div style="font-size:.72rem;color:rgba(201,168,76,0.6);margin-top:8px;letter-spacing:2px;">DESIGNED & BUILT BY MARIA KANWAL</div>
     <div style="font-size:.7rem;color:var(--muted);margin-top:6px;opacity:.5;">For educational purposes only — not a substitute for medical advice</div>
   </div>
+</div><!-- end guide -->
 
-</div>
-<!-- end guide section -->
+</div><!-- end main-content -->
 
 <div id="toast" class="toast"></div>
 
 <script>
+// ─── Sidebar ───────────────────────────────────────────────
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  sb.classList.toggle('open');
+  overlay.classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
+}
+
 // ─── Navigation ────────────────────────────────────────────
+const tabIds = ['guide','home','hormones','skin','supplements','body','sleep','stress','hcalc','workout','goals'];
+
 function go(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  const ids = ['home','hormones','skin','supplements','body','sleep','stress','hcalc','workout','goals','guide'];
-  const idx = ids.indexOf(id);
-  if (idx >= 0) document.querySelectorAll('.nav-tab')[idx]?.classList.add('active');
+  document.querySelectorAll('.sidebar-item').forEach(t => t.classList.remove('active'));
+
+  const section = document.getElementById(id);
+  if (section) section.classList.add('active');
+
+  // Sync top nav tabs (order: guide, home, hormones, skin, supplements, body, sleep, stress, hcalc, workout, goals)
+  const navTabs = document.querySelectorAll('.nav-tab');
+  const idx = tabIds.indexOf(id);
+  if (idx >= 0 && navTabs[idx]) navTabs[idx].classList.add('active');
+
+  // Sync sidebar
+  const sbItem = document.getElementById('sb-' + id);
+  if (sbItem) sbItem.classList.add('active');
+
   window.scrollTo(0, 0);
+
+  // Close sidebar on mobile after navigation
+  if (window.innerWidth <= 900) closeSidebar();
 }
 
 function scrollToGuide(id) {
@@ -1814,9 +1722,9 @@ const stressSituations = {
     actions: [
       { icon: '🧘', text: 'Continue your current routine', sub: 'Low stress is precious — protect it by keeping consistent sleep and meal times.' },
       { icon: '🌱', text: 'Invest in prevention today', sub: 'Take your adaptogens, eat anti-inflammatory foods, and do 20 min of movement.' },
-      { icon: '📓', text: 'Journal what\'s working', sub: 'Note the habits, foods, and routines keeping your stress low — replicate them.' },
+      { icon: '📓', text: 'Journal what\'s working', sub: 'Note the habits keeping your stress low — replicate them.' },
       { icon: '💧', text: 'Optimize your hydration', sub: 'Electrolytes support adrenal function. Add a pinch of sea salt to your water.' },
-      { icon: '✨', text: 'Extend social connection', sub: 'Oxytocin (the bonding hormone) actively lowers cortisol — connect with loved ones.' },
+      { icon: '✨', text: 'Extend social connection', sub: 'Oxytocin actively lowers cortisol — connect with loved ones.' },
     ]
   },
   mild: {
@@ -1826,7 +1734,7 @@ const stressSituations = {
       { icon: '🎵', text: 'Play calming music immediately', sub: '60 BPM binaural beats or classical music lowers cortisol measurably in 15 min.' },
       { icon: '🚶‍♀️', text: '15-minute phone-free walk', sub: 'Nature exposure + movement reduces cortisol by up to 21%.' },
       { icon: '🍵', text: 'Switch to green tea or chamomile', sub: 'L-theanine in green tea raises GABA without sedation.' },
-      { icon: '📵', text: 'Reduce screen input for 1 hour', sub: 'Information overload keeps the amygdala activated. Give your brain a break.' },
+      { icon: '📵', text: 'Reduce screen input for 1 hour', sub: 'Information overload keeps the amygdala activated.' },
     ]
   },
   high: {
@@ -1842,7 +1750,7 @@ const stressSituations = {
   extreme: {
     title: '🚨 Extreme Stress (9-10) — Emergency Protocol', color: '#D4827A',
     actions: [
-      { icon: '📞', text: 'Call someone you trust — NOW', sub: 'Human voice (not text) activates the social nervous system and drops cortisol within minutes.' },
+      { icon: '📞', text: 'Call someone you trust — NOW', sub: 'Human voice activates the social nervous system and drops cortisol within minutes.' },
       { icon: '🌬️', text: 'Physiological sigh', sub: 'Double inhale through nose (sniff-sniff) → long exhale through mouth. Fastest cortisol reducer known.' },
       { icon: '🛑', text: 'Remove yourself from the stressor', sub: 'Physically leave the room. Even 5 minutes of distance breaks the cortisol loop.' },
       { icon: '🧊', text: 'Cold shower or ice pack on neck', sub: 'Stimulates the vagus nerve through cold thermoreceptors.' },
@@ -2129,7 +2037,6 @@ function calcSymptoms() {
   };
   const resultEl = document.getElementById('symptom-results');
   resultEl.style.display='';
-  const highStress=['cortisol','testosterone','insulin'];
   const items = Object.entries(scores).map(([h,score])=>{
     const max=counts[h]*3||3; const pct=Math.round((score/max)*100);
     let status,color;
